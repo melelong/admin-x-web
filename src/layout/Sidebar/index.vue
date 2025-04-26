@@ -7,7 +7,7 @@ const router = useRouter()
 
 <template>
   <a-menu
-      class="h-[calc(100vh-64px)]"
+      class="w-270px h-[calc(100vh-64px)]"
       theme="dark"
       :selectedKeys="[router.currentRoute.value.path]"
   >

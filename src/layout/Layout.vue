@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import Sidebar from './Sidebar/index.vue'
+import Navbar from './Navbar/index.vue'
 </script>
 
 <template>
   <a-layout>
-    <a-layout-header>Header</a-layout-header>
+    <a-layout-header>
+      <Navbar/>
+    </a-layout-header>
     <a-layout>
       <a-layout-sider>
         <Sidebar/>
