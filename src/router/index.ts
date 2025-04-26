@@ -44,19 +44,19 @@ const routes: Array<RouteRecordRaw> = [
                     {
                         path: 'operation-logs',
                         name: 'OperationLogs',
-                        component: () => import('@views/system/menu/index.vue'),
+                        component: () => import('@views/monitoring/operation-logs/index.vue'),
                         meta: { title: '操作日志' }
                     },
                     {
                         path: 'login-logs',
                         name: 'LoginLogs',
-                        component: () => import('@views/system/user/index.vue'),
+                        component: () => import('@views/monitoring/login-logs/index.vue'),
                         meta: { title: '登录日志' }
                     },
                     {
                         path: 'scheduled-tasks',
                         name: 'ScheduledTasks',
-                        component: () => import('@views/system/user/index.vue'),
+                        component: () => import('@views/monitoring/scheduled-tasks/index.vue'),
                         meta: { title: '定时任务' }
                     }
                 ]
