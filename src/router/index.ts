@@ -34,6 +34,32 @@ const routes: Array<RouteRecordRaw> = [
                         meta: { title: '用户管理' }
                     }
                 ]
+            },
+            {
+                path: '/monitoring',
+                name: 'Monitoring',
+                redirect: '/monitoring/operation-logs',
+                meta: { title: '系统监控', icon: 'setting-outlined' },
+                children: [
+                    {
+                        path: 'operation-logs',
+                        name: 'OperationLogs',
+                        component: () => import('@views/system/menu/index.vue'),
+                        meta: { title: '操作日志' }
+                    },
+                    {
+                        path: 'login-logs',
+                        name: 'LoginLogs',
+                        component: () => import('@views/system/user/index.vue'),
+                        meta: { title: '登录日志' }
+                    },
+                    {
+                        path: 'scheduled-tasks',
+                        name: 'ScheduledTasks',
+                        component: () => import('@views/system/user/index.vue'),
+                        meta: { title: '定时任务' }
+                    }
+                ]
             }
         ]
     }

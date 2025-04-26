@@ -1,40 +1,42 @@
 <script setup lang="ts">
 import {useRouter} from 'vue-router'
-import { HomeOutlined, SearchOutlined } from '@ant-design/icons-vue'
+import {HomeOutlined, SearchOutlined} from '@ant-design/icons-vue'
+import {computed} from "vue";
 
 const router = useRouter()
+const routerList = computed(() => {
+  return router.options.routes[0].children
+})
+console.log(routerList)
 </script>
 
 <template>
   <a-menu
-      class="w-270px h-[calc(100vh-64px)]"
+      class="h-[calc(100vh-64px)]"
       theme="dark"
+      mode="inline"
       :selectedKeys="[router.currentRoute.value.path]"
   >
 
-    <a-menu-item key="/home" @click="router.push('/home')">
-      <template #icon>
-        <HomeOutlined/>
-      </template>
-      <span>首页</span>
-    </a-menu-item>
-
-    <a-sub-menu key="system" title="系统管理">
-      <template #icon>
-        <SearchOutlined/>
-      </template>
-      <a-menu-item
-          key="/system/menu"
-          @click="router.push('/system/menu')"
-      >
-        菜单管理
+    <template v-for="item in routerList">
+      <a-sub-menu v-if="item.children?.length" :key="`${item.path}`" :title="item.meta.title">
+        <template #icon>
+          <SearchOutlined/>
+        </template>
+        <a-menu-item
+            v-for="child in item.children"
+            :key="`${item.path}/${child.path}`"
+            @click="router.push(`${item.path}/${child.path}`)"
+        >
+          {{child.meta.title }}
+        </a-menu-item>
+      </a-sub-menu>
+      <a-menu-item v-else :key="item.path" @click="router.push(item.path)">
+        <template #icon>
+          <HomeOutlined/>
+        </template>
+        <span>首页</span>
       </a-menu-item>
-      <a-menu-item
-          key="/system/user"
-          @click="router.push('/system/user')"
-      >
-        用户管理
-      </a-menu-item>
-    </a-sub-menu>
+    </template>
   </a-menu>
 </template>

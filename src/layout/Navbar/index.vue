@@ -7,7 +7,7 @@ import {UserOutlined, SyncOutlined, ExpandOutlined, SearchOutlined, BellOutlined
     <a-flex justify="space-between">
       <h2>Admin X</h2>
       <div>
-        <a-space class="font-size-20px" :size="36">
+        <a-space class="font-size-18px" :size="36">
           <BellOutlined/>
           <SearchOutlined/>
           <SyncOutlined/>

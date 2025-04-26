@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="color-amber">菜单管理</div>
+
 </template>
 
 <style scoped>
