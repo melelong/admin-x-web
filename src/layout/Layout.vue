@@ -14,9 +14,9 @@ import Navbar from './Navbar/index.vue'
       </a-layout-sider>
       <a-layout-content>
         <router-view v-slot="{ Component }">
-          <transition name="fade" mode="out-in">
+          <div class="h-[calc(100vh-64px)] overflow-auto">
             <component :is="Component"/>
-          </transition>
+          </div>
         </router-view>
       </a-layout-content>
     </a-layout>
