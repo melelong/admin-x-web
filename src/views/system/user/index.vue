@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import {reactive} from "vue";
+import {reactive, ref} from "vue";
 import {SearchOutlined, ReloadOutlined, PlusOutlined} from '@ant-design/icons-vue'
+import UserFormModal from './components/UserFormModal/index.vue'
 
+const userFormModalRef = ref()
 const formState = reactive({
   username: '',
   nickname: ''
@@ -63,6 +65,17 @@ const dataSource = [
   {name: '格子小寒版', nickname: '冰封骑士', age: 23, address: '哈尔滨市道里区'},
   {name: '格子大寒版', nickname: '时光城主', age: 20, address: '昆明市五华区'}
 ];
+
+const handleAdd = () => {
+  userFormModalRef.value.showModal({
+    title: '新增用户'
+  })
+}
+const handleEdit = () => {
+  userFormModalRef.value.showModal({
+    title: '编辑用户'
+  })
+}
 </script>
 <template>
   <div class="m-10px">
@@ -89,7 +102,7 @@ const dataSource = [
     </div>
     <div class="my-16px p-16px bg-white">
       <div class="mb-16px">
-        <a-button type="primary">
+        <a-button @click="handleAdd" type="primary">
           <PlusOutlined/>
           新增
         </a-button>
@@ -97,15 +110,14 @@ const dataSource = [
       <a-table :data-source="dataSource" bordered :columns="columns">
         <template #bodyCell="{ column}">
           <template v-if="column.key === 'action'">
-            <a-button type="link">编辑</a-button>
+            <a-button type="link" @click="handleEdit">编辑</a-button>
             <a-button danger type="link">删除</a-button>
           </template>
         </template>
       </a-table>
     </div>
+
+    <!-- 新增用户 -->
+    <UserFormModal ref="userFormModalRef"/>
   </div>
 </template>
-
-<style scoped>
-
-</style>

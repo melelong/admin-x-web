@@ -7,7 +7,6 @@ const router = useRouter()
 const routerList = computed(() => {
   return router.options.routes[0].children
 })
-console.log(routerList)
 </script>
 
 <template>
