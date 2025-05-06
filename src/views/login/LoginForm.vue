@@ -24,7 +24,7 @@ const checked = ref(false)
         <a-input v-model:value="formData.password" placeholder="请输入密码"></a-input>
       </a-form-item>
       <a-form-item class="mt-36px">
-        <a-button class="w-200px" type="primary" @click="handleLogin">登录 / 注册</a-button>
+        <a-button class="w-full" type="primary" @click="handleLogin">登录 / 注册</a-button>
       </a-form-item>
     </a-form>
     <div>

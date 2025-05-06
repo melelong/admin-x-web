@@ -1,15 +1,25 @@
 <script setup lang="ts">
-import {ref} from 'vue'
+import {reactive, ref} from 'vue'
 
+const formData = reactive({
+  name: '',
+  age: '',
+  address: '',
+  nickname: '',
+})
+
+let callback: Function
 const visible = ref(false)
 const modalTile = ref('')
-const showModal = ({title}) => {
+const showModal = ({title, onSuccess}) => {
+  callback = onSuccess
   modalTile.value = title
   visible.value = true;
 };
 
 const handleOk = () => {
-
+  callback(formData)
+  visible.value = false
 }
 
 defineExpose({
@@ -18,9 +28,20 @@ defineExpose({
 </script>
 
 <template>
-  <a-modal v-model:open="visible" :title="modalTile" @ok="handleOk">
-    <p>Some contents...</p>
-    <p>Some contents...</p>
-    <p>Some contents...</p>
+  <a-modal v-model:open="visible" width="400px" :title="modalTile" @ok="handleOk">
+    <a-form :model="formData" layout="vertical">
+      <a-form-item label="姓名">
+        <a-input v-model:value="formData.name"></a-input>
+      </a-form-item>
+      <a-form-item label="昵称">
+        <a-input v-model:value="formData.nickname"></a-input>
+      </a-form-item>
+      <a-form-item label="年龄">
+        <a-input v-model:value="formData.age"></a-input>
+      </a-form-item>
+      <a-form-item label="地址">
+        <a-input v-model:value="formData.address"></a-input>
+      </a-form-item>
+    </a-form>
   </a-modal>
 </template>

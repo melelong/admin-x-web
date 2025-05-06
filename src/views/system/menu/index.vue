@@ -3,8 +3,8 @@ import {reactive} from "vue";
 import {SearchOutlined, ReloadOutlined, PlusOutlined} from '@ant-design/icons-vue'
 
 const formState = reactive({
-  username: '',
-  nickname: ''
+  name: '',
+  status: ''
 })
 const columns = [
   {
@@ -80,7 +80,3 @@ const dataSource = [
     </div>
   </div>
 </template>
-
-<style scoped>
-
-</style>

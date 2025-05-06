@@ -8,6 +8,14 @@ const formState = reactive({
   username: '',
   nickname: ''
 })
+
+interface UserInfo {
+  name: string,
+  nickname: string,
+  age: number,
+  address: string
+}
+
 const columns = [
   {
     title: '序号',
@@ -39,7 +47,7 @@ const columns = [
     width: '160px',
   },
 ];
-const dataSource = [
+const dataSource = reactive([
   {name: '格子立春版', nickname: '霹雳火', age: 22, address: '北京市朝阳区'},
   {name: '格子雨水版', nickname: '急先锋', age: 24, address: '上海市浦东新区'},
   {name: '格子惊蛰版', nickname: '力霸天', age: 19, address: '广州市天河区'},
@@ -64,17 +72,27 @@ const dataSource = [
   {name: '格子冬至版', nickname: '闪电侠', age: 18, address: '大连市中山区'},
   {name: '格子小寒版', nickname: '冰封骑士', age: 23, address: '哈尔滨市道里区'},
   {name: '格子大寒版', nickname: '时光城主', age: 20, address: '昆明市五华区'}
-];
+]);
 
 const handleAdd = () => {
   userFormModalRef.value.showModal({
-    title: '新增用户'
+    title: '新增用户',
+    onSuccess: (data: UserInfo) => {
+      dataSource.push(data)
+    }
   })
 }
-const handleEdit = () => {
+const handleEdit = (index: number) => {
   userFormModalRef.value.showModal({
-    title: '编辑用户'
+    title: '编辑用户',
+    onSuccess: (data: UserInfo) => {
+      dataSource.splice(index, 1, data)
+    }
   })
+}
+
+const handleDel = (index: number) => {
+  dataSource.splice(index, 1)
 }
 </script>
 <template>
@@ -108,10 +126,10 @@ const handleEdit = () => {
         </a-button>
       </div>
       <a-table :data-source="dataSource" bordered :columns="columns">
-        <template #bodyCell="{ column}">
+        <template #bodyCell="{ column, index }">
           <template v-if="column.key === 'action'">
-            <a-button type="link" @click="handleEdit">编辑</a-button>
-            <a-button danger type="link">删除</a-button>
+            <a-button type="link" @click="handleEdit(index)">编辑</a-button>
+            <a-button danger type="link" @click="handleDel(index)">删除</a-button>
           </template>
         </template>
       </a-table>
