@@ -100,10 +100,10 @@ const handleDel = (index: number) => {
     <div class="bg-white p-16px">
       <a-form layout="inline">
         <a-form-item label="姓名" name="username">
-          <a-input v-model:value="formState.username"/>
+          <a-input placeholder="请输入" v-model:value="formState.username"/>
         </a-form-item>
         <a-form-item label="昵称" name="nickname">
-          <a-input v-model:value="formState.username"/>
+          <a-input placeholder="请输入" v-model:value="formState.username"/>
         </a-form-item>
         <a-form-item>
           <a-button>

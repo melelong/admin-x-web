@@ -1,6 +1,6 @@
 import {createRouter, createWebHistory, type RouteRecordRaw} from 'vue-router'
 import Layout from "@/layout/Layout.vue";
-import {HomeOutlined, NodeIndexOutlined} from "@ant-design/icons-vue"
+import {HomeOutlined, NodeIndexOutlined, BugOutlined} from "@ant-design/icons-vue"
 import {contentList} from "./content";
 import {systemList} from "./system";
 import {monitorList} from "./monitor";
@@ -27,7 +27,16 @@ const routes: Array<RouteRecordRaw> = [
                 component: () => import('@views/readme/index.vue'),
                 meta: {
                     icon: NodeIndexOutlined,
-                    title: '框架手册'
+                    title: '请阅读我'
+                }
+            },
+            {
+                path: '/dashboard',
+                name: 'Dashboard',
+                component: () => import('@views/dashboard/index.vue'),
+                meta: {
+                    title: '数据看板',
+                    icon: BugOutlined
                 }
             },
             ...contentList,
