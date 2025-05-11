@@ -40,7 +40,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Login',
         component: () => import('@views/login/index.vue'),
         meta: {
-            title: '首页'
+            title: '登录/注册'
         }
     },
 ]
