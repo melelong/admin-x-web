@@ -5,7 +5,7 @@ import Navbar from './Navbar/index.vue'
 
 <template>
   <a-layout>
-    <a-layout-header>
+    <a-layout-header class="px-10px!">
       <Navbar/>
     </a-layout-header>
     <a-layout>

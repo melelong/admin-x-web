@@ -5,9 +5,9 @@ import {UserOutlined, SyncOutlined, ExpandOutlined, SearchOutlined, BellOutlined
 <template>
   <div class="color-white">
     <a-flex justify="space-between">
-      <h2>Admin X</h2>
+      <h2 class="ml-16px">Admin X</h2>
       <div>
-        <a-space class="font-size-18px" :size="36">
+        <a-space class="font-size-18px" :size="44">
           <BellOutlined/>
           <SearchOutlined/>
           <SyncOutlined/>
@@ -15,7 +15,7 @@ import {UserOutlined, SyncOutlined, ExpandOutlined, SearchOutlined, BellOutlined
           <a-flex align="center">
             <span class="mr-8px">格子惊蛰版</span>
             <a-dropdown>
-              <a-avatar :size="44">
+              <a-avatar src="https://p26-passport.byteacctimg.com/img/user-avatar/e90991924d697daba79ae944826049ba~80x80.awebp" :size="44">
                 <template #icon>
                   <UserOutlined/>
                 </template>
