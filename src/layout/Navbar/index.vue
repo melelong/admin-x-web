@@ -13,7 +13,7 @@ import {UserOutlined, SyncOutlined, ExpandOutlined, SearchOutlined, BellOutlined
           <AppstoreOutlined />
           <SyncOutlined/>
           <div class="font-size-0 flex items-center">
-            <img src="/src/assets/svg/translate.svg" alt="">
+            <img class="w-18px h-18px" src="/src/assets/svg/translate.svg" alt="">
           </div>
           <ExpandOutlined/>
           <a-flex align="center">
@@ -30,9 +30,6 @@ import {UserOutlined, SyncOutlined, ExpandOutlined, SearchOutlined, BellOutlined
                     个人中心
                   </a-menu-item>
                   <a-menu-item>
-                    设置
-                  </a-menu-item>
-                  <a-menu-item>
                     退出
                   </a-menu-item>
                 </a-menu>
@@ -44,7 +41,3 @@ import {UserOutlined, SyncOutlined, ExpandOutlined, SearchOutlined, BellOutlined
     </a-flex>
   </div>
 </template>
-
-<style scoped>
-
-</style>

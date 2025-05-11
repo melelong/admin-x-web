@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {useRouter} from 'vue-router'
-import {HomeOutlined} from '@ant-design/icons-vue'
 import {computed} from "vue";
 
 const router = useRouter()
@@ -11,7 +10,7 @@ const routerList = computed(() => {
 
 <template>
   <a-menu
-      class="h-[calc(100vh-64px)]"
+      class="h-[calc(100vh-64px)] overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       theme="dark"
       mode="inline"
       :selectedKeys="[router.currentRoute.value.path]"

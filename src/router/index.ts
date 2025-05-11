@@ -1,9 +1,10 @@
 import {createRouter, createWebHistory, type RouteRecordRaw} from 'vue-router'
 import Layout from "@/layout/Layout.vue";
-import {HomeOutlined, NodeIndexOutlined, BugOutlined} from "@ant-design/icons-vue"
+import {HomeOutlined, NodeIndexOutlined, BugOutlined, UserOutlined} from "@ant-design/icons-vue"
 import {contentList} from "./content";
 import {systemList} from "./system";
 import {monitorList} from "./monitor";
+import {settingList} from "./setting";
 
 // 路由配置
 const routes: Array<RouteRecordRaw> = [
@@ -42,6 +43,16 @@ const routes: Array<RouteRecordRaw> = [
             ...contentList,
             ...systemList,
             ...monitorList,
+            ...settingList,
+            {
+                path: '/profile',
+                name: 'Profile',
+                component: () => import('@views/profile/index.vue'),
+                meta: {
+                    icon: UserOutlined,
+                    title: '个人中心'
+                }
+            },
         ]
     },
     {
