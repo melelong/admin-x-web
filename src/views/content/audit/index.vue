@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div>登录日志</div>
+  <div>内容审核</div>
 </template>
 
 <style scoped>

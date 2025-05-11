@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {UserOutlined, SyncOutlined, ExpandOutlined, SearchOutlined, BellOutlined} from "@ant-design/icons-vue";
+import {UserOutlined, SyncOutlined, ExpandOutlined, SearchOutlined, BellOutlined,AppstoreOutlined} from "@ant-design/icons-vue";
 </script>
 
 <template>
@@ -10,7 +10,11 @@ import {UserOutlined, SyncOutlined, ExpandOutlined, SearchOutlined, BellOutlined
         <a-space class="font-size-18px" :size="44">
           <BellOutlined/>
           <SearchOutlined/>
+          <AppstoreOutlined />
           <SyncOutlined/>
+          <div class="font-size-0 flex items-center">
+            <img src="/src/assets/svg/translate.svg" alt="">
+          </div>
           <ExpandOutlined/>
           <a-flex align="center">
             <span class="mr-8px">格子惊蛰版</span>

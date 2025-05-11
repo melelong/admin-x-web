@@ -1,5 +1,10 @@
 import {createRouter, createWebHistory, type RouteRecordRaw} from 'vue-router'
 import Layout from "@/layout/Layout.vue";
+import {HomeOutlined, NodeIndexOutlined} from "@ant-design/icons-vue"
+import {contentList} from "./content";
+import {systemList} from "./system";
+import {monitorList} from "./monitor";
+
 // 路由配置
 const routes: Array<RouteRecordRaw> = [
     {
@@ -12,55 +17,22 @@ const routes: Array<RouteRecordRaw> = [
                 name: 'Home',
                 component: () => import('@views/home/index.vue'),
                 meta: {
-                    title: '首页'
+                    title: '首页',
+                    icon: HomeOutlined
                 }
             },
             {
-                path: '/system',
-                name: 'System',
-                redirect: '/system/menu',
-                meta: { title: '系统管理', icon: 'setting-outlined' },
-                children: [
-                    {
-                        path: 'menu',
-                        name: 'Menu',
-                        component: () => import('@views/system/menu/index.vue'),
-                        meta: { title: '菜单管理' }
-                    },
-                    {
-                        path: 'user',
-                        name: 'User',
-                        component: () => import('@views/system/user/index.vue'),
-                        meta: { title: '用户管理' }
-                    }
-                ]
+                path: '/readme',
+                name: 'Readme',
+                component: () => import('@views/readme/index.vue'),
+                meta: {
+                    icon: NodeIndexOutlined,
+                    title: '框架手册'
+                }
             },
-            {
-                path: '/monitoring',
-                name: 'Monitoring',
-                redirect: '/monitoring/operation-logs',
-                meta: { title: '系统监控', icon: 'setting-outlined' },
-                children: [
-                    {
-                        path: 'operation-logs',
-                        name: 'OperationLogs',
-                        component: () => import('@views/monitoring/operation-logs/index.vue'),
-                        meta: { title: '操作日志' }
-                    },
-                    {
-                        path: 'login-logs',
-                        name: 'LoginLogs',
-                        component: () => import('@views/monitoring/login-logs/index.vue'),
-                        meta: { title: '登录日志' }
-                    },
-                    {
-                        path: 'scheduled-tasks',
-                        name: 'ScheduledTasks',
-                        component: () => import('@views/monitoring/scheduled-tasks/index.vue'),
-                        meta: { title: '定时任务' }
-                    }
-                ]
-            }
+            ...contentList,
+            ...systemList,
+            ...monitorList,
         ]
     },
     {

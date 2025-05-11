@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import {reactive} from "vue";
+import {reactive, ref} from "vue";
 import {SearchOutlined, ReloadOutlined, PlusOutlined} from '@ant-design/icons-vue'
+import MenuFormModal from './components/MenuFormModal/index.vue'
 
 const formState = reactive({
   name: '',
@@ -38,6 +39,11 @@ const dataSource = [
   {name: '用户管理', path: '/system/user', status: '已启用'},
   {name: '角色管理', path: '/system/role', status: '已停用'},
 ];
+
+const menuFormModalRef = ref()
+const handleAdd = () => {
+  menuFormModalRef.value.showModal({})
+}
 </script>
 <template>
   <div class="m-10px">
@@ -64,7 +70,7 @@ const dataSource = [
     </div>
     <div class="my-16px p-16px bg-white">
       <div class="mb-16px">
-        <a-button type="primary">
+        <a-button @click="handleAdd" type="primary">
           <PlusOutlined/>
           新增
         </a-button>
@@ -78,5 +84,7 @@ const dataSource = [
         </template>
       </a-table>
     </div>
+
+    <MenuFormModal ref="menuFormModalRef"/>
   </div>
 </template>
