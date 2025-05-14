@@ -1,37 +1,22 @@
 <script setup lang="ts">
 import {CloseOutlined} from '@ant-design/icons-vue'
 import {ref} from "vue";
-
-const quickList = ref([
-  {
-    name: '系统管理'
-  },
-  {
-    name: '个人中心'
-  },
-  {
-    name: '用户管理'
-  },
-  {
-    name: '首页'
-  },
-  {
-    name: '角色管理'
-  },
-  {
-    name: '数据看板'
-  },
-])
-
+import {useRouter} from 'vue-router'
+const router = useRouter()
+import {useMenuStore} from "@/store/modules/menu";
+const {quickMenuList} = useMenuStore()
 const currentIndex = ref(2)
+const handleClick = (item) => {
+ router.push({name: item.name})
+}
 </script>
 
 <template>
   <div class="quick-menu-container pt-3px h-40px bg-#fff">
     <ul>
-      <li v-for="(item, index) in quickList" :class="{'active': currentIndex === index}" :key="index">
+      <li v-for="(item, index) in quickMenuList" @click="handleClick(item)" :class="{'active': currentIndex === index}" :key="index">
         <div class="h-full flex items-center" >
-          <span class="mr-5px">{{ item.name }}</span>
+          <span class="mr-5px">{{ item.title }}</span>
           <CloseOutlined/>
         </div>
       </li>

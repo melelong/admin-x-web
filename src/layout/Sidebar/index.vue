@@ -1,11 +1,16 @@
 <script setup lang="ts">
-import {useRouter} from 'vue-router'
-import {computed} from "vue";
-
+import {useRouter, useRoute} from 'vue-router'
+import {computed, nextTick} from "vue";
+import {useMenuStore} from "@/store/modules/menu";
+const {add} = useMenuStore()
 const router = useRouter()
+const route = useRoute()
 const routerList = computed(() => {
   return router.options.routes[0].children
 })
+const handleClick = () => {
+  add(route)
+}
 </script>
 
 <template>
@@ -13,6 +18,7 @@ const routerList = computed(() => {
       class="h-[calc(100vh-64px)] overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       theme="dark"
       mode="inline"
+      @click="handleClick"
       :selectedKeys="[router.currentRoute.value.path]"
   >
 

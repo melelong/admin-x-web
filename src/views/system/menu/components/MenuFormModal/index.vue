@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import {saveMenu} from "@/api/system/menu";
+
 
 import {reactive, ref} from "vue";
 
@@ -15,8 +17,13 @@ const formData = reactive({
   cache: true
 })
 
-const handleOk = () => {
-
+const handleOk = async () => {
+  await saveMenu({
+    parentId: 0,
+    menuName: '角色管理',
+    menuType: 2,
+    perms: 'role-manage'
+  })
 }
 
 defineExpose({
@@ -26,7 +33,7 @@ defineExpose({
 
 <template>
   <a-modal v-model:open="visible" width="400px" :title="modalTile" @ok="handleOk">
-    <a-form :model="formData" >
+    <a-form :model="formData">
       <a-form-item label="所属">
         <a-select v-model:value="formData.name"></a-select>
       </a-form-item>
@@ -55,10 +62,10 @@ defineExpose({
           <a-radio>按钮</a-radio>
         </a-radio-group>
       </a-form-item>
-      <a-form-item >
+      <a-form-item>
         <a-checkbox v-model:value="formData.visible">隐藏</a-checkbox>
       </a-form-item>
-      <a-form-item >
+      <a-form-item>
         <a-checkbox v-model:value="formData.cache">缓存</a-checkbox>
       </a-form-item>
     </a-form>
