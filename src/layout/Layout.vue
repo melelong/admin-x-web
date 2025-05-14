@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Sidebar from './Sidebar/index.vue'
 import Navbar from './Navbar/index.vue'
+import QuickMenu from './QuickMenu/index.vue'
 </script>
 
 <template>
@@ -13,11 +14,12 @@ import Navbar from './Navbar/index.vue'
         <Sidebar/>
       </a-layout-sider>
       <a-layout-content>
-        <router-view v-slot="{ Component }">
-          <div class="h-[calc(100vh-64px)] overflow-auto">
+        <div class="h-[calc(100vh-64px)] overflow-auto">
+          <QuickMenu/>
+          <router-view v-slot="{ Component }">
             <component :is="Component"/>
-          </div>
-        </router-view>
+          </router-view>
+        </div>
       </a-layout-content>
     </a-layout>
   </a-layout>
