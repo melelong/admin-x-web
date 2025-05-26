@@ -10,6 +10,8 @@
       "@components/*": ["src/components/*"],
       "@utils/*": ["src/utils/*"],
       "@hooks/*": ["src/hooks/*"],
+      "@store/*": ["src/store/*"],
+      "@router/*": ["src/router/*"]
     },
     "types": ["vite/client"],
     "moduleResolution": "node"

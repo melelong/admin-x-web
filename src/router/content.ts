@@ -1,10 +1,13 @@
 import {PartitionOutlined} from '@ant-design/icons-vue'
+import Layout from "@/layout/Layout.vue";
+
 export const contentList = [
     {
         path: '/content',
         name: 'Content',
         redirect: '/content/manage',
         meta: {title: '内容管理', icon: PartitionOutlined},
+        component: Layout,
         children: [
             {
                 path: 'manage',

@@ -5,6 +5,7 @@ import {contentList} from "./content";
 import {systemList} from "./system";
 import {monitorList} from "./monitor";
 import {settingList} from "./setting";
+import {useTabsStore} from "@store/modules/tabsStore";
 
 // 路由配置
 const routes: Array<RouteRecordRaw> = [
@@ -40,10 +41,6 @@ const routes: Array<RouteRecordRaw> = [
                     icon: BugOutlined
                 }
             },
-            ...contentList,
-            ...systemList,
-            ...monitorList,
-            ...settingList,
             {
                 path: '/profile',
                 name: 'Profile',
@@ -55,11 +52,16 @@ const routes: Array<RouteRecordRaw> = [
             },
         ]
     },
+    ...contentList,
+    ...systemList,
+    ...monitorList,
+    ...settingList,
     {
         path: '/login',
         name: 'Login',
         component: () => import('@views/login/index.vue'),
         meta: {
+            hidden: true,
             title: '登录/注册'
         }
     },
@@ -72,8 +74,8 @@ const router = createRouter({
 
 // 全局路由守卫
 router.beforeEach((to, from, next) => {
-    console.log('to：', to)
-    console.log('from：', from)
+    const store = useTabsStore()
+    store.addTab(to)
     next()
 })
 

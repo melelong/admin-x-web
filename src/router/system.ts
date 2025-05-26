@@ -1,10 +1,12 @@
 import {BlockOutlined} from '@ant-design/icons-vue'
+import Layout from "@/layout/Layout.vue";
 export const systemList = [
     {
         path: '/system',
         name: 'System',
         redirect: '/system/menu',
         meta: { title: '系统管理', icon: BlockOutlined },
+        component: Layout,
         children: [
             {
                 path: 'menu',

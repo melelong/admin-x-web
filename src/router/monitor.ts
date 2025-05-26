@@ -1,10 +1,11 @@
 import {SafetyCertificateOutlined} from '@ant-design/icons-vue'
-
+import Layout from "@/layout/Layout.vue";
 export const monitorList = [
     {
         path: '/monitor',
         name: 'Monitor',
         redirect: '/monitor/scheduled-task',
+        component: Layout,
         meta: { title: '系统监控', icon: SafetyCertificateOutlined },
         children: [
             {
