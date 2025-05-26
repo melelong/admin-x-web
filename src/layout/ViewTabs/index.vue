@@ -22,7 +22,8 @@ const handleDel = (path: string) => {
   <div class="view-tabs-container px-8px h-40px  flex inline-block items-center bg-#fff">
     <div v-for="tab in tabsStore.tabs">
       <a-tag @click="handleChange(tab.path)" :color="tab.path === activeTab ? 'blue' : ''"
-             class="p-[4px_10px] font-size-16px cursor-pointer">
+             class="p-[6px_10px] font-size-16px cursor-pointer">
+        <component :is="tab.icon"/>
         <span>{{ tab.title }}</span>
         <CloseOutlined @click="handleDel(tab.path)"/>
       </a-tag>
