@@ -15,7 +15,7 @@ const routes: Array<RouteRecordRaw> = [
         component: Layout,
         children: [
             {
-                path: '/home',
+                path: 'home',
                 name: 'Home',
                 component: () => import('@views/home/index.vue'),
                 meta: {
@@ -24,7 +24,7 @@ const routes: Array<RouteRecordRaw> = [
                 }
             },
             {
-                path: '/readme',
+                path: 'readme',
                 name: 'Readme',
                 component: () => import('@views/readme/index.vue'),
                 meta: {
@@ -33,7 +33,7 @@ const routes: Array<RouteRecordRaw> = [
                 }
             },
             {
-                path: '/dashboard',
+                path: 'dashboard',
                 name: 'Dashboard',
                 component: () => import('@views/dashboard/index.vue'),
                 meta: {
@@ -42,7 +42,7 @@ const routes: Array<RouteRecordRaw> = [
                 }
             },
             {
-                path: '/profile',
+                path: 'profile',
                 name: 'Profile',
                 component: () => import('@views/profile/index.vue'),
                 meta: {

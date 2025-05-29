@@ -1,5 +1,18 @@
 <script setup lang="ts">
 import {UserOutlined, SyncOutlined, ExpandOutlined, SearchOutlined, BellOutlined,AppstoreOutlined} from "@ant-design/icons-vue";
+import { useI18n } from 'vue-i18n';
+import { setLocale } from '@/i18n';
+import {computed} from "vue";
+const langMap = {
+  'zh-CN': '中文',
+  'en-US': 'English'
+};
+const { locale } = useI18n();
+const currentLangLabel = computed(() => langMap[locale.value as keyof typeof langMap]);
+
+const changeLang = (e: { key: string }) => {
+  setLocale(e.key as 'zh-CN' | 'en-US');
+}
 </script>
 
 <template>
@@ -13,7 +26,19 @@ import {UserOutlined, SyncOutlined, ExpandOutlined, SearchOutlined, BellOutlined
           <AppstoreOutlined />
           <SyncOutlined/>
           <div class="font-size-0 flex items-center">
-            <img class="w-18px h-18px" src="/src/assets/svg/translate.svg" alt="">
+            <a-dropdown>
+              <img class="w-18px h-18px" src="/src/assets/svg/translate.svg" alt="">
+              <template #overlay>
+                <a-menu @click="changeLang">
+                  <a-menu-item key="zh-CN">
+                    中文
+                  </a-menu-item>
+                  <a-menu-item key="en-US">
+                    English
+                  </a-menu-item>
+                </a-menu>
+              </template>
+            </a-dropdown>
           </div>
           <ExpandOutlined/>
           <a-flex align="center">

@@ -5,7 +5,9 @@ import App from './App.vue'
 import 'virtual:uno.css'
 import Antd from 'ant-design-vue'
 import router from "./router";
+import { setupI18n } from './i18n';
 const app = createApp(App);
+setupI18n(app);
 const pinia = createPinia()
 app.use(pinia)
 app.use(router)

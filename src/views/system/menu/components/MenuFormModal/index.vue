@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {saveMenu} from "@/api/system/menu";
-
+import { t } from '@/i18n';
 
 import {reactive, ref} from "vue";
 
@@ -34,10 +34,10 @@ defineExpose({
 <template>
   <a-modal v-model:open="visible" width="400px" :title="modalTile" @ok="handleOk">
     <a-form :model="formData">
-      <a-form-item label="所属">
+      <a-form-item :label="t('所属')">
         <a-select v-model:value="formData.name"></a-select>
       </a-form-item>
-      <a-form-item label="名称">
+      <a-form-item :label="t('名称')">
         <a-input v-model:value="formData.name"></a-input>
       </a-form-item>
       <a-form-item label="地址">
