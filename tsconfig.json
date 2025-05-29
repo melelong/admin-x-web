@@ -1,9 +1,6 @@
 {
   "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ],
+  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
@@ -16,8 +13,9 @@
       "@store/*": ["./src/store/*"],
       "@router/*": ["./src/router/*"]
     },
-    "types": ["vite/client"],
-    "moduleResolution": "node"
+    "types": ["vite/client", "vite-plugin-eslint/types"],
+    "moduleResolution": "node",
+    "skipLibCheck": true
   },
   "include": ["./src/**/*.ts", "./src/**/*.d.ts", "./src/**/*.vue"]
 }

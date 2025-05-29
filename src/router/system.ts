@@ -1,31 +1,31 @@
-import {BlockOutlined} from '@ant-design/icons-vue'
-import Layout from "@/layout/Layout.vue";
+import { BlockOutlined } from '@ant-design/icons-vue';
+import Layout from '@/layout/Layout.vue';
 export const systemList = [
-    {
-        path: '/system',
-        name: 'System',
-        redirect: '/system/menu',
-        meta: { title: '系统管理', icon: BlockOutlined },
-        component: Layout,
-        children: [
-            {
-                path: 'menu',
-                name: 'Menu',
-                component: () => import('@views/system/menu/index.vue'),
-                meta: { title: '菜单管理' }
-            },
-            {
-                path: 'user',
-                name: 'User',
-                component: () => import('@views/system/user/index.vue'),
-                meta: { title: '用户管理' }
-            },
-            {
-                path: 'role',
-                name: 'Role',
-                component: () => import('@views/system/role/index.vue'),
-                meta: { title: '角色管理' }
-            }
-        ]
-    },
-]
+  {
+    path: '/system',
+    name: 'System',
+    redirect: '/system/menu',
+    meta: { title: '系统管理', icon: BlockOutlined },
+    component: Layout,
+    children: [
+      {
+        path: 'menu',
+        name: 'Menu',
+        component: () => import('@views/system/menu/index.vue'),
+        meta: { title: '菜单管理' },
+      },
+      {
+        path: 'user',
+        name: 'User',
+        component: () => import('@views/system/user/index.vue'),
+        meta: { title: '用户管理' },
+      },
+      {
+        path: 'role',
+        name: 'Role',
+        component: () => import('@views/system/role/index.vue'),
+        meta: { title: '角色管理' },
+      },
+    ],
+  },
+];

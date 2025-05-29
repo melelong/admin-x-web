@@ -1,18 +1,25 @@
 <script setup lang="ts">
-import {UserOutlined, SyncOutlined, ExpandOutlined, SearchOutlined, BellOutlined,AppstoreOutlined} from "@ant-design/icons-vue";
-import { useI18n } from 'vue-i18n';
-import { setLocale } from '@/i18n';
-import {computed} from "vue";
-const langMap = {
-  'zh-CN': '中文',
-  'en-US': 'English'
-};
-const { locale } = useI18n();
-const currentLangLabel = computed(() => langMap[locale.value as keyof typeof langMap]);
+  import {
+    UserOutlined,
+    SyncOutlined,
+    ExpandOutlined,
+    SearchOutlined,
+    BellOutlined,
+    AppstoreOutlined,
+  } from '@ant-design/icons-vue';
+  import { useI18n } from 'vue-i18n';
+  import { setLocale } from '@/i18n';
+  import { computed } from 'vue';
+  const langMap = {
+    'zh-CN': '中文',
+    'en-US': 'English',
+  };
+  const { locale } = useI18n();
+  const currentLangLabel = computed(() => langMap[locale.value as keyof typeof langMap]);
 
-const changeLang = (e: { key: string }) => {
-  setLocale(e.key as 'zh-CN' | 'en-US');
-}
+  const changeLang = (e: { key: string }) => {
+    setLocale(e.key as 'zh-CN' | 'en-US');
+  };
 </script>
 
 <template>
@@ -21,42 +28,37 @@ const changeLang = (e: { key: string }) => {
       <h2 class="ml-16px">Admin X</h2>
       <div>
         <a-space class="font-size-18px" :size="44">
-          <BellOutlined/>
-          <SearchOutlined/>
+          <BellOutlined />
+          <SearchOutlined />
           <AppstoreOutlined />
-          <SyncOutlined/>
+          <SyncOutlined />
           <div class="font-size-0 flex items-center">
             <a-dropdown>
-              <img class="w-18px h-18px" src="/src/assets/svg/translate.svg" alt="">
+              <img class="w-18px h-18px" src="/src/assets/svg/translate.svg" alt="" />
               <template #overlay>
                 <a-menu @click="changeLang">
-                  <a-menu-item key="zh-CN">
-                    中文
-                  </a-menu-item>
-                  <a-menu-item key="en-US">
-                    English
-                  </a-menu-item>
+                  <a-menu-item key="zh-CN"> 中文 </a-menu-item>
+                  <a-menu-item key="en-US"> English </a-menu-item>
                 </a-menu>
               </template>
             </a-dropdown>
           </div>
-          <ExpandOutlined/>
+          <ExpandOutlined />
           <a-flex align="center">
             <span class="mr-8px">格子惊蛰版</span>
             <a-dropdown>
-              <a-avatar src="https://p26-passport.byteacctimg.com/img/user-avatar/e90991924d697daba79ae944826049ba~80x80.awebp" :size="44">
+              <a-avatar
+                src="https://p26-passport.byteacctimg.com/img/user-avatar/e90991924d697daba79ae944826049ba~80x80.awebp"
+                :size="44"
+              >
                 <template #icon>
-                  <UserOutlined/>
+                  <UserOutlined />
                 </template>
               </a-avatar>
               <template #overlay>
                 <a-menu>
-                  <a-menu-item>
-                    个人中心
-                  </a-menu-item>
-                  <a-menu-item>
-                    退出
-                  </a-menu-item>
+                  <a-menu-item> 个人中心 </a-menu-item>
+                  <a-menu-item> 退出 </a-menu-item>
                 </a-menu>
               </template>
             </a-dropdown>

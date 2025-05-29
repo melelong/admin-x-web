@@ -1,18 +1,17 @@
-import {ref} from "vue";
+import { ref } from 'vue';
 
 export const useMenu = () => {
+  const quickMenuList = ref([]);
 
-    const quickMenuList = ref([])
+  const add = (menu) => {
+    quickMenuList.value.push({
+      name: menu.name,
+      title: menu.meta.title,
+    });
+  };
 
-    const add = (menu) => {
-        quickMenuList.value.push({
-            name: menu.name,
-            title: menu.meta.title,
-        })
-    }
-
-    return {
-        add,
-        quickMenuList,
-    }
-}
+  return {
+    add,
+    quickMenuList,
+  };
+};

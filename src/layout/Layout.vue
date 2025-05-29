@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import Sidebar from './Sidebar/index.vue'
-import Navbar from './Navbar/index.vue'
-import ViewTabs from './ViewTabs/index.vue'
+  import Sidebar from './Sidebar/index.vue';
+  import Navbar from './Navbar/index.vue';
+  import ViewTabs from './ViewTabs/index.vue';
 </script>
 
 <template>
   <a-layout>
     <a-layout-header class="px-10px!">
-      <Navbar/>
+      <Navbar />
     </a-layout-header>
     <a-layout>
       <a-layout-sider>
-        <Sidebar/>
+        <Sidebar />
       </a-layout-sider>
       <a-layout-content>
         <div class="h-[calc(100vh-64px)] overflow-auto">
-          <ViewTabs/>
+          <ViewTabs />
           <router-view v-slot="{ Component }">
-            <component :is="Component"/>
+            <component :is="Component" />
           </router-view>
         </div>
       </a-layout-content>

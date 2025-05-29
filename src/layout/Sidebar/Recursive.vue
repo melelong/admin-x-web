@@ -1,21 +1,21 @@
 <script setup>
-import { filterRoutes } from '@utils/router'
+  import { filterRoutes } from '@utils/router';
 
-const props = defineProps({
-  routes: {
-    type: Array,
-    required: true
-  },
-  basePath: {
-    type: String,
-    default: ''
-  }
-})
+  const props = defineProps({
+    routes: {
+      type: Array,
+      required: true,
+    },
+    basePath: {
+      type: String,
+      default: '',
+    },
+  });
 
-// 生成完整路径
-const resolvePath = (path) => {
-  return props.basePath ? `${props.basePath}/${path}` : path
-}
+  // 生成完整路径
+  const resolvePath = (path) => {
+    return props.basePath ? `${props.basePath}/${path}` : path;
+  };
 </script>
 
 <template>
@@ -36,10 +36,7 @@ const resolvePath = (path) => {
         </template>
         <span>{{ route.meta?.title }}</span>
       </template>
-      <Recursive
-          :routes="route.children"
-          :base-path="resolvePath(route.path)"
-      />
+      <Recursive :routes="route.children" :base-path="resolvePath(route.path)" />
     </a-sub-menu>
   </template>
 </template>
