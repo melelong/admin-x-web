@@ -6,6 +6,7 @@ import { systemList } from './system';
 import { monitorList } from './monitor';
 import { settingList } from './setting';
 import { useTabsStore } from '@/store/modules/tabsStore';
+import { t } from '@/i18n';
 
 // 路由配置
 const routes: Array<RouteRecordRaw> = [
@@ -13,13 +14,14 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     redirect: '/home',
     component: Layout,
+    meta: { directlyShowChildren: true },
     children: [
       {
         path: 'home',
         name: 'Home',
         component: () => import('@/views/home/index.vue'),
         meta: {
-          title: '首页',
+          title: t('首页'),
           icon: HomeOutlined,
         },
       },

@@ -1,5 +1,5 @@
 import { createI18n, type I18n, type Composer } from 'vue-i18n';
-import { App, ref, computed, readonly } from 'vue';
+import { App, ref, readonly } from 'vue';
 import zhCN from './locales/zh-CN.json';
 import enUS from './locales/en-US.json';
 import { getLang, setLang } from '@/utils/lang';
@@ -22,7 +22,7 @@ Object.entries(zhCN as TranslationDictionary).forEach(([key, value]) => {
 // 创建完整的消息对象
 const messages: LocaleMessages = {
   'zh-CN': zhCN as TranslationDictionary,
-  'en-US': enUS as TranslationDictionary
+  'en-US': enUS as TranslationDictionary,
 };
 
 /** 创建 i18n 实例 */
@@ -37,18 +37,7 @@ export const i18n: I18n = createI18n({
 // 获取全局 composer 实例
 const globalI18n = i18n.global as unknown as Composer;
 
-/**
- * 智能翻译函数
- *
- * 使用方式：
- * t('中文文本') - 自动查找对应的 KEY 并进行翻译
- * t('KEY12345678') - 直接使用 KEY 进行翻译
- *
- * 回退机制：
- * 1. 如果是中文文本输入，且找不到对应 KEY，返回原始中文文本
- * 2. 如果是 KEY 输入，且找不到翻译，返回 KEY 本身
- */
-export const t = computed(() => (input: string): string => {
+export const t = (input: string): string => {
   // 判断输入是否是 KEY（12位大写字母和数字）
   const isKey = /^[A-Z0-9]{12}$/.test(input);
 
@@ -72,7 +61,7 @@ export const t = computed(() => (input: string): string => {
     }
     return isKey ? key : input;
   }
-});
+};
 
 /** 设置语言 */
 export function setLocale(lang: SupportedLocale) {
@@ -80,6 +69,7 @@ export function setLocale(lang: SupportedLocale) {
   currentLocale.value = lang;
   globalI18n.locale.value = lang;
   document.documentElement.lang = lang;
+  window.location.reload();
 }
 
 /** 当前语言状态 */

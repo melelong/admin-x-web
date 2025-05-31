@@ -28,7 +28,7 @@
       >
         <component :is="tab.icon" />
         <span>{{ tab.title }}</span>
-        <CloseOutlined @click="handleDel(tab.path)" />
+        <CloseOutlined v-if="tab.closable" @click="handleDel(tab.path)" />
       </a-tag>
     </div>
   </div>
