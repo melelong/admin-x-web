@@ -1,5 +1,5 @@
-import { post } from '@utils/request';
+import request from '@/utils/request';
 
-export const userRegister = (data) => {
-  return post('/api/auth/register', data);
+export const userRegister = (data: any) => {
+  return request.post('/api/auth/register', data);
 };

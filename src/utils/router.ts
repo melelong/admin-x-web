@@ -1,5 +1,5 @@
-export const filterRoutes = (routes) => {
-  return routes.filter((route) => {
+export const filterRoutes = (routes: any) => {
+  return routes.filter((route: any) => {
     // 过滤隐藏路由和没有meta的路由
     if (route.meta?.hidden) return false;
 

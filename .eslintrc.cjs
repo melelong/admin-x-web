@@ -1,4 +1,3 @@
-// .eslintrc.cjs
 module.exports = {
   root: true,
   env: { browser: true, node: true },
@@ -9,7 +8,6 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    // 只保留一个简单规则用于测试
     'no-console': 'warn',
   },
 };

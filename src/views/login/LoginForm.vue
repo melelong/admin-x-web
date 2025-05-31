@@ -1,5 +1,4 @@
 <script setup lang="ts">
-  import router from '@/router';
   import { reactive, ref } from 'vue';
   import { userRegister } from '@/api/user';
 

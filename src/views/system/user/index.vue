@@ -19,7 +19,7 @@
   const columns = [
     {
       title: '序号',
-      customRender: ({ index }) => index + 1,
+      customRender: ({ index }: { index: number }) => index + 1,
     },
     {
       title: '姓名',

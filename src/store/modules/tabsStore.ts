@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 export const useTabsStore = defineStore('tabs', () => {
-  const tabs = ref([]);
+  const tabs = ref<any>([]);
   const activeTab = ref('');
   const homeTab = ref({
     path: '/',
@@ -17,8 +17,8 @@ export const useTabsStore = defineStore('tabs', () => {
   }
 
   // 添加新标签
-  const addTab = (route) => {
-    if (tabs.value.some((t) => t.path === route.path)) return;
+  const addTab = (route: any) => {
+    if (tabs.value.some((t: any) => t.path === route.path)) return;
     setActiveTab(route.path);
     tabs.value.push({
       path: route.path,
@@ -31,7 +31,7 @@ export const useTabsStore = defineStore('tabs', () => {
   /** 移除标签 */
   const removeTab = (path: string) => {
     if (path === '/') return;
-    tabs.value = tabs.value.filter((t) => t.path !== path);
+    tabs.value = tabs.value.filter((t: any) => t.path !== path);
   };
 
   /** 设置当前激活标签 */

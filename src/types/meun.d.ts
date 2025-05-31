@@ -5,3 +5,10 @@ interface Menu {
   meta?: Record<string, any>;
   children?: Menu[];
 }
+
+interface MenuTabs {
+  name: string;
+  path?: string;
+  title: string;
+  meta?: Record<string, any>;
+}

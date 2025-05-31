@@ -1,5 +1,5 @@
-import { post } from '@utils/request';
+import request from '@/utils/request';
 
-export const saveMenu = (data) => {
-  return post('/api/menu', data);
+export const saveMenu = (data: any) => {
+  return request.post('/api/menu', data);
 };
