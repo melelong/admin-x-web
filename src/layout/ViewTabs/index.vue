@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { CloseOutlined } from '@ant-design/icons-vue';
-  import { useTabsStore } from '@store/modules/tabsStore';
+  import { useTabsStore } from '@/store/modules/tabsStore';
   import { computed } from 'vue';
   import { useRouter } from 'vue-router';
 

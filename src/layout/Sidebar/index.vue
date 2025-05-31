@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { useRouter } from 'vue-router';
   import { computed } from 'vue';
-  import { useTabsStore } from '@store/modules/tabsStore';
+  import { useTabsStore } from '@/store/modules/tabsStore';
   import Recursive from './Recursive.vue';
 
   const tabsStore = useTabsStore();

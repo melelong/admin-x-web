@@ -5,7 +5,7 @@ import { contentList } from './content';
 import { systemList } from './system';
 import { monitorList } from './monitor';
 import { settingList } from './setting';
-import { useTabsStore } from '@store/modules/tabsStore';
+import { useTabsStore } from '@/store/modules/tabsStore';
 
 // 路由配置
 const routes: Array<RouteRecordRaw> = [
@@ -17,7 +17,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'home',
         name: 'Home',
-        component: () => import('@views/home/index.vue'),
+        component: () => import('@/views/home/index.vue'),
         meta: {
           title: '首页',
           icon: HomeOutlined,
@@ -26,7 +26,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'readme',
         name: 'Readme',
-        component: () => import('@views/readme/index.vue'),
+        component: () => import('@/views/readme/index.vue'),
         meta: {
           icon: NodeIndexOutlined,
           title: '请阅读我',
@@ -35,7 +35,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'dashboard',
         name: 'Dashboard',
-        component: () => import('@views/dashboard/index.vue'),
+        component: () => import('@/views/dashboard/index.vue'),
         meta: {
           title: '数据看板',
           icon: BugOutlined,
@@ -44,7 +44,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'profile',
         name: 'Profile',
-        component: () => import('@views/profile/index.vue'),
+        component: () => import('@/views/profile/index.vue'),
         meta: {
           icon: UserOutlined,
           title: '个人中心',
@@ -59,7 +59,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import('@views/login/index.vue'),
+    component: () => import('@/views/login/index.vue'),
     meta: {
       hidden: true,
       title: '登录/注册',

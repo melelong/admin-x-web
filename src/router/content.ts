@@ -12,19 +12,19 @@ export const contentList = [
       {
         path: 'manage',
         name: 'ContentManage',
-        component: () => import('@views/content/manage/index.vue'),
+        component: () => import('@/views/content/manage/index.vue'),
         meta: { title: '文章管理' },
       },
       {
         path: 'category',
         name: 'ContentCategory',
-        component: () => import('@views/content/category/index.vue'),
+        component: () => import('@/views/content/category/index.vue'),
         meta: { title: '分类管理' },
       },
       {
         path: 'audit',
         name: 'ContentAudit',
-        component: () => import('@views/content/audit/index.vue'),
+        component: () => import('@/views/content/audit/index.vue'),
         meta: { title: '评论审核' },
       },
     ],

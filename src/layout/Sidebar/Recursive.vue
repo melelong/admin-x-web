@@ -1,5 +1,5 @@
 <script setup>
-  import { filterRoutes } from '@utils/router';
+  import { filterRoutes } from '@/utils/router';
 
   const props = defineProps({
     routes: {

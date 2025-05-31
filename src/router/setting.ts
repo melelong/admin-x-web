@@ -11,7 +11,7 @@ export const settingList = [
       {
         path: 'theme',
         name: 'Theme',
-        component: () => import('@views/setting/theme/index.vue'),
+        component: () => import('@/views/setting/theme/index.vue'),
         meta: { title: '主题设置' },
       },
     ],

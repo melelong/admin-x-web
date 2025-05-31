@@ -1,21 +1,26 @@
 {
-  "files": [],
-  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
-    "paths": {
-      "@/*": ["./src/*"],
-      "@views/*": ["./src/views/*"],
-      "@components/*": ["./src/components/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@hooks/*": ["./src/hooks/*"],
-      "@store/*": ["./src/store/*"],
-      "@router/*": ["./src/router/*"]
-    },
-    "types": ["vite/client", "vite-plugin-eslint/types"],
     "moduleResolution": "node",
-    "skipLibCheck": true
+    "strict": true,
+    "skipLibCheck": true,
+    "jsx": "preserve",
+    "strictTemplates": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+    },
+    "types": ["vite/client"]
   },
-  "include": ["./src/**/*.ts", "./src/**/*.d.ts", "./src/**/*.vue"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "vite.config.ts"
+  ],
+  "exclude": ["node_modules", "dist"]
 }
