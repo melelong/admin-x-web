@@ -1,82 +1,91 @@
-import { createI18n, type I18n, useI18n as baseUseI18n } from 'vue-i18n';
-import { App, ref, computed } from 'vue';
+import { createI18n, type I18n, type Composer } from 'vue-i18n';
+import { App, ref, computed, readonly } from 'vue';
 import zhCN from './locales/zh-CN.json';
 import enUS from './locales/en-US.json';
-import keyMap from './locales/key-map.json';
+import { getLang, setLang } from '@/utils/lang';
 
-// 响应式语言状态
-const currentLocale = ref<'zh-CN' | 'en-US'>((localStorage.getItem('lang') as any) || 'zh-CN');
+type SupportedLocale = 'zh-CN' | 'en-US';
 
-// 创建 i18n 实例
-export const i18n = createI18n({
+// 定义翻译文件类型
+type TranslationDictionary = Record<string, string>;
+type LocaleMessages = Record<SupportedLocale, TranslationDictionary>;
+
+/** 语言状态 */
+const currentLocale = ref<SupportedLocale>(getLang() as SupportedLocale || 'zh-CN');
+
+// 创建反向映射：从中文文本到 KEY
+const textToKeyMap: Map<string, string> = new Map();
+Object.entries(zhCN as TranslationDictionary).forEach(([key, value]) => {
+  textToKeyMap.set(value, key);
+});
+
+// 创建完整的消息对象
+const messages: LocaleMessages = {
+  'zh-CN': zhCN as TranslationDictionary,
+  'en-US': enUS as TranslationDictionary
+};
+
+/** 创建 i18n 实例 */
+export const i18n: I18n = createI18n({
   legacy: false,
   locale: currentLocale.value,
   fallbackLocale: 'en-US',
-  messages: { 'zh-CN': zhCN, 'en-US': enUS },
+  messages,
   silentTranslationWarn: true,
 });
 
+// 获取全局 composer 实例
+const globalI18n = i18n.global as unknown as Composer;
+
 /**
- * 创建响应式翻译函数
- * 1. 通过计算属性确保语言切换时自动更新
- * 2. 使用闭包缓存映射关系避免重复计算
+ * 智能翻译函数
+ *
+ * 使用方式：
+ * t('中文文本') - 自动查找对应的 KEY 并进行翻译
+ * t('KEY12345678') - 直接使用 KEY 进行翻译
+ *
+ * 回退机制：
+ * 1. 如果是中文文本输入，且找不到对应 KEY，返回原始中文文本
+ * 2. 如果是 KEY 输入，且找不到翻译，返回 KEY 本身
  */
-const createTFunction = () => {
-  const localeRef = computed(() => i18n.global.locale.value);
+export const t = computed(() => (input: string): string => {
+  // 判断输入是否是 KEY（12位大写字母和数字）
+  const isKey = /^[A-Z0-9]{12}$/.test(input);
 
-  return computed(() => {
-    const rawT = i18n.global.t;
-    const locale = localeRef.value;
+  // 获取实际要翻译的 KEY
+  const key = isKey ? input : textToKeyMap.get(input) || input;
 
-    return (text: string) => {
-      const key = keyMap[text] || text;
-      const result = rawT(key);
-      return result === key ? text : result;
-    };
-  });
-};
+  try {
+    // 使用类型安全的翻译调用
+    const result = globalI18n.t(key);
 
-// 导出的响应式翻译函数
-export const t = createTFunction();
+    // 处理未找到翻译的情况
+    if (result === key) {
+      return isKey ? key : input;
+    }
 
-// 设置语言的函数
-export function setLocale(lang: 'zh-CN' | 'en-US') {
+    return result;
+  } catch (error) {
+    // 在开发环境下输出错误信息
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(`翻译错误: key=${key}, input=${input}`, error);
+    }
+    return isKey ? key : input;
+  }
+});
+
+/** 设置语言 */
+export function setLocale(lang: SupportedLocale) {
+  setLang(lang);
   currentLocale.value = lang;
-  i18n.global.locale.value = lang;
-  localStorage.setItem('lang', lang);
+  globalI18n.locale.value = lang;
   document.documentElement.lang = lang;
 }
 
-// 获取当前语言
-export const getLocale = () => currentLocale.value;
+/** 当前语言状态 */
+export const currentLanguage = readonly(currentLocale);
 
-// 增强版 useI18n 组合式函数
-export function useI18n() {
-  const base = baseUseI18n({ useScope: 'global' });
-
-  return {
-    t: t.value, // 直接返回翻译函数
-    locale: computed(() => currentLocale.value),
-    setLocale,
-    // 保留原始方法
-    ...base,
-  };
-}
-
-// 类型扩展
-declare module '@vue/runtime-core' {
-  interface ComponentCustomProperties {
-    $t: ReturnType<typeof t.value>;
-  }
-}
-
-// 安装 i18n 插件
+/** 安装 i18n */
 export function setupI18n(app: App) {
   app.use(i18n);
-
-  // 全局注入自定义 t 函数
-  app.config.globalProperties.$t = (text: string) => {
-    const key = keyMap[text] || text;
-    return i18n.global.t(key) || text;
-  };
 }

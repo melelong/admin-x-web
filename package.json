@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "lint": "eslint . --ext .ts,.vue --fix",
     "prettier": "prettier --write .",
-    "i18n:extract": "node src/i18n/extractor.js"
+    "extract-i18n": "node src/i18n/extractor.js"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^7.0.1",
