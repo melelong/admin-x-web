@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import LineBar from '@/views/dashboard/components/LineBar/index.vue';
-import { doubleBar } from '@/views/dashboard/data/doubleBar';
-import { lineBar } from '@/views/dashboard/data/lineBar';
+  import LineBar from '@/views/dashboard/components/LineBar/index.vue';
+  import { doubleBar } from '@/views/dashboard/data/doubleBar';
+  import { lineBar } from '@/views/dashboard/data/lineBar';
 </script>
 
 <template>

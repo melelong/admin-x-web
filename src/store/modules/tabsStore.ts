@@ -2,13 +2,14 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { HomeOutlined } from '@ant-design/icons-vue';
 import router from '@/router';
+import { t } from '@/i18n';
 
 export const useTabsStore = defineStore('tabs', () => {
   const tabs = ref<MenuTab[]>([]);
   const activeTab = ref('');
   const homeTab = ref<MenuTab>({
     path: '/home',
-    title: '首页',
+    title: t('首页'),
     closable: false,
     icon: HomeOutlined,
   });

@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import * as echarts from 'echarts';
-import { onMounted, ref } from 'vue';
-import uniqueId from 'lodash-es/uniqueId';
+  import * as echarts from 'echarts';
+  import { onMounted, ref } from 'vue';
+  import uniqueId from 'lodash-es/uniqueId';
 
-const props = defineProps({
-  options: {
-    type: Object,
-    required: true,
-  },
-});
+  const props = defineProps({
+    options: {
+      type: Object,
+      required: true,
+    },
+  });
 
-const domId = ref(uniqueId('echarts-line-bar'));
+  const domId = ref(uniqueId('echarts-line-bar'));
 
-onMounted(() => {
-  const chartDom = document.getElementById(domId.value);
-  const chart = echarts.init(chartDom);
-  chart.setOption(props.options);
-});
+  onMounted(() => {
+    const chartDom = document.getElementById(domId.value);
+    const chart = echarts.init(chartDom);
+    chart.setOption(props.options);
+  });
 </script>
 
 <template>
