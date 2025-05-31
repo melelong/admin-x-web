@@ -1,12 +1,12 @@
-import {ref} from "vue";
+import { ref } from 'vue';
 
 export const useUserStore = () => {
-    const token = ref(localStorage.getItem("token"));
-    const logout = () => {
-        localStorage.removeItem("token");
-    }
-    return {
-        token,
-        logout
-    }
-}
+  const token = ref(localStorage.getItem('token'));
+  const logout = () => {
+    localStorage.removeItem('token');
+  };
+  return {
+    token,
+    logout,
+  };
+};

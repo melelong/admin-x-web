@@ -1,5 +1,5 @@
 declare interface Window {
-    __APP_VERSION__: string;
+  __APP_VERSION__: string;
 }
 
 type Nullable<T> = T | null;

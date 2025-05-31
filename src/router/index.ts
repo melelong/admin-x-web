@@ -8,7 +8,6 @@ import { settingList } from './setting';
 import { useTabsStore } from '@/store/modules/tabsStore';
 import { t } from '@/i18n';
 
-// 路由配置
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -31,7 +30,7 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/readme/index.vue'),
         meta: {
           icon: NodeIndexOutlined,
-          title: '请阅读我',
+          title: t('请阅读我'),
         },
       },
       {
@@ -39,7 +38,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Dashboard',
         component: () => import('@/views/dashboard/index.vue'),
         meta: {
-          title: '数据看板',
+          title: t('数据看板'),
           icon: BugOutlined,
         },
       },
@@ -49,7 +48,7 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/profile/index.vue'),
         meta: {
           icon: UserOutlined,
-          title: '个人中心',
+          title: t('个人中心'),
         },
       },
     ],
@@ -64,7 +63,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/login/index.vue'),
     meta: {
       hidden: true,
-      title: '登录/注册',
+      title: t('登录/注册'),
     },
   },
 ];

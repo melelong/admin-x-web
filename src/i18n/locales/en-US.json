@@ -1,8 +1,21 @@
 {
-  "2DC1EBE5BA15": "中文文本",
-  "514B1ABCBF58": "KEY12345678",
-  "DAE8C66B6329": "With",
+  "DAE8C66B6329": "Affiliation",
   "D44E9B3D3B31": "Name",
-  "203C08E0D44A": "HOME",
-  "1C88F096249A": "System Watch"
+  "203C08E0D44A": "Home",
+  "1C88F096249A": "System Monitoring",
+  "C7253A80C714": "Content Management",
+  "4E7CB68111C8": "Article Management",
+  "62F8EDC30321": "Category Management",
+  "254758D4D543": "Comment Review",
+  "516C7FA3FE30": "Read Me",
+  "D8B1AEBA2DEE": "Data Dashboard",
+  "5A2CAC68FD2D": "Personal Center",
+  "3C39E9BDE120": "Scheduled Tasks",
+  "7913B7FC3DF8": "Operation Log",
+  "68EA5DD4D7AF": "System Settings",
+  "AB98197175B0": "Theme Settings",
+  "848B1B96E1E8": "System Management",
+  "144C41459CF6": "Menu Management",
+  "FBF413D429BD": "User Management",
+  "514A41758350": "Role Management"
 }

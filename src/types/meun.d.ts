@@ -10,5 +10,5 @@ interface MenuTab {
   path: string;
   title: string;
   closable: boolean;
-  icon: any
+  icon: any;
 }

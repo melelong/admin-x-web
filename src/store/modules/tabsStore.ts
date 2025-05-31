@@ -52,10 +52,7 @@ export const useTabsStore = defineStore('tabs', () => {
     // 如果移除的是当前激活标签，需要激活另一个标签并进行路由跳转
     if (activeTab.value === path) {
       // 尝试激活最近访问的标签
-      const newActiveTab =
-        tabs.value[removeIndex] ||
-        tabs.value[removeIndex - 1] ||
-        homeTab.value;
+      const newActiveTab = tabs.value[removeIndex] || tabs.value[removeIndex - 1] || homeTab.value;
 
       // 直接进行路由跳转
       router.push(newActiveTab.path);

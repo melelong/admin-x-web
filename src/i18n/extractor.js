@@ -93,8 +93,8 @@ async function runExtraction() {
   }
 
   // 创建双向映射
-  const textToKeyMap = new Map();  // 文本 → KEY
-  const keyToTextMap = new Map();  // KEY → 文本
+  const textToKeyMap = new Map(); // 文本 → KEY
+  const keyToTextMap = new Map(); // KEY → 文本
 
   // 从现有中文文件填充映射
   for (const [key, value] of Object.entries(existingZh)) {
@@ -126,9 +126,9 @@ async function runExtraction() {
       if (existingText !== text) {
         throw new Error(
           `发现KEY冲突: key=${key}\n` +
-          `  现有文本: "${existingText}"\n` +
-          `  新文本: "${text}"\n` +
-          `解决方案: 修改其中一个文本内容`
+            `  现有文本: "${existingText}"\n` +
+            `  新文本: "${text}"\n` +
+            `解决方案: 修改其中一个文本内容`,
         );
       }
     }
@@ -216,17 +216,17 @@ async function runExtraction() {
     addedCount,
     removedKeyCount,
     unusedTexts: unusedTexts.length,
-    totalKeys: usedKeys.size
+    totalKeys: usedKeys.size,
   };
 }
 
 // 运行提取
 runExtraction()
-  .then(stats => {
+  .then((stats) => {
     console.log('\n✨ 操作成功完成');
     process.exit(0);
   })
-  .catch(error => {
+  .catch((error) => {
     console.error('❌ 提取过程中发生错误:', error.message);
     process.exit(1);
   });

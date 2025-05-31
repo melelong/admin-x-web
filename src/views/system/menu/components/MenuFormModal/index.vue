@@ -1,34 +1,34 @@
 <script setup lang="ts">
-import { saveMenu } from '@/api/system/menu';
-import { t } from '@/i18n';
+  import { saveMenu } from '@/api/system/menu';
+  import { t } from '@/i18n';
 
-import { reactive, ref } from 'vue';
+  import { reactive, ref } from 'vue';
 
-const visible = ref(false);
-const modalTile = ref('');
-const showModal = () => {
-  visible.value = true;
-};
+  const visible = ref(false);
+  const modalTile = ref('');
+  const showModal = () => {
+    visible.value = true;
+  };
 
-const formData = reactive({
-  name: '',
-  path: '',
-  visible: true,
-  cache: true,
-});
-
-const handleOk = async () => {
-  await saveMenu({
-    parentId: 0,
-    menuName: '角色管理',
-    menuType: 2,
-    perms: 'role-manage',
+  const formData = reactive({
+    name: '',
+    path: '',
+    visible: true,
+    cache: true,
   });
-};
 
-defineExpose({
-  showModal,
-});
+  const handleOk = async () => {
+    await saveMenu({
+      parentId: 0,
+      menuName: '角色管理',
+      menuType: 2,
+      perms: 'role-manage',
+    });
+  };
+
+  defineExpose({
+    showModal,
+  });
 </script>
 
 <template>

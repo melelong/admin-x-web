@@ -4,7 +4,7 @@ import axios, {
   AxiosResponse,
   AxiosError,
   InternalAxiosRequestConfig,
-  CancelTokenSource
+  CancelTokenSource,
 } from 'axios';
 import { message } from 'ant-design-vue';
 import { useUserStore } from '@/store/modules/user';
@@ -37,11 +37,11 @@ class Request {
     baseURL: import.meta.env.VITE_API_BASE_URL as string,
     timeout: 15000,
     headers: {
-      'Content-Type': 'application/json;charset=UTF-8'
+      'Content-Type': 'application/json;charset=UTF-8',
     },
     showError: true,
     withToken: true,
-    preventDuplicate: false
+    preventDuplicate: false,
   };
 
   constructor(config?: RequestConfig) {
@@ -50,14 +50,14 @@ class Request {
 
     // 请求拦截器
     this.instance.interceptors.request.use(
-        (config: InternalAxiosRequestConfig) => this.requestInterceptor(config),
-        (error: AxiosError) => this.requestErrorInterceptor(error)
+      (config: InternalAxiosRequestConfig) => this.requestInterceptor(config),
+      (error: AxiosError) => this.requestErrorInterceptor(error),
     );
 
     // 响应拦截器
     this.instance.interceptors.response.use(
-        (response: AxiosResponse) => this.responseInterceptor(response),
-        (error: AxiosError) => this.responseErrorInterceptor(error)
+      (response: AxiosResponse) => this.responseInterceptor(response),
+      (error: AxiosError) => this.responseErrorInterceptor(error),
     );
   }
 
@@ -149,7 +149,7 @@ class Request {
       return Promise.reject({
         code: -1,
         message: '请求已取消',
-        data: null
+        data: null,
       });
     }
 
@@ -242,7 +242,7 @@ class Request {
     return Promise.reject({
       code: status,
       message: errorMessage,
-      data: error.response?.data
+      data: error.response?.data,
     });
   }
 
@@ -250,9 +250,7 @@ class Request {
    * 处理网络错误
    */
   private handleNetworkError(error: AxiosError, config?: RequestConfig): Promise<never> {
-    const errorMessage = error.message.includes('timeout')
-        ? '网络请求超时'
-        : '网络连接异常';
+    const errorMessage = error.message.includes('timeout') ? '网络请求超时' : '网络连接异常';
 
     // 显示错误消息
     if (config?.showError !== false) {
@@ -267,7 +265,7 @@ class Request {
     return Promise.reject({
       code: -1,
       message: errorMessage,
-      data: null
+      data: null,
     });
   }
 
@@ -291,7 +289,7 @@ class Request {
     return Promise.reject({
       code: -2,
       message: errorMessage,
-      data: null
+      data: null,
     });
   }
 
@@ -308,14 +306,14 @@ class Request {
     router.push({
       path: '/login',
       query: {
-        redirect: router.currentRoute.value.fullPath
-      }
+        redirect: router.currentRoute.value.fullPath,
+      },
     });
 
     return Promise.reject({
       code: 401,
       message: data?.message || '登录已过期，请重新登录',
-      data: null
+      data: null,
     });
   }
 
@@ -328,7 +326,7 @@ class Request {
     return Promise.reject({
       code: 403,
       message: data?.message || '禁止访问',
-      data: null
+      data: null,
     });
   }
 
@@ -341,7 +339,7 @@ class Request {
     return Promise.reject({
       code: 500,
       message: data.message || '服务器错误',
-      data: null
+      data: null,
     });
   }
 
@@ -393,7 +391,7 @@ class Request {
       url,
       method: 'GET',
       params,
-      ...config
+      ...config,
     });
   }
 
@@ -405,7 +403,7 @@ class Request {
       url,
       method: 'POST',
       data,
-      ...config
+      ...config,
     });
   }
 
@@ -417,19 +415,23 @@ class Request {
       url,
       method: 'PUT',
       data,
-      ...config
+      ...config,
     });
   }
 
   /**
    * DELETE 请求
    */
-  public delete<T = any>(url: string, params?: any, config?: RequestConfig): Promise<ResponseData<T>> {
+  public delete<T = any>(
+    url: string,
+    params?: any,
+    config?: RequestConfig,
+  ): Promise<ResponseData<T>> {
     return this.request<T>({
       url,
       method: 'DELETE',
       params,
-      ...config
+      ...config,
     });
   }
 
@@ -441,29 +443,34 @@ class Request {
       url,
       method: 'PATCH',
       data,
-      ...config
+      ...config,
     });
   }
 
   /**
    * 文件上传
    */
-  public upload<T = any>(url: string, file: File, fieldName = 'file', config?: RequestConfig): Promise<ResponseData<T>> {
+  public upload<T = any>(
+    url: string,
+    file: File,
+    fieldName = 'file',
+    config?: RequestConfig,
+  ): Promise<ResponseData<T>> {
     const formData = new FormData();
     formData.append(fieldName, file);
 
     return this.post<T>(url, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': 'multipart/form-data',
       },
-      ...config
+      ...config,
     });
   }
 }
 
 // 创建请求实例
 const http = new Request({
-  baseURL: import.meta.env.VITE_API_BASE_URL
+  baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
 export default http;

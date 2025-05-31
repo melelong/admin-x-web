@@ -11,7 +11,7 @@ type TranslationDictionary = Record<string, string>;
 type LocaleMessages = Record<SupportedLocale, TranslationDictionary>;
 
 /** 语言状态 */
-const currentLocale = ref<SupportedLocale>(getLang() as SupportedLocale || 'zh-CN');
+const currentLocale = ref<SupportedLocale>((getLang() as SupportedLocale) || 'zh-CN');
 
 // 创建反向映射：从中文文本到 KEY
 const textToKeyMap: Map<string, string> = new Map();
