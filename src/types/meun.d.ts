@@ -6,9 +6,9 @@ interface Menu {
   children?: Menu[];
 }
 
-interface MenuTabs {
-  name: string;
-  path?: string;
+interface MenuTab {
+  path: string;
   title: string;
-  meta?: Record<string, any>;
+  closable: boolean;
+  icon: any
 }

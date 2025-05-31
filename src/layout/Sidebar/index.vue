@@ -2,7 +2,7 @@
 import { useRouter } from 'vue-router';
 import { computed } from 'vue';
 import { useTabsStore } from '@/store/modules/tabsStore';
-import MRecursive from './MRecursive.vue';
+import MenuRecursive from './MenuRecursive.vue';
 
 const tabsStore = useTabsStore();
 const activeTab = computed(() => tabsStore.activeTab);
@@ -14,7 +14,7 @@ const handleMenuClick = ({ key }: { key: string }) => {
   tabsStore.setActiveTab(key);
   router.push(key);
 };
-console.log(menuRoutes.value);
+
 </script>
 
 <template>
@@ -25,6 +25,6 @@ console.log(menuRoutes.value);
     :selectedKeys="[activeTab]"
     @click="handleMenuClick"
   >
-    <MRecursive :routes="menuRoutes" />
+    <MenuRecursive :routes="menuRoutes" />
   </a-menu>
 </template>

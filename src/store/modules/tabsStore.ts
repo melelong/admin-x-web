@@ -4,9 +4,9 @@ import { HomeOutlined } from '@ant-design/icons-vue';
 import router from '@/router';
 
 export const useTabsStore = defineStore('tabs', () => {
-  const tabs = ref<any>([]);
+  const tabs = ref<MenuTab[]>([]);
   const activeTab = ref('');
-  const homeTab = ref({
+  const homeTab = ref<MenuTab>({
     path: '/home',
     title: '首页',
     closable: false,

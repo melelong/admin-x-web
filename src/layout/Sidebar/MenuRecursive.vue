@@ -26,7 +26,7 @@ const resolvePath = (path) => {
 <template>
   <template v-for="route in filterRoutes(routes)" :key="route.path">
     <template v-if="route.meta?.directlyShowChildren">
-      <MRecursive
+      <MenuRecursive
         :routes="route.children"
         :base-path="resolvePath(route.path)"
       />
@@ -49,7 +49,7 @@ const resolvePath = (path) => {
           </template>
           <span>{{ route.meta?.title }}</span>
         </template>
-        <MRecursive :routes="route.children" :base-path="resolvePath(route.path)" />
+        <MenuRecursive :routes="route.children" :base-path="resolvePath(route.path)" />
       </a-sub-menu>
     </template>
   </template>
