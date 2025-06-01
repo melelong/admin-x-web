@@ -28,7 +28,7 @@ const handleDel = (path: string) => {
       tab-position="top"
       :tabBarGutter="8"
       :tabBarStyle="{
-        margin: '0 !important',
+        margin: '0',
         height: '40px',
       }"
     >
@@ -37,11 +37,11 @@ const handleDel = (path: string) => {
           <a-tag
             @click.stop="handleChange(tab.path)"
             :color="tab.path === activeTab ? 'blue' : ''"
-            class="p-[5px_10px] mr-0 font-size-16px cursor-pointer"
+            class="p-[5px_10px] mr-0 font-size-16px cursor-pointer hover:color-#0958d9 hover:bg-#e6f4ff hover:border-color-#91caff"
           >
-            <component :is="tab.icon" />
+            <component class="mr-0!" :is="tab.icon" />
             <span>{{ tab.title }}</span>
-            <CloseOutlined v-if="tab.closable" @click.stop="handleDel(tab.path)" />
+            <CloseOutlined class="mr-0!" v-if="tab.closable" @click.stop="handleDel(tab.path)" />
           </a-tag>
         </template>
       </a-tab-pane>
