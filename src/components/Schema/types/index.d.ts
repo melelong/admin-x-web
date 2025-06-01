@@ -3,21 +3,36 @@ import type { FormElemType } from '../enums';
 export type PropFunction<T> = T | ((params?: Record<string, any>) => T | any);
 
 export interface ItemProps {
-  optionProps?: Record<string, any>; // 字段组件子组件属性
-  suffixSlot?: string; // 输入框头部内容，只对非 type="textarea" 有效
-  prefixSlot?: string; // 输入框尾部内容，只对非 type="textarea" 有效
-  prependSlot?: string; // 输入框前置内容，只对非 type="textarea" 有效
-  appendSlot?: string; // 输入框后置内容，只对非 type="textarea" 有效
-  headerSlot?: string; // 下拉列表顶部的内容
-  footerSlot?: string; // 下拉列表底部的内容
-  emptySlot?: string; // 无选项时的列表
-  tagSlot?: string; // SELECT 组件自定义标签内容
-  loadingSlot?: string; // SELECT 组件自定义 loading 内容
-  labelSlot?: string; // SELECT 组件自定义标签内容
-  decreaseIconSlot?: string; // 自定义输入框按钮减少图标
-  increaseIconSlot?: string; // 自定义输入框按钮增加图标
-  activeActionSlot?: string; // 自定义 active 行为
-  inactiveActionSlot?: string; // 自定义 inactive 行为
+  /** 字段组件子组件属性 */
+  optionProps?: Record<string, any>;
+  /** 输入框头部内容，只对非 type="textarea" 有效 */
+  suffixSlot?: string;
+  /** 输入框尾部内容，只对非 type="textarea" 有效 */
+  prefixSlot?: string;
+  /** 输入框前置内容，只对非 type="textarea" 有效 */
+  prependSlot?: string;
+  /** 输入框后置内容，只对非 type="textarea" 有效 */
+  appendSlot?: string;
+  /** 下拉列表顶部的内容 */
+  headerSlot?: string;
+  /** 下拉列表底部的内容 */
+  footerSlot?: string;
+  /** 无选项时的列表 */
+  emptySlot?: string;
+  /** SELECT 组件自定义标签内容 */
+  tagSlot?: string;
+  /** SELECT 组件自定义 loading 内容 */
+  loadingSlot?: string;
+  /** SELECT 组件自定义标签内容 */
+  labelSlot?: string;
+  /** 自定义输入框按钮减少图标 */
+  decreaseIconSlot?: string;
+  /** 自定义输入框按钮增加图标 */
+  increaseIconSlot?: string;
+  /** 自定义 active 行为 */
+  activeActionSlot?: string;
+  /** 自定义 inactive 行为 */
+  inactiveActionSlot?: string;
 }
 
 export interface FormItemChangeParams {
