@@ -12,9 +12,9 @@ import type { CellChangeParams, ColumnItem, TableConfig } from '../types';
 import SchemaFormMap from '../components';
 
 interface Props {
-  config?: TableConfig,
-  columns: ColumnItem[]
-  data: Record<string, any>[]
+  config?: TableConfig;
+  columns: ColumnItem[];
+  data: Record<string, any>[];
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -38,7 +38,7 @@ const form = reactive({
  * @param data.targetField 字段名
  * @param data.index 行索引
  */
-const getInstanceByField = (data: { targetField: string, index: number }): any => {
+const getInstanceByField = (data: { targetField: string; index: number }): any => {
   const { targetField, index } = data;
   for (const itemRef of formItemListRef.value) {
     const { bindFieldName, scope } = itemRef;
@@ -59,7 +59,11 @@ const getComponent = (component: string) => {
 /**
  * 加载字典数据，如下拉选择、多选、单选
  */
-const loadOptions = (data: { targetField: string, index: number, params?: Record<string, any> }): any => {
+const loadOptions = (data: {
+  targetField: string;
+  index: number;
+  params?: Record<string, any>;
+}): any => {
   const { targetField, index, params } = data;
   const itemRef: any = getInstanceByField({ targetField, index });
   if (itemRef && isFunction(itemRef.loadOptions)) {
@@ -72,7 +76,7 @@ const loadOptions = (data: { targetField: string, index: number, params?: Record
  * @param targetField 字段名
  */
 const getPropsByField: (targetField: string) => ColumnItem | undefined = (targetField) => {
-  const findIndex = props.columns.findIndex(item => item.dataIndex === targetField);
+  const findIndex = props.columns.findIndex((item) => item.dataIndex === targetField);
   if (findIndex >= 0) {
     return props.columns[findIndex];
   }
@@ -81,16 +85,16 @@ const getPropsByField: (targetField: string) => ColumnItem | undefined = (target
 /**
  * 表单数据发生改变时触发
  */
-const handleChange = (params: { value: any, scope: any, item: ColumnItem, event: any }) => {
+const handleChange = (params: { value: any; scope: any; item: ColumnItem; event: any }) => {
   const { item, scope } = params || {};
   const payload: CellChangeParams = {
-    loadOptions: (data: { targetField: string, index?: number, params?: Record<string, any> }) => {
+    loadOptions: (data: { targetField: string; index?: number; params?: Record<string, any> }) => {
       return loadOptions({
         ...data,
         index: isUndefined(data.index) ? scope.$index : data.index,
       });
     },
-    getInstanceByField: (data: { targetField: string, index?: number }) => {
+    getInstanceByField: (data: { targetField: string; index?: number }) => {
       return getInstanceByField({
         ...data,
         index: isUndefined(data.index) ? scope.$index : data.index,
@@ -111,7 +115,7 @@ const handleChange = (params: { value: any, scope: any, item: ColumnItem, event:
 /**
  * 格式化单元格的值
  */
-const formatCellValue = (params: { value: any, scope: any, item: ColumnItem }) => {
+const formatCellValue = (params: { value: any; scope: any; item: ColumnItem }) => {
   const { value, item } = params;
   let cellValue = value;
   if (isFunction(item.format)) {
@@ -123,7 +127,7 @@ const formatCellValue = (params: { value: any, scope: any, item: ColumnItem }) =
 /**
  * 设置当前单元格表单组件并返回是否使用表单组件
  */
-const chkAndSetCellComponent = (params: { value: any, scope: any, item: ColumnItem }) => {
+const chkAndSetCellComponent = (params: { value: any; scope: any; item: ColumnItem }) => {
   const { item, scope } = params;
   let component = item.component;
   if (isFunction(item.component)) {
@@ -138,7 +142,7 @@ const chkAndSetCellComponent = (params: { value: any, scope: any, item: ColumnIt
 /**
  * 设置当前单元格表单插槽并返回是否使用表单插槽
  */
-const chkAndSetCellSlot = (params: { value: any, scope: any, item: ColumnItem }) => {
+const chkAndSetCellSlot = (params: { value: any; scope: any; item: ColumnItem }) => {
   const { item, scope } = params;
   let slot = item.slot;
   if (isFunction(item.slot)) {
@@ -153,7 +157,7 @@ const chkAndSetCellSlot = (params: { value: any, scope: any, item: ColumnItem })
 /**
  * 设置当前单元格自定义插槽并返回是否使用自定义插槽
  */
-const chkAndSetCellCustomSlot = (params: { value: any, scope: any, item: ColumnItem }) => {
+const chkAndSetCellCustomSlot = (params: { value: any; scope: any; item: ColumnItem }) => {
   const { item, scope } = params;
   let customSlot = item.customSlot;
   if (isFunction(item.customSlot)) {
@@ -188,13 +192,15 @@ const chkAndSetRules = (item: ColumnItem) => {
   if (Array.isArray(item?.rules)) {
     rules = item?.rules;
   } else if (item.required) {
-    rules = [{
-      required: true,
-      message: `${item.label || item.dataIndex}必填`,
-      trigger: 'change',
-    }];
+    rules = [
+      {
+        required: true,
+        message: `${item.label || item.dataIndex}必填`,
+        trigger: 'change',
+      },
+    ];
   }
-  columnStore[item.dataIndex] = rules.some(item => item.required);
+  columnStore[item.dataIndex] = rules.some((item) => item.required);
   return rules.length > 0 ? rules : [];
 };
 
@@ -213,11 +219,14 @@ const resetFields = () => {
 };
 
 const getFormData = () => {
-  return form.data.map(item => {
+  return form.data.map((item) => {
     const keys = Object.keys(item);
     return {
       // 忽略表格配置时，设置的临时字段
-      ...omit(item, keys.filter(key => key.includes(TABLE_ROW_VALUE_KEY))),
+      ...omit(
+        item,
+        keys.filter((key) => key.includes(TABLE_ROW_VALUE_KEY)),
+      ),
     };
   });
 };

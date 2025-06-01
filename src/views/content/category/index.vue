@@ -28,15 +28,21 @@ const columns = computed<ColumnItem[]>(() => {
       dataIndex: 'gender',
       title: '性别',
       component: FormElemType.SELECT,
-      options: [{ value: 1, label: '男' }, { value: 2, label: '女' }],
+      options: [
+        { value: 1, label: '男' },
+        { value: 2, label: '女' },
+      ],
     },
     {
       dataIndex: 'subjectType',
       title: '学科倾向',
       component: FormElemType.RADIO,
       required: true,
-      options: [{ value: 0, label: '文科' }, { value: 1, label: '理科' }],
-      change: async function(params) {
+      options: [
+        { value: 0, label: '文科' },
+        { value: 1, label: '理科' },
+      ],
+      change: async function (params) {
         const { loadOptions } = params;
         // 重新加载一次爱好的选项数据
         loadOptions({
@@ -64,7 +70,7 @@ const columns = computed<ColumnItem[]>(() => {
           { value: 4, label: '化学', type: 1 },
           { value: 5, label: '生物', type: 1 },
         ];
-        return subjects.filter(item => item.type === formData.subjectType);
+        return subjects.filter((item) => item.type === formData.subjectType);
       },
       props: {
         width: 240,
@@ -109,13 +115,16 @@ const tableRef = ref();
 
 /**提交表单*/
 const submitForm = () => {
-  tableRef.value.validate().then((params: any) => {
-    console.log('params', params);
-    // ElMessage.success('操作成功')
-  }).catch((error: any) => {
-    console.log('error=>', error);
-    // ElMessage.warning('请填写必填信息')
-  });
+  tableRef.value
+    .validate()
+    .then((params: any) => {
+      console.log('params', params);
+      // ElMessage.success('操作成功')
+    })
+    .catch((error: any) => {
+      console.log('error=>', error);
+      // ElMessage.warning('请填写必填信息')
+    });
 };
 
 /**重置表单*/
@@ -150,7 +159,13 @@ const handleDel = (data: any) => {
         新增
       </a-button>
     </div>
-    <SchemaTable ref="tableRef" @change="change" :config="config" :columns="columns" :data="tableData">
+    <SchemaTable
+      ref="tableRef"
+      @change="change"
+      :config="config"
+      :columns="columns"
+      :data="tableData"
+    >
       <template #action="scope">
         <a-button type="danger" text @click="handleDel(scope)">删除</a-button>
       </template>

@@ -1,37 +1,32 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+import { useFormOptions } from '../../hooks/use-form-options';
+import type { FormItemProps } from '../../types';
+import { FORM_ITEM_EMIT_NAME } from '../../constants';
 
-import {ref} from "vue"
-import {useFormOptions} from "../../hooks/use-form-options"
-import type {FormItemProps} from "../../types"
-import {FORM_ITEM_EMIT_NAME} from "../../constants"
-
-defineOptions({name: 'SchemaColorPicker'})
+defineOptions({ name: 'SchemaColorPicker' });
 
 interface Props extends FormItemProps {
-  value?: string
+  value?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  value: ''
-})
+  value: '',
+});
 
 const internalModel = ref(props.formData[props.name]);
 
-const {
-  isView,
-  viewSlot,
-  viewValue,
-} = useFormOptions(props, internalModel)
+const { isView, viewSlot, viewValue } = useFormOptions(props, internalModel);
 
 const emit = defineEmits([FORM_ITEM_EMIT_NAME]);
 const handleChange = () => {
-  emit(FORM_ITEM_EMIT_NAME, {...props, internalModel})
-}
+  emit(FORM_ITEM_EMIT_NAME, { ...props, internalModel });
+};
 
 defineExpose({
   bindFieldName: props.name,
-  scope: props.scope
-})
+  scope: props.scope,
+});
 </script>
 
 <template>
@@ -39,10 +34,5 @@ defineExpose({
     <slot v-if="viewSlot" :name="viewSlot"></slot>
     <template v-else>{{ viewValue }}</template>
   </template>
-  <a-color-picker
-      v-else
-      @change="handleChange"
-      v-model="internalModel"
-  >
-  </a-color-picker>
+  <a-color-picker v-else @change="handleChange" v-model="internalModel"> </a-color-picker>
 </template>

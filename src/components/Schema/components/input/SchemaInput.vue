@@ -1,34 +1,29 @@
 <script setup lang="ts">
+import { onMounted, ref, useAttrs } from 'vue';
+import { useFormOptions } from '../../hooks/use-form-options';
+import type { FormItemProps } from '../../types';
+import { FORM_ITEM_EMIT_NAME } from '../../constants';
 
-import {onMounted, ref, useAttrs} from "vue"
-import {useFormOptions} from "../../hooks/use-form-options"
-import type {FormItemProps} from "../../types"
-import {FORM_ITEM_EMIT_NAME} from "../../constants"
-
-defineOptions({name: 'SchemaInput'})
+defineOptions({ name: 'SchemaInput' });
 
 interface Props extends FormItemProps {
-  value?: string
+  value?: string;
 }
 
-const props = withDefaults(defineProps<Props>(), {})
+const props = withDefaults(defineProps<Props>(), {});
 const internalModel = ref(props.formData[props.name]);
 
-const {
-  isView,
-  viewSlot,
-  viewValue,
-} = useFormOptions(props, internalModel)
+const { isView, viewSlot, viewValue } = useFormOptions(props, internalModel);
 
 const emit = defineEmits([FORM_ITEM_EMIT_NAME]);
 const handleChange = () => {
-  emit(FORM_ITEM_EMIT_NAME, {...props, internalModel})
-}
-const attrs = useAttrs()
+  emit(FORM_ITEM_EMIT_NAME, { ...props, internalModel });
+};
+const attrs = useAttrs();
 defineExpose({
   bindFieldName: props.name,
-  scope: props.scope
-})
+  scope: props.scope,
+});
 </script>
 
 <template>

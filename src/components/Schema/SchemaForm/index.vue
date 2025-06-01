@@ -9,9 +9,9 @@ import { isTruthValue } from '../utils';
 import SchemaFormMap from '../components';
 
 interface Props {
-  config?: FormConfig,
-  formItems: FormItemConfig[]
-  model: Record<string, any>
+  config?: FormConfig;
+  formItems: FormItemConfig[];
+  model: Record<string, any>;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -34,11 +34,13 @@ const getRules = (item: FormItemConfig) => {
     return item?.rules;
   }
   if (item.required) {
-    return [{
-      required: true,
-      message: `${item.label || item.name}必填`,
-      trigger: props?.config?.trigger,
-    }];
+    return [
+      {
+        required: true,
+        message: `${item.label || item.name}必填`,
+        trigger: props?.config?.trigger,
+      },
+    ];
   }
   return item?.rules || [];
 };
@@ -62,7 +64,7 @@ const getComponentProps = (item: FormItemConfig, index: number) => {
 /**
  * 当前渲染组件类型
  */
-const getComponent = (params: { index: number; item: FormItemConfig, value: any }) => {
+const getComponent = (params: { index: number; item: FormItemConfig; value: any }) => {
   const { item } = params;
   let component;
   if (isFunction(item.component)) {
@@ -76,7 +78,7 @@ const getComponent = (params: { index: number; item: FormItemConfig, value: any 
 /**
  * 判断表单项是否可见
  */
-const isVisible = (params: { index: number; item: FormItemConfig, value: any }) => {
+const isVisible = (params: { index: number; item: FormItemConfig; value: any }) => {
   const { item } = params;
   if (isFunction(item.visible)) {
     return isTruthValue(item.visible({ ...params, formData: formData }));
@@ -88,7 +90,7 @@ const isVisible = (params: { index: number; item: FormItemConfig, value: any }) 
 /**
  * 判断表单项是否禁用
  */
-const isDisabled = (params: { index: number; item: FormItemConfig, value: any }) => {
+const isDisabled = (params: { index: number; item: FormItemConfig; value: any }) => {
   const { item } = params;
   if (isFunction(item.mode)) {
     return item.mode({ ...params, formData: formData }) === DisplayMode.DISABLED;
@@ -99,7 +101,7 @@ const isDisabled = (params: { index: number; item: FormItemConfig, value: any })
 /**
  * 判断表单项是否只读
  */
-const isReadonly = (params: { index: number; item: FormItemConfig, value: any }) => {
+const isReadonly = (params: { index: number; item: FormItemConfig; value: any }) => {
   const { item } = params;
   if (isFunction(item.mode)) {
     return item.mode({ ...params, formData: formData }) === DisplayMode.READONLY;
@@ -130,7 +132,7 @@ const getInstanceByField: (targetField: string) => any = (targetField) => {
  * @param targetField 字段名
  */
 const getPropsByField: (targetField: string) => FormItemConfig | undefined = (targetField) => {
-  const findIndex = props.formItems.findIndex(item => item.name === targetField);
+  const findIndex = props.formItems.findIndex((item) => item.name === targetField);
   if (findIndex >= 0) {
     return props.formItems[findIndex];
   }
@@ -151,7 +153,7 @@ const loadOptions = (targetField: string, params?: Record<string, any>) => {
 /**
  * 表单数据发生改变时触发
  */
-const handleChange = (params: { index: number, item: FormItemConfig, event: any }) => {
+const handleChange = (params: { index: number; item: FormItemConfig; event: any }) => {
   const { item } = params || {};
   const payload: FormItemChangeParams = {
     ...params,
@@ -180,7 +182,7 @@ const validate = () => {
  * 重置表单
  */
 const resetFields = () => {
-  console.log(formRef)
+  console.log(formRef);
   formRef.value?.resetFields();
 };
 
@@ -200,8 +202,12 @@ defineExpose({
   <a-form ref="formRef" :model="formData" :rules="config?.rules" v-bind="config?.props">
     <a-row v-bind="config?.layout">
       <template v-for="(item, index) in formItems" :key="item.name">
-        <template v-if="isVisible({index,item, value: formData[item.name]})">
-          <slot v-if="item?.customSlot" :name="item.customSlot" :scope="getComponentProps(item, index)" />
+        <template v-if="isVisible({ index, item, value: formData[item.name] })">
+          <slot
+            v-if="item?.customSlot"
+            :name="item.customSlot"
+            :scope="getComponentProps(item, index)"
+          />
           <a-col v-else v-bind="item?.column">
             <a-form-item
               :label="item.label"
@@ -209,15 +215,23 @@ defineExpose({
               :rules="getRules(item)"
               v-bind="item?.formItemProps"
             >
-              <slot v-if="item.labelSlot" :name="item.labelSlot" :scope="getComponentProps(item, index)" />
-              <slot v-if="item.errorSlot" :name="item.errorSlot" :scope="getComponentProps(item, index)" />
+              <slot
+                v-if="item.labelSlot"
+                :name="item.labelSlot"
+                :scope="getComponentProps(item, index)"
+              />
+              <slot
+                v-if="item.errorSlot"
+                :name="item.errorSlot"
+                :scope="getComponentProps(item, index)"
+              />
               <slot v-if="item.slot" :name="item.slot" :scope="getComponentProps(item, index)" />
               <component
                 v-else
                 ref="formItemListRef"
-                :is="getComponent({index, item, value: formData[item.name]})"
+                :is="getComponent({ index, item, value: formData[item.name] })"
                 v-model:value="formData[item.name]"
-                @change="(event: Record<string, any>) => handleChange({index, item, event})"
+                @change="(event: Record<string, any>) => handleChange({ index, item, event })"
                 v-bind="getComponentProps(item, index)"
               />
             </a-form-item>

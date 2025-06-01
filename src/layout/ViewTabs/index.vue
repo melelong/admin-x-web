@@ -42,7 +42,11 @@ const handleDel = (path: string) => {
           >
             <component class="mr-0!" :is="tab.icon" />
             <span>{{ tab.title }}</span>
-            <CloseOutlined class="mr-0! rd-2px hover:bg-#fff" v-if="tab.closable" @click.stop="handleDel(tab.path)" />
+            <CloseOutlined
+              class="mr-0! rd-2px hover:bg-#fff"
+              v-if="tab.closable"
+              @click.stop="handleDel(tab.path)"
+            />
           </a-tag>
         </template>
       </a-tab-pane>
