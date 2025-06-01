@@ -4,7 +4,7 @@ export const lineBar = {
     left: '3%',
     right: '5%',
     bottom: '10%',
-    top: '27%',
+    top: '30%',
     containLabel: true,
   },
   xAxis: {
@@ -101,7 +101,7 @@ export const lineBar = {
   },
   title: {
     text: '前沿科技发展指数 (2025)',
-    left: '5%',
+    left: '2%',
     top: '3%',
     textStyle: {
       color: '#001529',
@@ -110,7 +110,7 @@ export const lineBar = {
     },
   },
   legend: {
-    right: '5%',
+    right: '3%',
     top: '3%',
     textStyle: {
       color: '#666',

@@ -24,7 +24,7 @@ export const pieData = {
   },
   graphic: {
     type: 'text',
-    left: 'center',
+    left: '36%',
     top: 'center',
     style: {
       text: '数据总览',
@@ -39,7 +39,7 @@ export const pieData = {
       name: '数据分布',
       type: 'pie',
       radius: ['45%', '75%'],
-      center: ['50%', '50%'],
+      center: ['40%', '50%'],
       avoidLabelOverlap: true,
       hoverOffset: 10,
       itemStyle: {
@@ -87,7 +87,7 @@ export const pieData = {
       data: [
         {
           value: 1820,
-          name: 'C语言',
+          name: 'C',
           itemStyle: {
             color: {
               type: 'linear',

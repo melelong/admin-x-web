@@ -21,21 +21,21 @@ export const doubleBar = {
       const popularity = params[1].value;
 
       return `
-                        <div style="font-size:16px;font-weight:bold;margin-bottom:8px;color:#00ced1">${tech}</div>
-                        <div style="display:flex;align-items:center;margin-bottom:5px">
-                            <span style="display:inline-block;width:12px;height:12px;background:linear-gradient(to right, #8a2be2, #4b0082);border-radius:2px;margin-right:8px"></span>
-                            技术成熟度: <b style="margin-left:8px;color:#fff">${maturity}</b>
-                        </div>
-                        <div style="display:flex;align-items:center">
-                            <span style="display:inline-block;width:12px;height:12px;background:linear-gradient(to right, #00ced1, #008b8b);border-radius:2px;margin-right:8px"></span>
-                            市场热度: <b style="margin-left:8px;color:#fff">${popularity}</b>
-                        </div>
+        <div style="font-size:16px;font-weight:bold;margin-bottom:8px;color:#00ced1">${tech}</div>
+        <div style="display:flex;align-items:center;margin-bottom:5px">
+            <span style="display:inline-block;width:12px;height:12px;background:linear-gradient(to right, #8a2be2, #4b0082);border-radius:2px;margin-right:8px"></span>
+            技术成熟度: <b style="margin-left:8px;color:#fff">${maturity}</b>
+        </div>
+        <div style="display:flex;align-items:center">
+            <span style="display:inline-block;width:12px;height:12px;background:linear-gradient(to right, #00ced1, #008b8b);border-radius:2px;margin-right:8px"></span>
+            市场热度: <b style="margin-left:8px;color:#fff">${popularity}</b>
+        </div>
                     `;
     },
   },
   legend: {
     data: ['技术成熟度', '市场热度'],
-    right: 40,
+    right: '3%',
     top: 20,
     textStyle: {
       color: '#333',

@@ -17,10 +17,10 @@ import { pieData } from '@/views/dashboard/data/pieData';
       <a-col :span="24" :xl="12">
         <ECharts :option="doubleBar" />
       </a-col>
-      <a-col :span="24" :xl="10">
+      <a-col :span="24" :xl="12">
         <ECharts class="h-360px" :option="pieData" />
       </a-col>
-      <a-col :span="24" :xl="14">
+      <a-col :span="24" :xl="12">
         <ScrollTable
           class="px-5px"
           :columns="columns"
