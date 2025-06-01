@@ -29,7 +29,7 @@ export const pieData = {
     left: '36%',
     top: 'center',
     style: {
-      text: t('语言'),
+      text: t('编程语言'),
       textAlign: 'center',
       fill: '#999',
       fontSize: 14,
