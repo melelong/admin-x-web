@@ -6,30 +6,45 @@ import { columns, tableData } from '@/views/dashboard/data/scrollTable';
 import { doubleBar } from '@/views/dashboard/data/doubleBar';
 import { lineBar } from '@/views/dashboard/data/lineBar';
 import { pieData } from '@/views/dashboard/data/pieData';
+import { uniqueId, shuffle } from 'lodash-es';
+
+const cards = [
+  {
+    id: uniqueId('cards'),
+    component: ScrollTable,
+    props: {
+      class: 'px-10px',
+      columns,
+      dataSource: tableData,
+      rowHeight: 40,
+      visibleRows: 5,
+      scrollInterval: 2500,
+      scrollSpeed: 0.6,
+    },
+  },
+  {
+    id: uniqueId('cards'),
+    component: ECharts,
+    props: { option: doubleBar },
+  },
+  {
+    id: uniqueId('cards'),
+    component: ECharts,
+    props: { option: pieData },
+  },
+  {
+    id: uniqueId('cards'),
+    component: ECharts,
+    props: { option: lineBar },
+  },
+];
 </script>
 
 <template>
   <div class="m-10px">
     <a-row :gutter="[10, 10]">
-      <a-col :span="24" :xl="12">
-        <ECharts :option="doubleBar" />
-      </a-col>
-      <a-col :span="24" :xl="12">
-        <ScrollTable
-          class="px-10px"
-          :columns="columns"
-          :data-source="tableData"
-          :row-height="40"
-          :visible-rows="5"
-          :scroll-interval="2500"
-          :scroll-speed="0.6"
-        />
-      </a-col>
-      <a-col :span="24" :xl="12">
-        <ECharts :option="pieData" />
-      </a-col>
-      <a-col :span="24" :xl="12">
-        <ECharts :option="lineBar" />
+      <a-col v-for="card in shuffle(cards)" :key="card.id" :span="24" :xl="12">
+        <component v-bind="card.props" :is="card.component" />
       </a-col>
     </a-row>
   </div>
