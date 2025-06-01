@@ -4,7 +4,7 @@ export const lineBar = {
     left: '3%',
     right: '5%',
     bottom: '10%',
-    top: '20%',
+    top: '27%',
     containLabel: true,
   },
   xAxis: {
