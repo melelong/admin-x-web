@@ -1,21 +1,21 @@
 <script setup lang="ts">
-  import { CloseOutlined } from '@ant-design/icons-vue';
-  import { useTabsStore } from '@/store/modules/tabsStore';
-  import { computed } from 'vue';
-  import { useRouter } from 'vue-router';
+import { CloseOutlined } from '@ant-design/icons-vue';
+import { useTabsStore } from '@/store/modules/tabsStore';
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 
-  const router = useRouter();
-  const tabsStore = useTabsStore();
-  const activeTab = computed(() => {
-    return tabsStore.activeTab;
-  });
-  const handleChange = (key: string) => {
-    tabsStore.setActiveTab(key);
-    router.push(key);
-  };
-  const handleDel = (path: string) => {
-    tabsStore.removeTab(path);
-  };
+const router = useRouter();
+const tabsStore = useTabsStore();
+const activeTab = computed(() => {
+  return tabsStore.activeTab;
+});
+const handleChange = (key: string) => {
+  tabsStore.setActiveTab(key);
+  router.push(key);
+};
+const handleDel = (path: string) => {
+  tabsStore.removeTab(path);
+};
 </script>
 
 <template>
@@ -35,9 +35,9 @@
 </template>
 
 <style scoped>
-  .view-tabs-container {
-    top: 0;
-    position: sticky;
-    z-index: 1000;
-  }
+.view-tabs-container {
+  top: 0;
+  position: sticky;
+  z-index: 1000;
+}
 </style>

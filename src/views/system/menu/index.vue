@@ -1,49 +1,49 @@
 <script setup lang="ts">
-  import { reactive, ref } from 'vue';
-  import { SearchOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons-vue';
-  import MenuFormModal from './components/MenuFormModal/index.vue';
+import { reactive, ref } from 'vue';
+import { SearchOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons-vue';
+import MenuFormModal from './components/MenuFormModal/index.vue';
 
-  const formState = reactive({
-    name: '',
-    status: '',
-  });
-  const columns = [
-    {
-      title: '序号',
-      customRender: ({ index }: { index: number }) => index + 1,
-    },
-    {
-      title: '菜单名',
-      dataIndex: 'name',
-      key: 'name',
-    },
-    {
-      title: '地址',
-      dataIndex: 'path',
-      key: 'path',
-    },
-    {
-      title: '状态',
-      dataIndex: 'status',
-      key: 'status',
-    },
-    {
-      title: '操作',
-      key: 'action',
-      width: '160px',
-    },
-  ];
-  const dataSource = [
-    { name: '首页', path: '/', status: '已启用' },
-    { name: '菜单管理', path: '/system/menu', status: '已启用' },
-    { name: '用户管理', path: '/system/user', status: '已启用' },
-    { name: '角色管理', path: '/system/role', status: '已停用' },
-  ];
+const formState = reactive({
+  name: '',
+  status: '',
+});
+const columns = [
+  {
+    title: '序号',
+    customRender: ({ index }: { index: number }) => index + 1,
+  },
+  {
+    title: '菜单名',
+    dataIndex: 'name',
+    key: 'name',
+  },
+  {
+    title: '地址',
+    dataIndex: 'path',
+    key: 'path',
+  },
+  {
+    title: '状态',
+    dataIndex: 'status',
+    key: 'status',
+  },
+  {
+    title: '操作',
+    key: 'action',
+    width: '160px',
+  },
+];
+const dataSource = [
+  { name: '首页', path: '/', status: '已启用' },
+  { name: '菜单管理', path: '/system/menu', status: '已启用' },
+  { name: '用户管理', path: '/system/user', status: '已启用' },
+  { name: '角色管理', path: '/system/role', status: '已停用' },
+];
 
-  const menuFormModalRef = ref();
-  const handleAdd = () => {
-    menuFormModalRef.value.showModal({});
-  };
+const menuFormModalRef = ref();
+const handleAdd = () => {
+  menuFormModalRef.value.showModal({});
+};
 </script>
 <template>
   <div class="m-10px">

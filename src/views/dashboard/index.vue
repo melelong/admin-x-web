@@ -1,10 +1,10 @@
 <script setup lang="ts">
-  import ECharts from '@/components/ECharts/index.vue';
-  import ScrollTable from '@/components/ScrollTable/index.vue';
+import ECharts from '@/components/ECharts/index.vue';
+import ScrollTable from '@/components/ScrollTable/index.vue';
 
-  import { columns, tableData } from '@/views/dashboard/data/scrollTable';
-  import { doubleBar } from '@/views/dashboard/data/doubleBar';
-  import { lineBar } from '@/views/dashboard/data/lineBar';
+import { columns, tableData } from '@/views/dashboard/data/scrollTable';
+import { doubleBar } from '@/views/dashboard/data/doubleBar';
+import { lineBar } from '@/views/dashboard/data/lineBar';
 </script>
 
 <template>

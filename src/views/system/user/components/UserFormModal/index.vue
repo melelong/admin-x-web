@@ -1,30 +1,30 @@
 <script setup lang="ts">
-  import { reactive, ref } from 'vue';
+import { reactive, ref } from 'vue';
 
-  const formData = reactive({
-    name: '',
-    age: '',
-    address: '',
-    nickname: '',
-  });
+const formData = reactive({
+  name: '',
+  age: '',
+  address: '',
+  nickname: '',
+});
 
-  let callback: Function;
-  const visible = ref(false);
-  const modalTile = ref('');
-  const showModal = ({ title, onSuccess }: { title: string; onSuccess: Function }) => {
-    callback = onSuccess;
-    modalTile.value = title;
-    visible.value = true;
-  };
+let callback: Function;
+const visible = ref(false);
+const modalTile = ref('');
+const showModal = ({ title, onSuccess }: { title: string; onSuccess: Function }) => {
+  callback = onSuccess;
+  modalTile.value = title;
+  visible.value = true;
+};
 
-  const handleOk = () => {
-    callback(formData);
-    visible.value = false;
-  };
+const handleOk = () => {
+  callback(formData);
+  visible.value = false;
+};
 
-  defineExpose({
-    showModal,
-  });
+defineExpose({
+  showModal,
+});
 </script>
 
 <template>

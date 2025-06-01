@@ -1,23 +1,23 @@
 <script setup lang="ts">
-  import { reactive, ref } from 'vue';
-  import { userRegister } from '@/api/user';
+import { reactive, ref } from 'vue';
+import { userRegister } from '@/api/user';
 
-  const formData = reactive({
-    username: '',
-    password: '',
+const formData = reactive({
+  username: '',
+  password: '',
+});
+
+const handleLogin = async () => {
+  await userRegister({
+    nickname: '格子大暑版',
+    email: 'fl9420@qq.com',
+    phone: '18888888888',
+    username: '格子大暑版',
+    password: 123456,
   });
-
-  const handleLogin = async () => {
-    await userRegister({
-      nickname: '格子大暑版',
-      email: 'fl9420@qq.com',
-      phone: '18888888888',
-      username: '格子大暑版',
-      password: 123456,
-    });
-    // await router.replace({name: "Home"});
-  };
-  const checked = ref(false);
+  // await router.replace({name: "Home"});
+};
+const checked = ref(false);
 </script>
 
 <template>

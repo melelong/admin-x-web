@@ -6,6 +6,6 @@
   "printWidth": 100,
   "bracketSpacing": true,
   "arrowParens": "always",
-  "vueIndentScriptAndStyle": true,
+  "vueIndentScriptAndStyle": false,
   "endOfLine": "auto"
 }

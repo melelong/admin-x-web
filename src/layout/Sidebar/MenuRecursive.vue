@@ -1,26 +1,26 @@
 <script setup>
-  import { filterRoutes } from '@/utils/router';
+import { filterRoutes } from '@/utils/router';
 
-  const props = defineProps({
-    routes: {
-      type: Array,
-      required: true,
-    },
-    basePath: {
-      type: String,
-      default: '',
-    },
-  });
+const props = defineProps({
+  routes: {
+    type: Array,
+    required: true,
+  },
+  basePath: {
+    type: String,
+    default: '',
+  },
+});
 
-  const resolvePath = (path) => {
-    const normalizedBase = props.basePath.replace(/\/+$/, '');
-    const normalizedPath = (path || '').replace(/^\/+/, '');
+const resolvePath = (path) => {
+  const normalizedBase = props.basePath.replace(/\/+$/, '');
+  const normalizedPath = (path || '').replace(/^\/+/, '');
 
-    if (!normalizedBase) return `/${normalizedPath}`;
-    if (!normalizedPath) return normalizedBase;
+  if (!normalizedBase) return `/${normalizedPath}`;
+  if (!normalizedPath) return normalizedBase;
 
-    return `${normalizedBase}/${normalizedPath}`;
-  };
+  return `${normalizedBase}/${normalizedPath}`;
+};
 </script>
 
 <template>

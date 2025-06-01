@@ -1,17 +1,17 @@
 <script setup lang="ts">
-  import {
-    UserOutlined,
-    SyncOutlined,
-    ExpandOutlined,
-    SearchOutlined,
-    BellOutlined,
-    AppstoreOutlined,
-  } from '@ant-design/icons-vue';
-  import { setLocale, currentLanguage } from '@/i18n';
+import {
+  UserOutlined,
+  SyncOutlined,
+  ExpandOutlined,
+  SearchOutlined,
+  BellOutlined,
+  AppstoreOutlined,
+} from '@ant-design/icons-vue';
+import { setLocale, currentLanguage } from '@/i18n';
 
-  const changeLang = (e: { key: string }) => {
-    setLocale(e.key as 'zh-CN' | 'en-US');
-  };
+const changeLang = (e: { key: string }) => {
+  setLocale(e.key as 'zh-CN' | 'en-US');
+};
 </script>
 
 <template>
