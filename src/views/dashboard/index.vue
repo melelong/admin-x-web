@@ -5,6 +5,7 @@ import ScrollTable from '@/components/ScrollTable/index.vue';
 import { columns, tableData } from '@/views/dashboard/data/scrollTable';
 import { doubleBar } from '@/views/dashboard/data/doubleBar';
 import { lineBar } from '@/views/dashboard/data/lineBar';
+import { pieData } from '@/views/dashboard/data/pieData';
 </script>
 
 <template>
@@ -16,8 +17,12 @@ import { lineBar } from '@/views/dashboard/data/lineBar';
       <a-col :span="24" :xl="12">
         <ECharts :option="doubleBar" />
       </a-col>
-      <a-col :span="24">
+      <a-col :span="24" :xl="10">
+        <ECharts class="h-360px" :option="pieData" />
+      </a-col>
+      <a-col :span="24" :xl="14">
         <ScrollTable
+          class="px-5px"
           :columns="columns"
           :data-source="tableData"
           :row-height="50"

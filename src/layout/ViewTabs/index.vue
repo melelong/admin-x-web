@@ -19,7 +19,7 @@ const handleDel = (path: string) => {
 </script>
 
 <template>
-  <div class="view-tabs-container px-8px h-40px flex inline-block items-center bg-#fff">
+  <div class="px-8px h-40px flex inline-block items-center bg-#fff pos-sticky z-1000 top-0">
     <div v-for="tab in tabsStore.tabs">
       <a-tag
         @click="handleChange(tab.path)"
@@ -33,11 +33,3 @@ const handleDel = (path: string) => {
     </div>
   </div>
 </template>
-
-<style scoped>
-.view-tabs-container {
-  top: 0;
-  position: sticky;
-  z-index: 1000;
-}
-</style>
