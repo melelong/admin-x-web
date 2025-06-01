@@ -13,7 +13,7 @@ import User from '@/layout/Navbar/components/User.vue';
 <template>
   <div class="color-white">
     <a-flex justify="space-between">
-      <h1 class="ml-17px">Admin X</h1>
+      <h1 class="ml-17px tracking-[3px]">Admin X</h1>
       <a-space class="font-size-18px" :size="44">
         <BellOutlined />
         <SearchOutlined />

@@ -35,13 +35,14 @@ const handleDel = (path: string) => {
       <a-tab-pane v-for="tab in tabsStore.tabs" :key="tab.path">
         <template #tab>
           <a-tag
+            :draggable="true"
             @click.stop="handleChange(tab.path)"
             :color="tab.path === activeTab ? 'blue' : ''"
             class="p-[5px_10px] mr-0 font-size-16px cursor-pointer hover:color-#0958d9 hover:bg-#e6f4ff hover:border-color-#91caff"
           >
             <component class="mr-0!" :is="tab.icon" />
             <span>{{ tab.title }}</span>
-            <CloseOutlined class="mr-0!" v-if="tab.closable" @click.stop="handleDel(tab.path)" />
+            <CloseOutlined class="mr-0! rd-2px hover:bg-#fff" v-if="tab.closable" @click.stop="handleDel(tab.path)" />
           </a-tag>
         </template>
       </a-tab-pane>
