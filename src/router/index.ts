@@ -38,6 +38,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Dashboard',
         component: () => import('@/views/dashboard/index.vue'),
         meta: {
+          footer: true,
           title: t('数据看板'),
           icon: BugOutlined,
         },

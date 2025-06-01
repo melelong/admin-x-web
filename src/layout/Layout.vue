@@ -1,7 +1,11 @@
 <script setup lang="ts">
+  import { useRoute } from 'vue-router';
   import Sidebar from './Sidebar/index.vue';
   import Navbar from './Navbar/index.vue';
   import ViewTabs from './ViewTabs/index.vue';
+  import ViewFooter from './ViewFooter/index.vue';
+
+  const route = useRoute();
 </script>
 
 <template>
@@ -19,6 +23,7 @@
           <router-view v-slot="{ Component }">
             <component :is="Component" />
           </router-view>
+          <ViewFooter v-if="route?.meta?.footer" />
         </div>
       </a-layout-content>
     </a-layout>

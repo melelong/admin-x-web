@@ -1,5 +1,5 @@
 <script setup lang="ts"></script>
 
-<template></template>
-
-<style scoped></style>
+<template>
+  <div class="text-align-center">Admin X ©2025 Byte-Scheduler 版权所有</div>
+</template>
