@@ -22,7 +22,7 @@ import { pieData } from '@/views/dashboard/data/pieData';
       </a-col>
       <a-col :span="24" :xl="12">
         <ScrollTable
-          class="px-5px"
+          class="px-10px"
           :columns="columns"
           :data-source="tableData"
           :row-height="50"
