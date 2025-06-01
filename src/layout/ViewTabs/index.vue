@@ -24,7 +24,7 @@ const handleDel = (path: string) => {
       <a-tag
         @click="handleChange(tab.path)"
         :color="tab.path === activeTab ? 'blue' : ''"
-        class="p-[6px_10px] font-size-16px cursor-pointer"
+        class="p-[5px_10px] font-size-16px cursor-pointer"
       >
         <component :is="tab.icon" />
         <span>{{ tab.title }}</span>

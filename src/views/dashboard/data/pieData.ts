@@ -10,7 +10,7 @@ export const pieData = {
     borderWidth: 1,
     textStyle: { color: '#333', fontSize: 12 },
     padding: [10, 15],
-    extraCssText: 'box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-radius: 6px;',
+    extraCssText: 'box-shadow: 0 4px 12px rgba(255,255,255,0.01); border-radius: 6px;',
   },
   legend: {
     type: 'scroll',
@@ -47,6 +47,8 @@ export const pieData = {
       itemStyle: {
         borderRadius: 8,
         borderWidth: 2,
+        shadowBlur: 0,
+        shadowColor: 'rgba(200, 200, 200, 0)',
         borderColor: '#fff',
       },
       label: {
@@ -82,8 +84,8 @@ export const pieData = {
         scale: true,
         scaleSize: 8,
         itemStyle: {
-          shadowBlur: 14,
-          shadowColor: 'rgba(0, 0, 0, 0.15)',
+          shadowBlur: 15,
+          shadowColor: 'rgba(200, 200, 200, 0.2)',
         },
       },
       data: [
@@ -98,8 +100,8 @@ export const pieData = {
               x2: 1,
               y2: 0,
               colorStops: [
-                { offset: 0, color: '#6a85f2' },
-                { offset: 1, color: '#8bd3f7' },
+                { offset: 0, color: '#ff6d6d' },
+                { offset: 1, color: '#fab6b6' },
               ],
             },
           },
@@ -115,8 +117,8 @@ export const pieData = {
               x2: 1,
               y2: 0,
               colorStops: [
-                { offset: 0, color: '#ff9a9e' },
-                { offset: 1, color: '#fad0c4' },
+                { offset: 0, color: '#6311a7' },
+                { offset: 1, color: '#c8afdd' },
               ],
             },
           },
@@ -133,8 +135,8 @@ export const pieData = {
               x2: 1,
               y2: 0,
               colorStops: [
-                { offset: 0, color: '#d4fc79' },
-                { offset: 1, color: '#96e6a1' },
+                { offset: 0, color: '#f2c55c' },
+                { offset: 1, color: '#f4e3bd' },
               ],
             },
           },
@@ -150,7 +152,7 @@ export const pieData = {
               x2: 1,
               y2: 0,
               colorStops: [
-                { offset: 0, color: '#fbc2eb' },
+                { offset: 0, color: '#0958d9' },
                 { offset: 1, color: '#a6c1ee' },
               ],
             },
@@ -168,7 +170,7 @@ export const pieData = {
               x2: 1,
               y2: 0,
               colorStops: [
-                { offset: 0, color: '#a1c4fd' },
+                { offset: 0, color: '#42b883' },
                 { offset: 1, color: '#c2e9fb' },
               ],
             },
