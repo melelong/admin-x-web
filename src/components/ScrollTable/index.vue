@@ -286,18 +286,4 @@ onBeforeUnmount(() => {
   background-color: v-bind('isPaused ? "#f5222d" : "#52c41a"');
   margin-right: 8px;
 }
-
-/* 滚动条样式 */
-.scroll-wrapper::-webkit-scrollbar {
-  width: 6px;
-}
-
-.scroll-wrapper::-webkit-scrollbar-thumb {
-  background-color: rgba(64, 158, 255, 0.5);
-  border-radius: 3px;
-}
-
-.scroll-wrapper::-webkit-scrollbar-track {
-  background-color: rgba(10, 27, 61, 0.3);
-}
 </style>
