@@ -1,21 +1,23 @@
+import { t } from '@/i18n';
+
 export const columns = [
-  { title: '排名', dataIndex: 'rank', width: '80px', color: '#40a9ff' },
-  { title: '城市', dataIndex: 'city', width: '120px' },
+  { title: t('排名'), dataIndex: 'rank', width: '80px', color: '#40a9ff' },
+  { title: t('城市'), dataIndex: 'city', width: '120px' },
   {
-    title: '销售额',
+    title: t('销售额'),
     dataIndex: 'sales',
     width: '150px',
     formatter: (value: number) => `¥${(value / 10000).toFixed(2)}万`,
   },
   {
-    title: '增长率',
+    title: t('增长率'),
     dataIndex: 'growth',
     width: '150px',
     formatter: (value: number) => `${value}%`,
     color: (value: number) => (value > 0 ? '#52c41a' : '#f5222d'),
   },
   {
-    title: '完成率',
+    title: t('完成率'),
     dataIndex: 'completion',
     width: '150px',
     formatter: (value: number) => `${value}%`,
