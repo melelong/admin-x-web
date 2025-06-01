@@ -1,3 +1,5 @@
+<script lang="ts" setup></script>
+
 <template>
   <div class="m-10px">
     <div class="p-16px bg-white rounded">
@@ -7,4 +9,3 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
