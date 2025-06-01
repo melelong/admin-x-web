@@ -54,15 +54,15 @@ defineExpose({
         v-bind="attrs"
         v-else
         @change="handleChange"
-        v-model="internalModel"
+        v-model:value="internalModel"
     >
       <a-radio
           v-for="item in options"
           :key="item[valueKey]"
-          :label="item[labelKey]"
           :value="item[valueKey]"
           v-bind="props?.itemProps?.optionProps"
       >
+        {{item[labelKey]}}
       </a-radio>
     </a-radio-group>
   </div>

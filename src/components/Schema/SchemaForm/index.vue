@@ -180,6 +180,7 @@ const validate = () => {
  * 重置表单
  */
 const resetFields = () => {
+  console.log(formRef)
   formRef.value?.resetFields();
 };
 
@@ -204,7 +205,7 @@ defineExpose({
           <a-col v-else v-bind="item?.column">
             <a-form-item
               :label="item.label"
-              :prop="item.name"
+              :name="item.name"
               :rules="getRules(item)"
               v-bind="item?.formItemProps"
             >
@@ -215,7 +216,7 @@ defineExpose({
                 v-else
                 ref="formItemListRef"
                 :is="getComponent({index, item, value: formData[item.name]})"
-                v-model="formData[item.name]"
+                v-model:value="formData[item.name]"
                 @change="(event: Record<string, any>) => handleChange({index, item, event})"
                 v-bind="getComponentProps(item, index)"
               />

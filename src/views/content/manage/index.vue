@@ -11,6 +11,13 @@ const formConfig = reactive<FormConfig>({
     gutter: 10,
   },
   props: {
+    wrapperCol: {
+      span: 24,
+    },
+    labelCol: {
+      span: 24,
+    },
+    layout: 'horizontal',
     labelWidth: 'auto',
   },
 });
@@ -204,11 +211,10 @@ const restForm = () => {
       :form-items="formItems"
       v-model:model="formState"
       @change="onFormChange"
-    >
-      <div class="action">
-        <a-button @click="restForm">重 置</a-button>
-        <a-button type="primary" @click="submitForm">提 交</a-button>
-      </div>
-    </SchemaForm>
+    />
+    <div class="text-align-right">
+      <a-button @click="restForm">重 置</a-button>
+      <a-button class="ml-10px" type="primary" @click="submitForm">提 交</a-button>
+    </div>
   </div>
 </template>

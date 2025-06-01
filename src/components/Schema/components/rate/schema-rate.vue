@@ -36,5 +36,5 @@ defineExpose({
     <slot v-if="viewSlot" :name="viewSlot"></slot>
     <template v-else>{{ viewValue }}</template>
   </template>
-  <a-rate v-else @change="handleChange" v-model="internalModel"/>
+  <a-rate v-else @change="handleChange" v-model:value="internalModel"/>
 </template>

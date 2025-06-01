@@ -37,7 +37,7 @@ defineExpose({
       <slot v-if="viewSlot" :name="viewSlot"></slot>
       <template v-else>{{ viewValue }}</template>
     </template>
-    <a-input v-bind="attrs" v-else @change="handleChange" v-model="internalModel">
+    <a-input v-bind="attrs" v-else @change="handleChange" v-model:value="internalModel">
       <template #append v-if="props?.itemProps?.appendSlot">
         <slot :name="props.itemProps.appendSlot"></slot>
       </template>

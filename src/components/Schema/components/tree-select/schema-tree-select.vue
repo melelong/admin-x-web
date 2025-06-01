@@ -43,5 +43,5 @@ defineExpose({
     <slot v-if="viewSlot" :name="viewSlot"></slot>
     <template v-else>{{ viewValue }}</template>
   </template>
-  <a-tree-select v-else @change="handleChange" v-model="internalModel" :data="options"/>
+  <a-tree-select v-else @change="handleChange" v-model="internalModel" :tree-data="options"/>
 </template>

@@ -53,7 +53,7 @@ defineExpose({
       v-else
       :loading="isLoading"
       @change="handleChange"
-      v-model="internalModel"
+      v-model:value="internalModel"
   >
     <template #header v-if="props?.itemProps?.headerSlot">
       <slot :name="props.itemProps.headerSlot"></slot>
@@ -73,13 +73,13 @@ defineExpose({
     <template #label v-if="props?.itemProps?.labelSlot">
       <slot :name="props.itemProps.labelSlot"></slot>
     </template>
-    <a-option
+    <a-select-option
         v-for="item in options"
         :key="item[valueKey]"
-        :label="item[labelKey]"
         :value="item[valueKey]"
         v-bind="props?.itemProps?.optionProps"
     >
-    </a-option>
+      {{ item[labelKey]}}
+    </a-select-option>
   </a-select>
 </template>
