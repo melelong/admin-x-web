@@ -1,3 +1,5 @@
+import { t } from '@/i18n';
+
 export const pieData = {
   backgroundColor: '#fff',
   tooltip: {
@@ -27,7 +29,7 @@ export const pieData = {
     left: '36%',
     top: 'center',
     style: {
-      text: '数据总览',
+      text: t('语言'),
       textAlign: 'center',
       fill: '#999',
       fontSize: 14,
@@ -86,8 +88,25 @@ export const pieData = {
       },
       data: [
         {
-          value: 1820,
-          name: 'C',
+          value: 1,
+          name: 'CSS',
+          itemStyle: {
+            color: {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 1,
+              y2: 0,
+              colorStops: [
+                { offset: 0, color: '#6a85f2' },
+                { offset: 1, color: '#8bd3f7' },
+              ],
+            },
+          },
+        },
+        {
+          value: 42.9,
+          name: 'TypeScript',
           itemStyle: {
             color: {
               type: 'linear',
@@ -102,26 +121,10 @@ export const pieData = {
             },
           },
         },
+
         {
-          value: 1530,
-          name: 'C++',
-          itemStyle: {
-            color: {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 1,
-              y2: 0,
-              colorStops: [
-                { offset: 0, color: '#a1c4fd' },
-                { offset: 1, color: '#c2e9fb' },
-              ],
-            },
-          },
-        },
-        {
-          value: 1260,
-          name: 'Java',
+          value: 13.9,
+          name: 'JavaScript',
           itemStyle: {
             color: {
               type: 'linear',
@@ -137,8 +140,8 @@ export const pieData = {
           },
         },
         {
-          value: 980,
-          name: 'JavaScript',
+          value: 7,
+          name: 'HTML',
           itemStyle: {
             color: {
               type: 'linear',
@@ -153,9 +156,10 @@ export const pieData = {
             },
           },
         },
+
         {
-          value: 2150,
-          name: 'Python',
+          value: 42.4,
+          name: 'Vue',
           itemStyle: {
             color: {
               type: 'linear',
@@ -164,8 +168,8 @@ export const pieData = {
               x2: 1,
               y2: 0,
               colorStops: [
-                { offset: 0, color: '#6a85f2' },
-                { offset: 1, color: '#8bd3f7' },
+                { offset: 0, color: '#a1c4fd' },
+                { offset: 1, color: '#c2e9fb' },
               ],
             },
           },
