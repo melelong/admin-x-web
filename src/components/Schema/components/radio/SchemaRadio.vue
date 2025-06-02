@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { onMounted, ref, useAttrs } from 'vue';
-import { useFormOptions } from '../../hooks/use-form-options';
-import type { FormItemProps } from '../../types';
-import { FORM_ITEM_EMIT_NAME } from '../../constants';
+import { useFormOptions } from '@/components/Schema/hooks/useFormOptions';
+import type { FormItemProps } from '@/components/Schema/types';
+import { FORM_ITEM_EMIT_NAME } from '@/components/Schema/constants';
 
 defineOptions({ name: 'SchemaRadio' });
 

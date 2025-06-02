@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { onMounted, ref, useAttrs } from 'vue';
-
-import { useFormOptions } from '../../hooks/use-form-options';
-import type { FormItemProps } from '../../types';
-import { FORM_ITEM_EMIT_NAME, OPTION_LABEL_KEY, OPTION_VALUE_KEY } from '../../constants';
+import { useFormOptions } from '@/components/Schema/hooks/useFormOptions';
+import type { FormItemProps } from '@/components/Schema/types';
+import {
+  FORM_ITEM_EMIT_NAME,
+  OPTION_LABEL_KEY,
+  OPTION_VALUE_KEY,
+} from '@/components/Schema/constants';
 
 defineOptions({ name: 'SchemaSelect' });
 
