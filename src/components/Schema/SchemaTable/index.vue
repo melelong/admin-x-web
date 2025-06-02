@@ -7,7 +7,7 @@ import {
   TABLE_CELL_CUSTOM_SLOT,
   TABLE_CELL_SLOT,
   TABLE_ROW_VALUE_KEY,
-} from '../constants';
+} from '@/components/Schema/constants';
 import SchemaFormMap from '@/components/Schema/components';
 import { CellChangeParams, ColumnItem, TableConfig } from '@/components/Schema/types';
 

@@ -1,4 +1,4 @@
-import type { FormElemType } from '../enums';
+import type { FormElemType } from '@/components/Schema/enums';
 
 export type PropFunction<T> = T | ((params?: Record<string, any>) => T | any);
 
