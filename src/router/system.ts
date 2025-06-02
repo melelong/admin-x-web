@@ -1,6 +1,7 @@
 import { BlockOutlined } from '@ant-design/icons-vue';
-import Layout from '@/layout/Layout.vue';
+
 import { t } from '@/i18n';
+import Layout from '@/layout/Layout.vue';
 
 export const systemList = [
   {

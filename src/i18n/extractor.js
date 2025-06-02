@@ -1,7 +1,7 @@
+import crypto from 'crypto';
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import crypto from 'crypto';
 
 // 动态导入 fast-glob
 const fastGlob = await import('fast-glob');
