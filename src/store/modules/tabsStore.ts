@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
 import { HomeOutlined } from '@ant-design/icons-vue';
 import router from '@/router';
 import { t } from '@/i18n';

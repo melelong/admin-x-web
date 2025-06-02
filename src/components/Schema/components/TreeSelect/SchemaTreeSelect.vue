@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { useFormOptions } from '../../hooks/use-form-options';
-import type { FormItemProps } from '../../types';
-import { FORM_ITEM_EMIT_NAME } from '../../constants';
+import { useFormOptions } from '@/components/Schema/hooks/useFormOptions';
+import { FORM_ITEM_EMIT_NAME } from '@/components/Schema/constants';
+import { FormItemProps } from '@/components/Schema/types';
 
 defineOptions({ name: 'SchemaTreeSelect' });
 

@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { saveMenu } from '@/api/system/menu';
 import { t } from '@/i18n';
-
-import { reactive, ref } from 'vue';
-
 const visible = ref(false);
 const modalTile = ref('');
 const showModal = () => {

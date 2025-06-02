@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue';
 import { PlusOutlined } from '@ant-design/icons-vue';
 import { type ColumnItem, type TableConfig } from '@/components/Schema/types';
 import SchemaTable from '@/components/Schema/SchemaTable/index.vue';

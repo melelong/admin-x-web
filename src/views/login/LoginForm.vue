@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
 import { userRegister } from '@/api/user';
 
 const formData = reactive({

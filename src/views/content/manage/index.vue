@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue';
 import { DisplayMode, FormElemType } from '@/components/Schema/enums';
 import SchemaForm from '@/components/Schema/SchemaForm/index.vue';
 import type { FormConfig, FormItemConfig } from '@/components/Schema/types';

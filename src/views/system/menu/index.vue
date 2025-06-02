@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
 import { SearchOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons-vue';
 import MenuFormModal from './components/MenuFormModal/index.vue';
 

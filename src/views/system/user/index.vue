@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
 import { SearchOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons-vue';
 import UserFormModal from './components/UserFormModal/index.vue';
 

@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
 import { isFunction, isUndefined, omit } from 'lodash-es';
-import type { FormConfig, FormItemConfig, FormItemChangeParams } from '../types';
-import { FORM_EMIT_NAME } from '../constants';
-import { DisplayMode } from '../enums';
-import { isTruthValue } from '../utils';
-
-import SchemaFormMap from '../components';
+import { FORM_EMIT_NAME } from '@/components/Schema/constants';
+import { DisplayMode } from '@/components/Schema/enums';
+import { isTruthValue } from '@/components/Schema/utils';
+import SchemaFormMap from '@/components/Schema/components';
+import { FormConfig, FormItemChangeParams, FormItemConfig } from '@/components/Schema/types';
 
 interface Props {
   config?: FormConfig;

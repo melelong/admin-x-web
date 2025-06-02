@@ -54,8 +54,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue';
-
 const props = defineProps({
   // 表格列配置
   columns: {

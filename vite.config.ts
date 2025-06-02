@@ -11,10 +11,7 @@ export default defineConfig({
     vue(),
     UnoCSS(),
     AutoImport({
-      imports: [
-        'vue',
-        'vue-router',
-      ],
+      imports: ['vue', 'vue-router'],
       dts: 'src/auto-imports.d.ts',
       eslintrc: {
         enabled: true,

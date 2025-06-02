@@ -1,8 +1,6 @@
-import { computed, ref } from 'vue';
-
 import { isArray, isEqual, isFunction, isNull, isUndefined } from 'lodash-es';
-import type { FormItemProps } from '../types';
-import { DisplayMode } from '../enums';
+import { DisplayMode } from '@/components/Schema/enums';
+import { FormItemProps } from '@/components/Schema/types';
 
 function useFormOptions(props: FormItemProps, formItemValue: any) {
   const { valueKey, labelKey } = props;

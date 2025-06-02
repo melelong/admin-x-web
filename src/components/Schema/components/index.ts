@@ -1,5 +1,5 @@
 import type { Component } from 'vue';
-import { FormElemType } from '../enums';
+import { FormElemType } from '@/components/Schema/enums';
 
 import SchemaCascader from './Cascader/SchemaCascader.vue';
 import SchemaCheckbox from './Checkbox/SchemaCheckbox.vue';

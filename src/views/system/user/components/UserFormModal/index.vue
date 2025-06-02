@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
-
 const formData = reactive({
   name: '',
   age: '',

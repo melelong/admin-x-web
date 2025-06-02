@@ -8,8 +8,8 @@ import {
   TABLE_CELL_SLOT,
   TABLE_ROW_VALUE_KEY,
 } from '../constants';
-import type { CellChangeParams, ColumnItem, TableConfig } from '../types';
-import SchemaFormMap from '../components';
+import SchemaFormMap from '@/components/Schema/components';
+import { CellChangeParams, ColumnItem, TableConfig } from '@/components/Schema/types';
 
 interface Props {
   config?: TableConfig;

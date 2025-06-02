@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
-
 import * as echarts from 'echarts';
 
 const props = defineProps({

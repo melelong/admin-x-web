@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
 import Sidebar from './Sidebar/index.vue';
 import Navbar from './Navbar/index.vue';
 import ViewTabs from './ViewTabs/index.vue';
