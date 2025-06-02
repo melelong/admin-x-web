@@ -25,15 +25,20 @@ const { isView, viewSlot, viewValue, options, isLoading, loadOptions } = useForm
   internalModel,
 );
 
-const emit = defineEmits([FORM_ITEM_EMIT_NAME]);
-const handleChange = () => {
-  emit(FORM_ITEM_EMIT_NAME, { ...props, internalModel });
+const emit = defineEmits<{
+  (e: 'field-change', payload: { name: string; value: any }): void
+}>();
+
+const handleChange = (value: any) => {
+  emit('field-change', { name: props.name, value });
 };
 
 onMounted(() => {
   loadOptions();
 });
+
 const attrs = useAttrs();
+
 defineExpose({
   loadOptions,
   bindFieldName: props.name,
@@ -51,7 +56,7 @@ defineExpose({
     v-else
     :loading="isLoading"
     @change="handleChange"
-    v-model:value="internalModel"
+    :value="value"
   >
     <template #header v-if="props?.itemProps?.headerSlot">
       <slot :name="props.itemProps.headerSlot"></slot>

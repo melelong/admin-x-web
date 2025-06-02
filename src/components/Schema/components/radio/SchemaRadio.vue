@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { useFormOptions } from '@/components/Schema/hooks/useFormOptions';
 import type { FormItemProps } from '@/components/Schema/types';
-import { FORM_ITEM_EMIT_NAME } from '@/components/Schema/constants';
-
-defineOptions({ name: 'SchemaRadio' });
 
 interface Props extends FormItemProps {
   value?: string | number | boolean;
@@ -14,13 +11,15 @@ const props = withDefaults(defineProps<Props>(), {
   valueKey: 'value',
   value: () => '',
 });
-const internalModel = ref(props.formData[props.name]);
 
-const { isView, viewSlot, viewValue, options, loadOptions } = useFormOptions(props, internalModel);
+const { isView, viewSlot, viewValue, options, loadOptions } = useFormOptions(props, computed(() => props.value));
 
-const emit = defineEmits([FORM_ITEM_EMIT_NAME]);
-const handleChange = () => {
-  emit(FORM_ITEM_EMIT_NAME, { ...props, internalModel });
+const emit = defineEmits<{
+  (e: 'field-change', payload: { name: string; value: any }): void
+}>();
+
+const handleChange = (e: any) => {
+  emit('field-change', { name: props.name, value: e.target.value });
 };
 
 onMounted(() => {
@@ -42,7 +41,7 @@ defineExpose({
       <slot v-if="viewSlot" :name="viewSlot"></slot>
       <template v-else>{{ viewValue }}</template>
     </template>
-    <a-radio-group v-bind="attrs" v-else @change="handleChange" v-model:value="internalModel">
+    <a-radio-group v-bind="attrs" v-else @change="handleChange" :value="value">
       <a-radio
         v-for="item in options"
         :key="item[valueKey]"

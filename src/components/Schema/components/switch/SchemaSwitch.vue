@@ -1,22 +1,23 @@
 <script setup lang="ts">
 import { useFormOptions } from '@/components/Schema/hooks/useFormOptions';
 import type { FormItemProps } from '@/components/Schema/types';
-import { FORM_ITEM_EMIT_NAME } from '@/components/Schema/constants';
 
-defineOptions({ name: 'SchemaSwitch' });
+const attrs = useAttrs();
 
 interface Props extends FormItemProps {
-  value?: string;
+  value?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {});
-const internalModel = ref(props.formData[props.name]);
 
-const { isView, viewSlot, viewValue } = useFormOptions(props, internalModel);
+const emit = defineEmits<{
+  (e: 'field-change', payload: { name: string; value: any }): void
+}>();
 
-const emit = defineEmits([FORM_ITEM_EMIT_NAME]);
-const handleChange = () => {
-  emit(FORM_ITEM_EMIT_NAME, { ...props, internalModel });
+const { isView, viewSlot, viewValue } = useFormOptions(props, computed(() => props.value));
+
+const handleChange = (value: boolean) => {
+  emit('field-change', { name: props.name, value });
 };
 
 defineExpose({
@@ -30,12 +31,6 @@ defineExpose({
     <slot v-if="viewSlot" :name="viewSlot"></slot>
     <template v-else>{{ viewValue }}</template>
   </template>
-  <a-switch v-else @change="handleChange" v-model:checked="internalModel">
-    <template #active-action v-if="props?.itemProps?.activeActionSlot">
-      <slot :name="props.itemProps.activeActionSlot"></slot>
-    </template>
-    <template #active-action v-if="props?.itemProps?.inactiveActionSlot">
-      <slot :name="props.itemProps.inactiveActionSlot"></slot>
-    </template>
+  <a-switch v-else @change="handleChange" :checked="value" v-bind="attrs">
   </a-switch>
 </template>
