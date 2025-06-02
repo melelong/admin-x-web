@@ -1,49 +1,36 @@
 <script setup lang="ts">
 import { useFormOptions } from '@/components/Schema/hooks/useFormOptions';
 import type { FormItemProps } from '@/components/Schema/types';
-import { FORM_ITEM_EMIT_NAME } from '@/components/Schema/constants';
 
-defineOptions({ name: 'SchemaInput' });
+const attrs = useAttrs();
 
 interface Props extends FormItemProps {
   value?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {});
-const internalModel = ref(props.formData[props.name]);
+const { isView, viewSlot, viewValue } = useFormOptions(props, computed(() => props.value));
 
-const { isView, viewSlot, viewValue } = useFormOptions(props, internalModel);
+const emit = defineEmits<{
+  (e: 'field-change', payload: { name: string; value: any }): void
+}>();
 
-const emit = defineEmits([FORM_ITEM_EMIT_NAME]);
-const handleChange = () => {
-  emit(FORM_ITEM_EMIT_NAME, { ...props, internalModel });
+const handleChange = (value: any) => {
+  emit('field-change', { name: props.name, value: value.target.value });
 };
-const attrs = useAttrs();
-defineExpose({
-  bindFieldName: props.name,
-  scope: props.scope,
-});
 </script>
 
 <template>
   <div>
     <template v-if="isView">
-      <slot v-if="viewSlot" :name="viewSlot"></slot>
+      <slot v-if="viewSlot" :name="viewSlot" :value="value"></slot>
       <template v-else>{{ viewValue }}</template>
     </template>
-    <a-input v-bind="attrs" v-else @change="handleChange" v-model:value="internalModel">
-      <template #append v-if="props?.itemProps?.appendSlot">
-        <slot :name="props.itemProps.appendSlot"></slot>
-      </template>
-      <template #prefix v-if="props?.itemProps?.prefixSlot">
-        <slot :name="props.itemProps.prefixSlot"></slot>
-      </template>
-      <template #suffix v-if="props?.itemProps?.suffixSlot">
-        <slot :name="props.itemProps.suffixSlot"></slot>
-      </template>
-      <template #prepend v-if="props?.itemProps?.prependSlot">
-        <slot :name="props.itemProps.prependSlot"></slot>
-      </template>
+    <a-input
+      v-else
+      v-bind="attrs"
+      @change="handleChange"
+    >
     </a-input>
   </div>
 </template>

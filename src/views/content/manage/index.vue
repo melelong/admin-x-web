@@ -40,6 +40,7 @@ const formItems = computed<FormItemConfig[]>(() => {
       component: FormElemType.INPUT,
       label: '姓名',
       name: 'name',
+
     },
     {
       component: FormElemType.RADIO,
@@ -213,6 +214,7 @@ const restForm = () => {
 
 <template>
   <div class="m-10px p-16px bg-#fff">
+    {{formState}}
     <SchemaForm
       ref="formRef"
       :config="formConfig"

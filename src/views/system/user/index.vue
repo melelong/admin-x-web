@@ -123,7 +123,7 @@ const handleDel = (index: number) => {
           新增
         </a-button>
       </div>
-      <a-table :data-source="dataSource" bordered :columns="columns">
+      <a-table size="small" :data-source="dataSource" bordered :columns="columns">
         <template #bodyCell="{ column, index }">
           <template v-if="column.key === 'action'">
             <a-button type="link" @click="handleEdit(index)">编辑</a-button>

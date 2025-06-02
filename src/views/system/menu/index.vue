@@ -73,7 +73,7 @@ const handleAdd = () => {
           新增
         </a-button>
       </div>
-      <a-table :data-source="dataSource" bordered :columns="columns">
+      <a-table size="small" :data-source="dataSource" bordered :columns="columns">
         <template #bodyCell="{ column }">
           <template v-if="column.key === 'action'">
             <a-button type="link">编辑</a-button>

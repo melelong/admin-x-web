@@ -3,8 +3,6 @@ import { useFormOptions } from '@/components/Schema/hooks/useFormOptions';
 import type { FormItemProps } from '@/components/Schema/types';
 import { FORM_ITEM_EMIT_NAME } from '@/components/Schema/constants';
 
-defineOptions({ name: 'SchemaCheckbox' });
-
 interface Props extends FormItemProps {
   value?: Array<string | number | boolean>;
 }
@@ -44,10 +42,10 @@ defineExpose({
     <a-checkbox
       v-for="item in options"
       :key="item[valueKey]"
-      :label="item[labelKey]"
       :value="item[valueKey]"
       v-bind="props?.itemProps?.optionProps"
     >
+      {{ item[labelKey]}}
     </a-checkbox>
   </a-checkbox-group>
 </template>

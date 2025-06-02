@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { isFunction, isUndefined, omit } from 'lodash-es';
-import { FORM_EMIT_NAME } from '@/components/Schema/constants';
 import { DisplayMode } from '@/components/Schema/enums';
 import { isTruthValue } from '@/components/Schema/utils';
 import SchemaFormMap from '@/components/Schema/components';
@@ -20,7 +19,10 @@ const props = withDefaults(defineProps<Props>(), {
   model: () => ({}),
 });
 
-const emit = defineEmits([FORM_EMIT_NAME]);
+const emit = defineEmits<{
+  (e: 'update:model', value: any): void;
+  (e: 'change', value: any): void;
+}>();
 
 const formData = reactive(props.model);
 
@@ -164,7 +166,8 @@ const handleChange = (params: { index: number; item: FormItemConfig; event: any 
   if (isFunction(item.change)) {
     item.change(payload);
   }
-  emit(FORM_EMIT_NAME, payload);
+  emit('update:model', formData);
+  emit('change', payload);
 };
 
 /**
@@ -180,8 +183,12 @@ const validate = () => {
  * 重置表单
  */
 const resetFields = () => {
-  console.log(formRef);
   formRef.value?.resetFields();
+};
+
+const fieldChange = (data: any) => {
+  console.log('fieldChange', data.event);
+  formData[data.item.name] = data.event.value;
 };
 
 /**
@@ -213,30 +220,19 @@ defineExpose({
               :rules="getRules(item)"
               v-bind="item?.formItemProps"
             >
-              <slot
-                v-if="item.labelSlot"
-                :name="item.labelSlot"
-                :scope="getComponentProps(item, index)"
-              />
-              <slot
-                v-if="item.errorSlot"
-                :name="item.errorSlot"
-                :scope="getComponentProps(item, index)"
-              />
               <slot v-if="item.slot" :name="item.slot" :scope="getComponentProps(item, index)" />
               <component
                 v-else
                 ref="formItemListRef"
                 :is="getComponent({ index, item, value: formData[item.name] })"
-                v-model:value="formData[item.name]"
-                @change="(event: Record<string, any>) => handleChange({ index, item, event })"
+                :value="formData[item.name]"
                 v-bind="getComponentProps(item, index)"
+                @field-change="(event: Record<string, any>) => fieldChange({ index, item, event })"
               />
             </a-form-item>
           </a-col>
         </template>
       </template>
     </a-row>
-    <slot></slot>
   </a-form>
 </template>
