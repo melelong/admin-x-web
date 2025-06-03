@@ -213,7 +213,7 @@ defineExpose({
             :name="item.customSlot"
             :scope="getComponentProps(item, index)"
           />
-          <a-col v-else v-bind="item?.column">
+          <a-col v-else :span="8">
             <a-form-item
               :label="item.label"
               :name="item.name"

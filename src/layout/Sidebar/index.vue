@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
+
 import { useTabsStore } from '@/store/modules/tabsStore';
+
 import MenuRecursive from './MenuRecursive.vue';
 
 const tabsStore = useTabsStore();

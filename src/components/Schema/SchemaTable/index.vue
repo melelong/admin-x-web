@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { isString, isUndefined, omit, isFunction } from 'lodash-es';
+
+import SchemaFormMap from '@/components/Schema/components';
 import {
   FORM_EMIT_NAME,
   TABLE_CELL_COMPONENT,
@@ -6,10 +9,8 @@ import {
   TABLE_CELL_SLOT,
   TABLE_ROW_VALUE_KEY,
 } from '@/components/Schema/constants';
-import SchemaFormMap from '@/components/Schema/components';
 import { CellChangeParams, ColumnItem, TableConfig } from '@/components/Schema/types';
-import { isString, isUndefined, omit, isFunction } from 'lodash-es';
-import { reactive, ref } from 'vue';
+
 
 interface Props {
   config?: TableConfig;

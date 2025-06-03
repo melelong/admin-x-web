@@ -1,12 +1,12 @@
 <script setup lang="ts">
+import { uniqueId, shuffle } from 'lodash-es';
+
 import ECharts from '@/components/ECharts/index.vue';
 import ScrollTable from '@/components/ScrollTable/index.vue';
-
-import { columns, tableData } from '@/views/dashboard/data/scrollTable';
 import { doubleBar } from '@/views/dashboard/data/doubleBar';
 import { lineBar } from '@/views/dashboard/data/lineBar';
 import { pieData } from '@/views/dashboard/data/pieData';
-import { uniqueId, shuffle } from 'lodash-es';
+import { columns, tableData } from '@/views/dashboard/data/scrollTable';
 
 const cards = [
   {

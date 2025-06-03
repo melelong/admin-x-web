@@ -3,7 +3,6 @@ import { FormElemType } from '@/components/Schema/enums';
 
 import SchemaCascader from './Cascader/SchemaCascader.vue';
 import SchemaCheckbox from './Checkbox/SchemaCheckbox.vue';
-import SchemaColorPicker from './ColorPicker/SchemaColorPicker.vue';
 import SchemaDatePicker from './DatePicker/SchemaDatePicker.vue';
 import SchemaInput from './Input/SchemaInput.vue';
 import SchemaInputNumber from './InputNumber/SchemaInputNumber.vue';
@@ -19,7 +18,6 @@ import SchemaTreeSelect from './TreeSelect/SchemaTreeSelect.vue';
 export default {
   [FormElemType.CASCADER]: SchemaCascader,
   [FormElemType.CHECKBOX]: SchemaCheckbox,
-  [FormElemType.COLOR_PICKER]: SchemaColorPicker,
   [FormElemType.DATE_PICKER]: SchemaDatePicker,
   [FormElemType.INPUT]: SchemaInput,
   [FormElemType.INPUT_NUMBER]: SchemaInputNumber,

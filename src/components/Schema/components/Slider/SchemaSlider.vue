@@ -12,9 +12,11 @@ const props = withDefaults(defineProps<Props>(), {});
 const internalModel = ref(props.formData[props.name]);
 
 const { isView, viewSlot, viewValue } = useFormOptions(props, internalModel);
+
 const emit = defineEmits<{
   (e: 'field-change', payload: { name: string; value: any }): void
 }>();
+
 const handleChange = (value: any) => {
   emit('field-change', { name: props.name, value });
 };

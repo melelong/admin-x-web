@@ -40,5 +40,5 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="chartContainer" class="w-100% h-310px overflow-hidden"></div>
+  <div ref="chartContainer" class="w-100% h-310px overflow-hidden"/>
 </template>

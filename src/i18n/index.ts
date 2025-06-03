@@ -1,8 +1,11 @@
-import { createI18n, type I18n, type Composer } from 'vue-i18n';
 import { App, ref, readonly } from 'vue';
-import zhCN from './locales/zh-CN.json';
-import enUS from './locales/en-US.json';
+import { createI18n, type I18n, type Composer } from 'vue-i18n';
+
 import { getLang, setLang } from '@/utils/lang';
+
+import enUS from './locales/en-US.json';
+import zhCN from './locales/zh-CN.json';
+
 
 type SupportedLocale = 'zh-CN' | 'en-US';
 

@@ -1,7 +1,8 @@
-import { defineStore } from 'pinia';
 import { HomeOutlined } from '@ant-design/icons-vue';
-import router from '@/router';
+import { defineStore } from 'pinia';
+
 import { t } from '@/i18n';
+import router from '@/router';
 
 export const useTabsStore = defineStore('tabs', () => {
   const tabs = ref<MenuTab[]>([]);

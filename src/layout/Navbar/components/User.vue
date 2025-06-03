@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { UserOutlined } from '@ant-design/icons-vue';
+
 import { t } from '@/i18n';
 </script>
 

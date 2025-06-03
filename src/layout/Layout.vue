@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import Sidebar from './Sidebar/index.vue';
 import Navbar from './Navbar/index.vue';
-import ViewTabs from './ViewTabs/index.vue';
+import Sidebar from './Sidebar/index.vue';
 import ViewFooter from './ViewFooter/index.vue';
+import ViewTabs from './ViewTabs/index.vue';
 
 const route = useRoute();
 </script>

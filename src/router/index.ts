@@ -1,12 +1,15 @@
-import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
-import Layout from '@/layout/Layout.vue';
 import { HomeOutlined, NodeIndexOutlined, BugOutlined, UserOutlined } from '@ant-design/icons-vue';
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
+
+import { t } from '@/i18n';
+import Layout from '@/layout/Layout.vue';
+import { useTabsStore } from '@/store/modules/tabsStore';
+
 import { contentList } from './content';
-import { systemList } from './system';
 import { monitorList } from './monitor';
 import { settingList } from './setting';
-import { useTabsStore } from '@/store/modules/tabsStore';
-import { t } from '@/i18n';
+import { systemList } from './system';
+
 
 const routes: Array<RouteRecordRaw> = [
   {

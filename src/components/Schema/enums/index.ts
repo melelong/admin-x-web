@@ -36,6 +36,4 @@ export enum FormElemType {
   DATE_PICKER = 'SCHEMA-DATE-PICKER',
   /** 评分 */
   RATE = 'SCHEMA-RATE',
-  /** 颜色选择器 */
-  COLOR_PICKER = 'SCHEMA-COLOR-PICKER',
 }
