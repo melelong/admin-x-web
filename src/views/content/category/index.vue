@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { PlusOutlined } from '@ant-design/icons-vue';
-import { type ColumnItem, type TableConfig } from '@/components/Schema/types';
+
 import SchemaTable from '@/components/Schema/SchemaTable/index.vue';
+import { type ColumnItem, type TableConfig } from '@/components/Schema/types';
 import { initSchema } from '@/views/content/category/schema';
 
 const columns = computed<ColumnItem[]>(() => {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { FORM_ITEM_EMIT_NAME } from '@/components/Schema/constants';
 import { useFormOptions } from '@/components/Schema/hooks/useFormOptions';
 import type { FormItemProps } from '@/components/Schema/types';
-import { FORM_ITEM_EMIT_NAME } from '@/components/Schema/constants';
 
 defineOptions({ name: 'SchemaInputNumber' });
 

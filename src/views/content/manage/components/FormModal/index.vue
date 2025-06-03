@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import SchemaForm from '@/components/Schema/SchemaForm/index.vue';
 import type { FormConfig, FormItemConfig } from '@/components/Schema/types';
-import { initSchema } from '@/views/content/manage/components/FormModal/schema';
 import { t } from '@/i18n';
+import { initSchema } from '@/views/content/manage/components/FormModal/schema';
 
 const visible = ref(false);
 const modalTile = ref('');

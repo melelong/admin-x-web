@@ -11,7 +11,6 @@ import {
 } from '@/components/Schema/constants';
 import { CellChangeParams, ColumnItem, TableConfig } from '@/components/Schema/types';
 
-
 interface Props {
   config?: TableConfig;
   columns: ColumnItem[];
@@ -22,7 +21,6 @@ const props = withDefaults(defineProps<Props>(), {
   columns: () => [],
   data: () => [],
 });
-
 const emit = defineEmits([FORM_EMIT_NAME]);
 
 /**

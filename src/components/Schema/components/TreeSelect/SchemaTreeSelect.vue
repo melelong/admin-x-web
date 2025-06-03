@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useFormOptions } from '@/components/Schema/hooks/useFormOptions';
 import { FORM_ITEM_EMIT_NAME } from '@/components/Schema/constants';
+import { useFormOptions } from '@/components/Schema/hooks/useFormOptions';
 import { FormItemProps } from '@/components/Schema/types';
 
 defineOptions({ name: 'SchemaTreeSelect' });

@@ -6,7 +6,6 @@
     "strict": true,
     "skipLibCheck": true,
     "jsx": "preserve",
-    "strictTemplates": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",

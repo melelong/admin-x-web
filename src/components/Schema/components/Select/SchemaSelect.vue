@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { useFormOptions } from '@/components/Schema/hooks/useFormOptions';
-import type { FormItemProps } from '@/components/Schema/types';
 import {
-  FORM_ITEM_EMIT_NAME,
   OPTION_LABEL_KEY,
   OPTION_VALUE_KEY,
 } from '@/components/Schema/constants';
+import { useFormOptions } from '@/components/Schema/hooks/useFormOptions';
+import type { FormItemProps } from '@/components/Schema/types';
 
 defineOptions({ name: 'SchemaSelect' });
 

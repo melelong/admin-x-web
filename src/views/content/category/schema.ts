@@ -37,7 +37,7 @@ export const initSchema = () => {
         { value: 0, label: '文科' },
         { value: 1, label: '理科' },
       ],
-      change: async function(params) {
+      change: async function(params: Record<string, any>) {
         const { loadOptions } = params;
         // 重新加载一次爱好的选项数据
         loadOptions({

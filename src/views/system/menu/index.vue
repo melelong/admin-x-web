@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { SearchOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons-vue';
+
 import MenuFormModal from './components/MenuFormModal/index.vue';
 
 const formState = reactive({

@@ -1,9 +1,15 @@
+import typescriptParser from '@typescript-eslint/parser';
 import eslintPluginImport from 'eslint-plugin-import';
 import eslintPluginVue from 'eslint-plugin-vue';
 import globals from 'globals';
 import vueParser from 'vue-eslint-parser';
 
 export default [
+  // 需要忽略的一些文件
+  {
+    ignores: ['eslint.config.js', 'src/i18n/extractor.js'],
+  },
+
   // 基础配置
   {
     languageOptions: {
@@ -12,23 +18,22 @@ export default [
       globals: { ...globals.browser, ...globals.node },
       parser: vueParser,
       parserOptions: {
-        parser: {
-          ts: '@typescript-eslint/parser',
-          js: '@typescript-eslint/parser', // 使用同一个解析器处理 JS 和 TS
-          extraFileExtensions: ['.vue']
-        }
-      }
+        parser: typescriptParser,
+        extraFileExtensions: ['.vue'],
+        project: './tsconfig.json',
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
     rules: {
       'no-console': 'warn',
-    }
+    },
   },
 
-  // 导入顺序配置
+  // 导入排序配置
   {
     files: ['**/*.{js,ts,vue}'],
     plugins: {
-      'import': eslintPluginImport
+      'import': eslintPluginImport,
     },
     rules: {
       'import/order': [
@@ -41,49 +46,53 @@ export default [
             ['parent', 'sibling'],
             'index',
             'object',
-            'type'
+            'type',
           ],
           'newlines-between': 'always',
           alphabetize: {
             order: 'asc',
-            caseInsensitive: true
+            caseInsensitive: true,
           },
           pathGroups: [
             {
               pattern: '@/**',
-              group: 'internal'
+              group: 'internal',
+              position: 'before',
             },
             {
               pattern: '*.{css,scss,less}',
-              group: 'internal',
-              position: 'after'
-            }
+              group: 'object',
+              position: 'after',
+            },
           ],
-          pathGroupsExcludedImportTypes: ['builtin']
-        }
-      ]
+          pathGroupsExcludedImportTypes: ['builtin'],
+          warnOnUnassignedImports: true,
+        },
+      ],
     },
     settings: {
       'import/resolver': {
         typescript: {
-          project: ['tsconfig.json']
+          project: './tsconfig.json',
+          alwaysTryTypes: true,
         },
-        node: true
+        node: {
+          extensions: ['.js', '.ts', '.vue'],
+        },
       },
-      'import/extensions': ['.js', '.ts', '.vue']
-    }
+      'import/extensions': ['.js', '.ts', '.vue'],
+    },
   },
 
-  // Vue 特定配置
+  // Vue 配置
   {
     files: ['**/*.vue'],
     plugins: {
-      'vue': eslintPluginVue
+      'vue': eslintPluginVue,
     },
     rules: {
-      'vue/multi-word-component-names': 'warn',
-      'vue/component-name-in-template-casing': ['warn', 'PascalCase'],
-      'vue/html-self-closing': 'warn'
-    }
-  }
+      'vue/multi-word-component-names': 'off',
+      'vue/component-api-style': ['error', ['script-setup']],
+    },
+  },
 ];

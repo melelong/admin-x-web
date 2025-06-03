@@ -1,3 +1,4 @@
+import { message } from 'ant-design-vue';
 import axios, {
   AxiosInstance,
   AxiosRequestConfig,
@@ -6,9 +7,9 @@ import axios, {
   InternalAxiosRequestConfig,
   CancelTokenSource,
 } from 'axios';
-import { message } from 'ant-design-vue';
-import { useUserStore } from '@/store/modules/user';
+
 import router from '@/router';
+import { useUserStore } from '@/store/modules/user';
 
 export interface ResponseData<T = any> {
   code: number;

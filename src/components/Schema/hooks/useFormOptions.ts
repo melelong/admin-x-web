@@ -1,4 +1,5 @@
 import { isArray, isEqual, isFunction, isNull, isUndefined } from 'lodash-es';
+
 import { DisplayMode } from '@/components/Schema/enums';
 import { FormItemProps } from '@/components/Schema/types';
 

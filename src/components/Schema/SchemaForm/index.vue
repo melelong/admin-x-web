@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { isFunction, isUndefined, omit } from 'lodash-es';
-import { DisplayMode } from '@/components/Schema/enums';
-import { isTruthValue } from '@/components/Schema/utils';
+
 import SchemaFormMap from '@/components/Schema/components';
+import { DisplayMode } from '@/components/Schema/enums';
 import { FormConfig, FormItemChangeParams, FormItemConfig } from '@/components/Schema/types';
+import { isTruthValue } from '@/components/Schema/utils';
 
 interface Props {
   config?: FormConfig;

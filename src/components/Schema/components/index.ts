@@ -1,4 +1,3 @@
-import type { Component } from 'vue';
 import { FormElemType } from '@/components/Schema/enums';
 
 import SchemaCascader from './Cascader/SchemaCascader.vue';
@@ -14,6 +13,8 @@ import SchemaSwitch from './Switch/SchemaSwitch.vue';
 import SchemaTimePicker from './TimePicker/SchemaTimePicker.vue';
 import SchemaTimeSelect from './TimeSelect/SchemaTimeSelect.vue';
 import SchemaTreeSelect from './TreeSelect/SchemaTreeSelect.vue';
+
+import type { Component } from 'vue';
 
 export default {
   [FormElemType.CASCADER]: SchemaCascader,
