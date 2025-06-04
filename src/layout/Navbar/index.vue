@@ -2,10 +2,10 @@
 import {
   ExpandOutlined,
   SearchOutlined,
-  BellOutlined,
   AppstoreOutlined,
 } from '@ant-design/icons-vue';
 
+import Notice from '@/layout/Navbar/components/Notice.vue';
 import Reload from '@/layout/Navbar/components/Reload.vue';
 import Translate from '@/layout/Navbar/components/Translate.vue';
 import User from '@/layout/Navbar/components/User.vue';
@@ -16,7 +16,7 @@ import User from '@/layout/Navbar/components/User.vue';
     <a-flex justify="space-between">
       <h1 class="ml-17px tracking-[3px]">Admin X</h1>
       <a-space class="font-size-18px" :size="44">
-        <BellOutlined />
+        <Notice />
         <SearchOutlined />
         <AppstoreOutlined />
         <Reload />
