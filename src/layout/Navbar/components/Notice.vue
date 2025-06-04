@@ -3,23 +3,6 @@ import { BellOutlined } from '@ant-design/icons-vue';
 
 import { t } from '@/i18n';
 
-const columns = [
-  {
-    dataIndex: 'title',
-    title: t('标题'),
-  },
-  {
-    dataIndex: 'title',
-    title: t('标题'),
-  },
-];
-
-const noticeList = ref([
-  {
-    title: '你好',
-  },
-]);
-
 const taskList = ref([
   {
     id: 1,
