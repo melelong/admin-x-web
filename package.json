@@ -13,8 +13,6 @@
   },
   "dependencies": {
     "@ant-design/icons-vue": "^7.0.1",
-    "@types/dompurify": "^3.2.0",
-    "@types/markdown-it": "^14.1.2",
     "ant-design-vue": "4.x",
     "axios": "^1.9.0",
     "dompurify": "^3.2.6",
@@ -29,6 +27,8 @@
   "devDependencies": {
     "@nabla/vite-plugin-eslint": "^2.0.5",
     "@types/lodash-es": "^4.17.12",
+    "@types/dompurify": "^3.2.0",
+    "@types/markdown-it": "^14.1.2",
     "@types/node": "^22.15.2",
     "@typescript-eslint/eslint-plugin": "^8.33.0",
     "@typescript-eslint/parser": "^8.33.0",
