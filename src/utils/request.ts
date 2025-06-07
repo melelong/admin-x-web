@@ -8,6 +8,7 @@ import axios, {
   CancelTokenSource,
 } from 'axios';
 
+import { useAuth } from '@/hooks/modules/useAuth';
 import router from '@/router';
 import { useUserStore } from '@/store/modules/user';
 
@@ -102,7 +103,7 @@ class Request {
    * 请求错误拦截器
    */
   private requestErrorInterceptor(error: AxiosError): Promise<AxiosError> {
-    console.error('请求拦截器错误:', error);
+
     return Promise.reject(error);
   }
 
@@ -146,7 +147,6 @@ class Request {
 
     // 处理取消的请求
     if (axios.isCancel(error)) {
-      console.log('请求已被取消:', error.message);
       return Promise.reject({
         code: -1,
         message: '请求已取消',
@@ -161,7 +161,7 @@ class Request {
   /**
    * 处理业务错误
    */
-  private handleBusinessError(data: ResponseData, config?: RequestConfig): Promise<never> {
+  private async handleBusinessError(data: ResponseData, config?: RequestConfig): Promise<never> {
     // 特殊状态码处理
     switch (data.code) {
       case 401: // 未授权
@@ -190,7 +190,7 @@ class Request {
   /**
    * 处理 HTTP 错误
    */
-  private handleHttpError(error: AxiosError, config?: RequestConfig): Promise<never> {
+  private async handleHttpError(error: AxiosError, config?: RequestConfig): Promise<never> {
     const status = error.response?.status;
     let errorMessage = '请求错误';
 
@@ -250,7 +250,7 @@ class Request {
   /**
    * 处理网络错误
    */
-  private handleNetworkError(error: AxiosError, config?: RequestConfig): Promise<never> {
+  private async handleNetworkError(error: AxiosError, config?: RequestConfig): Promise<never> {
     const errorMessage = error.message.includes('timeout') ? '网络请求超时' : '网络连接异常';
 
     // 显示错误消息
@@ -273,10 +273,8 @@ class Request {
   /**
    * 处理未知错误
    */
-  private handleUnknownError(error: AxiosError, config?: RequestConfig): Promise<never> {
+  private async handleUnknownError(error: AxiosError, config?: RequestConfig): Promise<never> {
     const errorMessage = '未知错误';
-    console.error('未知错误:', error);
-
     // 显示错误消息
     if (config?.showError !== false) {
       message.error(errorMessage);
@@ -298,19 +296,10 @@ class Request {
    * 处理未授权错误 (401)
    */
   private async handleUnauthorizedError(data?: ResponseData): Promise<never> {
-    const userStore = useUserStore();
+    const auth = useAuth();
 
-    // 清除用户信息
-    await userStore.logout();
-
-    // 重定向到登录页
-    router.push({
-      path: '/login',
-      query: {
-        redirect: router.currentRoute.value.fullPath,
-      },
-    });
-
+    // 退出登录
+    await auth.signOut();
     return Promise.reject({
       code: 401,
       message: data?.message || '登录已过期，请重新登录',
@@ -321,7 +310,7 @@ class Request {
   /**
    * 处理禁止访问错误 (403)
    */
-  private handleForbiddenError(data?: ResponseData): Promise<never> {
+  private async handleForbiddenError(data?: ResponseData): Promise<never> {
     message.error(data?.message || '没有权限访问此资源');
 
     return Promise.reject({
@@ -334,7 +323,7 @@ class Request {
   /**
    * 处理服务器错误 (500)
    */
-  private handleServerError(data: ResponseData): Promise<never> {
+  private async handleServerError(data: ResponseData): Promise<never> {
     message.error(data.message || '服务器内部错误');
 
     return Promise.reject({
@@ -469,7 +458,7 @@ class Request {
   }
 }
 
-// 创建请求实例
+/** 创建请求实例 */
 const http = new Request({
   baseURL: import.meta.env.VITE_API_BASE_URL,
 });
