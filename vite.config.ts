@@ -1,9 +1,10 @@
-import { defineConfig } from 'vite';
+import path from 'path';
+
+import eslint from '@nabla/vite-plugin-eslint';
 import vue from '@vitejs/plugin-vue';
 import UnoCSS from 'unocss/vite';
-import path from 'path';
-import eslint from '@nabla/vite-plugin-eslint';
 import AutoImport from 'unplugin-auto-import/vite';
+import { defineConfig } from 'vite';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -32,6 +33,7 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:8080',
         changeOrigin: true,
+        rewrite: (path) => path,
       },
     },
   },

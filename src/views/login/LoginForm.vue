@@ -1,20 +1,18 @@
 <script setup lang="ts">
-import { userRegister } from '@/api/user';
+import { useAuth } from '@/hooks';
 
+const auth = useAuth();
+const isLoading = ref(false);
 const formData = reactive({
   username: '',
   password: '',
 });
 
 const handleLogin = async () => {
-  await userRegister({
-    nickname: '格子大暑版',
-    email: 'fl9420@qq.com',
-    phone: '18888888888',
-    username: '格子大暑版',
-    password: 123456,
+  isLoading.value = true;
+  await auth.accountLogin(formData).finally(() => {
+    isLoading.value = false;
   });
-  // await router.replace({name: "Home"});
 };
 const checked = ref(false);
 </script>
@@ -30,7 +28,7 @@ const checked = ref(false);
         <a-input v-model:value="formData.password" placeholder="请输入密码"></a-input>
       </a-form-item>
       <a-form-item class="mt-36px">
-        <a-button class="w-full" type="primary" @click="handleLogin">登录 / 注册</a-button>
+        <a-button class="w-full" type="primary" :loading="isLoading" @click="handleLogin">登录 / 注册</a-button>
       </a-form-item>
     </a-form>
     <div>

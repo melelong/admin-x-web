@@ -8,9 +8,8 @@ import axios, {
   CancelTokenSource,
 } from 'axios';
 
-import { useAuth } from '@/hooks/modules/useAuth';
-import router from '@/router';
-import { useUserStore } from '@/store/modules/user';
+import { useAuth } from '@/hooks';
+import { useUserStore } from '@/store';
 
 export interface ResponseData<T = any> {
   code: number;
