@@ -10,6 +10,7 @@ const activeTab = computed(() => {
   return tabsStore.activeTab;
 });
 const handleChange = (key: string) => {
+  handleClickOutside()
   tabsStore.setActiveTab(key);
   router.push(key);
 };
@@ -110,6 +111,7 @@ onUnmounted(() => {
 
 <style scoped>
 .view-tabs-container {
+
   :deep(.ant-tabs-ink-bar) {
     display: none;
   }
