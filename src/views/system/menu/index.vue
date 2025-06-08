@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { SearchOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons-vue';
+import { onMounted } from 'vue';
+
+import { menuList } from '@/api/system/menu';
+import { t } from '@/i18n';
 
 import MenuFormModal from './components/MenuFormModal/index.vue';
 
@@ -9,6 +13,7 @@ const formState = reactive({
 });
 const columns = [
   {
+    width: 90,
     title: '序号',
     customRender: ({ index }: { index: number }) => index + 1,
   },
@@ -33,36 +38,53 @@ const columns = [
     width: '160px',
   },
 ];
-const dataSource = [
-  { name: '首页', path: '/', status: '已启用' },
-  { name: '菜单管理', path: '/system/menu', status: '已启用' },
-  { name: '用户管理', path: '/system/user', status: '已启用' },
-  { name: '角色管理', path: '/system/role', status: '已停用' },
-];
+const dataSource = ref<Menu[]>([]);
 
 const menuFormModalRef = ref();
 const handleAdd = () => {
-  menuFormModalRef.value.showModal({});
+  menuFormModalRef.value.showModal({
+    onSuccess: () => {
+      getDataSource();
+    },
+  });
 };
+
+const isLoading = ref(false);
+const getDataSource = async () => {
+  isLoading.value = true;
+  const res = await menuList({ pageNum: 1, pageSize: 10 });
+  dataSource.value = res.data.records;
+  isLoading.value = false;
+};
+
+const formRef = ref();
+const handleReset = () => {
+  formRef.value.resetFields();
+};
+
+const handleSearch = () => {
+  getDataSource();
+};
+
+onMounted(() => {
+  getDataSource();
+});
 </script>
 <template>
   <div class="m-10px">
     <div class="bg-white p-16px">
-      <a-form layout="inline">
-        <a-form-item label="菜单名" name="username">
-          <a-input v-model:value="formState.name" />
-        </a-form-item>
-        <a-form-item label="状态" name="nickname">
-          <a-input v-model:value="formState.status" />
+      <a-form ref="formRef" :model="formState" layout="inline">
+        <a-form-item :label="t('菜单名')" name="name">
+          <a-input :placeholder="t('请输入')" v-model:value="formState.name" />
         </a-form-item>
         <a-form-item>
-          <a-button>
+          <a-button @click="handleReset">
             <ReloadOutlined />
-            重置
+            {{ t('重置') }}
           </a-button>
-          <a-button class="ml-8px" type="primary">
+          <a-button @click="handleSearch" class="ml-8px" type="primary">
             <SearchOutlined />
-            搜索
+            {{ t('搜索') }}
           </a-button>
         </a-form-item>
       </a-form>
@@ -71,14 +93,14 @@ const handleAdd = () => {
       <div class="mb-16px">
         <a-button @click="handleAdd" type="primary">
           <PlusOutlined />
-          新增
+          {{ t('新增') }}
         </a-button>
       </div>
-      <a-table size="small" :data-source="dataSource" bordered :columns="columns">
+      <a-table :loading="isLoading" size="small" :data-source="dataSource" bordered :columns="columns">
         <template #bodyCell="{ column }">
           <template v-if="column.key === 'action'">
-            <a-button type="link">编辑</a-button>
-            <a-button danger type="link">删除</a-button>
+            <a-button type="link">{{t('编辑')}}</a-button>
+            <a-button danger type="link">{{ t('删除')}}</a-button>
           </template>
         </template>
       </a-table>

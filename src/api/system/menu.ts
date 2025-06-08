@@ -1,5 +1,26 @@
-import request from '@/utils/request';
+import request, { ResponseData } from '@/utils/request';
 
-export const saveMenu = (data: any) => {
-  return request.post('/api/menu', data);
+export interface Menu {
+  id?: number;
+  parentId?: number;
+  name: string;
+  title: string;
+  path: string;
+  component: string;
+  icon?: string;
+  cache?: boolean;
+  visible?: boolean;
+  redirect?: string;
+  menuType: number;
+  permission: string;
+  sortOrder: number;
+  status?: number;
+}
+
+export const saveMenu = (data: Menu) => {
+  return request.post('/menu/save', data);
+};
+
+export const menuList = (params: { pageNum: number, pageSize: number }): Promise<ResponseData<Menu>> => {
+  return request.get<Menu>('/menu/list', params);
 };
