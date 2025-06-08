@@ -18,9 +18,19 @@ const columns = [
     customRender: ({ index }: { index: number }) => index + 1,
   },
   {
-    title: '菜单名',
+    title: '名称',
+    dataIndex: 'title',
+    key: 'title',
+  },
+  {
+    title: '编码',
     dataIndex: 'name',
     key: 'name',
+  },
+  {
+    title: '权限',
+    dataIndex: 'permission',
+    key: 'permission',
   },
   {
     title: '地址',
@@ -52,7 +62,7 @@ const handleAdd = () => {
 const isLoading = ref(false);
 const getDataSource = async () => {
   isLoading.value = true;
-  const res = await menuList({ pageNum: 1, pageSize: 10 });
+  const res = await menuList({ pageNum: 1, pageSize: 100 });
   dataSource.value = res.data.records;
   isLoading.value = false;
 };

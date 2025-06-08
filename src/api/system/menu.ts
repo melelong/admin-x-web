@@ -1,3 +1,4 @@
+import { PageResult } from '@/types/global';
 import request, { ResponseData } from '@/utils/request';
 
 export interface Menu {
@@ -21,6 +22,6 @@ export const saveMenu = (data: Menu) => {
   return request.post('/menu/save', data);
 };
 
-export const menuList = (params: { pageNum: number, pageSize: number }): Promise<ResponseData<Menu>> => {
-  return request.get<Menu>('/menu/list', params);
+export const menuList = (params: { pageNum: number, pageSize: number }): Promise<ResponseData<PageResult<Menu>>> => {
+  return request.get('/menu/list', params);
 };
