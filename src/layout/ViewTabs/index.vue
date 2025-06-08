@@ -66,7 +66,7 @@ onUnmounted(() => {
 
 <template>
   <div
-    class="view-tabs-container px-8px h-40px flex inline-block items-center bg-#fff pos-sticky z-1000 top-0"
+    class="view-tabs-container px-8px h-34px flex inline-block items-center bg-#fff pos-sticky z-1000 top-0"
   >
     <a-tabs
       class="w-100%"
@@ -85,7 +85,7 @@ onUnmounted(() => {
             @click.stop="handleChange(tab.path)"
             @contextmenu.prevent="handleRightClick(tab, $event)"
             :color="tab.path === activeTab ? 'blue' : ''"
-            class="p-[5px_10px] mr-0 font-size-16px cursor-pointer hover:color-#0958d9 hover:bg-#e6f4ff hover:border-color-#91caff"
+            class="p-[4px_10px] mr-0 font-size-16px cursor-pointer hover:color-#0958d9 hover:bg-#e6f4ff hover:border-color-#91caff"
           >
             <component class="mr-0!" :is="tab.icon" />
             <span>{{ tab.title }}</span>
