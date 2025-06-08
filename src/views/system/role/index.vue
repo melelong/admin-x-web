@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ReloadOutlined, SearchOutlined } from '@ant-design/icons-vue';
 
-import { listRoles } from '@/api/system/roles';
+import { listRoles, type Role } from '@/api/system/roles';
 import { t } from '@/i18n';
 
 const isLoading = ref(false);
-const dataSource = ref<any[]>([]);
+const dataSource = ref<Role[]>([]);
 const getDataSource = async () => {
   isLoading.value = true;
   const res = await listRoles({ pageNum: 1, pageSize: 10 });
@@ -47,16 +47,16 @@ const columns = [
 ];
 
 const formState = ref({
-  name: ''
+  name: '',
 });
 
 const handleReset = () => {
 
-}
+};
 
 const handleSearch = () => {
 
-}
+};
 
 onMounted(async () => {
   await getDataSource();
