@@ -29,6 +29,12 @@ export const systemList = [
         component: () => import('@/views/system/role/index.vue'),
         meta: { title: t('角色管理') },
       },
+      {
+        path: 'icons',
+        name: 'Icons',
+        component: () => import('@/views/system/icons/index.vue'),
+        meta: { title: t('图标管理') },
+      },
     ],
   },
 ];
