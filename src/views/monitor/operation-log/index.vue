@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ReloadOutlined, SearchOutlined } from '@ant-design/icons-vue';
-import dayjs from 'dayjs'
+import dayjs from 'dayjs';
 
 import { logList, type Log } from '@/api/system/logs';
 import { t } from '@/i18n';
@@ -68,11 +68,11 @@ const formState = ref({
 });
 
 const handleReset = () => {
-
+  getDataSource();
 };
 
 const handleSearch = () => {
-
+  getDataSource();
 };
 
 onMounted(async () => {
