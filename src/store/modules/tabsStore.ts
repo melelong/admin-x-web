@@ -42,7 +42,7 @@ export const useTabsStore = defineStore('tabs', () => {
   };
 
   /** 移除标签 */
-  const removeTab = (path: string) => {
+  const removeTab = async (path: string) => {
     if (path === '/home') return;
 
     const removeIndex = tabs.value.findIndex((t: any) => t.path === path);
@@ -56,12 +56,12 @@ export const useTabsStore = defineStore('tabs', () => {
       const newActiveTab = tabs.value[removeIndex] || tabs.value[removeIndex - 1] || homeTab.value;
 
       // 直接进行路由跳转
-      router.push(newActiveTab.path);
+      await router.push(newActiveTab.path);
     }
   };
 
   /** 设置当前激活标签并进行路由跳转 */
-  const setActiveTab = (path: string) => {
+  const setActiveTab = async (path: string) => {
     // 确保标签存在
     const tabExists = tabs.value.some((t) => t.path === path);
 
@@ -70,8 +70,18 @@ export const useTabsStore = defineStore('tabs', () => {
 
     // 只有在当前路由不是目标路由时才跳转
     if (router.currentRoute.value.path !== path) {
-      router.push(path);
+      await router.push(path);
     }
+  };
+
+  /**
+   * tab 排序
+   * @param newIndex 目标位置
+   * @param oldIndex 开始位置
+   */
+  const draggableTabs = (newIndex: number, oldIndex: number) => {
+    const currRow = tabs.value.splice(oldIndex, 1)[0];
+    tabs.value.splice(newIndex, 0, currRow);
   };
 
   return {
@@ -81,5 +91,6 @@ export const useTabsStore = defineStore('tabs', () => {
     addTab,
     removeTab,
     setActiveTab,
+    draggableTabs,
   };
 });

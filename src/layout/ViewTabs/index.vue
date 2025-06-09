@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { CloseOutlined } from '@ant-design/icons-vue';
+import { isNumber } from 'lodash-es';
+import Sortable from 'sortablejs';
 
 import ContextMenu from '@/layout/ViewTabs/ContextMenu.vue';
 import { useTabsStore } from '@/store/modules/tabsStore';
@@ -10,7 +12,7 @@ const activeTab = computed(() => {
   return tabsStore.activeTab;
 });
 const handleChange = (key: string) => {
-  handleClickOutside()
+  handleClickOutside();
   tabsStore.setActiveTab(key);
   router.push(key);
 };
@@ -55,11 +57,29 @@ const handleClickOutside = () => {
   }
 };
 
+let sortable: Sortable | null = null;
+const initDraggableTabs = () => {
+  const tabsRef: HTMLElement | null = document.querySelector('.view-tabs-container  .ant-tabs-nav-list');
+  if (tabsRef) {
+    sortable = Sortable.create(tabsRef, {
+      animation: 180,
+      onEnd({ newIndex, oldIndex }: Sortable.SortableEvent) {
+        if (isNumber(newIndex) && isNumber(oldIndex)) {
+          tabsStore.draggableTabs(newIndex, oldIndex);
+        }
+      },
+    });
+  }
+};
+
+
 onMounted(() => {
+  initDraggableTabs();
   document.addEventListener('click', handleClickOutside);
 });
 
 onUnmounted(() => {
+  sortable?.destroy();
   document.removeEventListener('click', handleClickOutside);
 });
 </script>
@@ -69,7 +89,7 @@ onUnmounted(() => {
     class="view-tabs-container px-8px h-34px flex inline-block items-center bg-#fff pos-sticky z-1000 top-0"
   >
     <a-tabs
-      class="w-100%"
+      class="w-100% abc"
       v-model:activeKey="activeTab"
       tab-position="top"
       :tabBarGutter="8"
