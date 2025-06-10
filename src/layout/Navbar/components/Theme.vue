@@ -1,13 +1,13 @@
 <script setup lang="ts">
-
 import { AppstoreOutlined } from '@ant-design/icons-vue';
 
+
 import { t } from '@/i18n';
-import { useSystemStore } from '@/store/modules/systemStore';
+import { themeType, useSystemStore } from '@/store/modules/systemStore';
 
 const systemStore = useSystemStore();
 
-const themeList = [
+const themeList: { value: themeType, style: string, title: string }[] = [
   {
     value: 'light',
     style: 'bg-#e6f4ff border-color-#91caff color-#1677ff',
@@ -15,6 +15,7 @@ const themeList = [
   },
   {
     value: 'dark',
+    style: 'border-color-#91caff color-#1677ff',
     title: t('深色模式'),
   },
 ];
@@ -43,6 +44,7 @@ const modeList = [
             v-for="item in themeList"
             :key="item.value"
             class="w-full cursor-pointer"
+            @click="systemStore.setTheme(item.value)"
             :class="systemStore.theme === item.value ? item.style: ''"
           >
             {{ item.title }}

@@ -10,7 +10,15 @@ const antLocale = computed(() => (locale.value === 'zh-CN' ? zhCN : enUS));
 </script>
 
 <template>
-  <a-config-provider :locale="antLocale">
+  <a-config-provider
+    :theme="{
+      token: {
+        colorLink: '#4d6bfe',
+        colorPrimary: '#4d6bfe',
+      },
+    }"
+    :locale="antLocale"
+  >
     <RouterView />
   </a-config-provider>
 </template>
