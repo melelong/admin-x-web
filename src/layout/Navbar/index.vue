@@ -9,7 +9,7 @@ import User from '@/layout/Navbar/components/User.vue';
 </script>
 
 <template>
-  <div class="color-white">
+  <div>
     <a-flex justify="space-between">
       <h1 class="ml-17px tracking-[3px]">Admin X</h1>
       <a-space class="font-size-18px" :size="44">
