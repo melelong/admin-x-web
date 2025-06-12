@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { CloseOutlined } from '@ant-design/icons-vue';
+import { CloseOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue';
 import { isNumber } from 'lodash-es';
 import Sortable from 'sortablejs';
 
 import ContextMenu from '@/layout/ViewTabs/ContextMenu.vue';
+import { useSystemStore } from '@/store/modules/systemStore';
 import { useTabsStore } from '@/store/modules/tabsStore';
 
 const router = useRouter();
 const tabsStore = useTabsStore();
+const systemStore = useSystemStore();
 const activeTab = computed(() => {
   return tabsStore.activeTab;
 });
@@ -88,6 +90,12 @@ onUnmounted(() => {
   <div
     class="view-tabs-container px-8px h-34px flex inline-block items-center bg-#fff pos-sticky z-1000 top-0"
   >
+    <a-tag @click="systemStore.toggleCollapsed"
+           class="p-[4px_10px] mr-8px  cursor-pointer hover:color-#0958d9 hover:border-color-#91caff hover:bg-#e6f4ff">
+      <component
+        :is="systemStore.isCollapsed ?  MenuUnfoldOutlined: MenuFoldOutlined"
+      />
+    </a-tag>
     <a-tabs
       class="w-100% abc"
       v-model:activeKey="activeTab"
