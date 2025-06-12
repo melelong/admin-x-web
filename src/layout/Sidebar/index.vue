@@ -25,6 +25,7 @@ const handleMenuClick = ({ key }: { key: string }) => {
     class="h-[calc(100vh-64px)] overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
     :theme="systemStore.theme"
     mode="inline"
+    :class="`${systemStore.isCollapsed ? '' : 'w-220px'}`"
     :inline-collapsed="systemStore.isCollapsed"
     :selectedKeys="[activeTab]"
     @click="handleMenuClick"
