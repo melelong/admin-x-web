@@ -22,10 +22,10 @@ const handleMenuClick = ({ key }: { key: string }) => {
 
 <template>
   <a-menu
-    class="h-[calc(100vh-64px)] overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+    class="overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
     :theme="systemStore.theme"
-    mode="inline"
-    :class="`${systemStore.isCollapsed ? '' : 'w-220px'}`"
+    :mode="systemStore.layout.menu.mode"
+    :class="systemStore.layout.menu.style"
     :inline-collapsed="systemStore.isCollapsed"
     :selectedKeys="[activeTab]"
     @click="handleMenuClick"

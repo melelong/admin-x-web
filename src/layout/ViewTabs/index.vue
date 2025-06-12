@@ -88,16 +88,18 @@ onUnmounted(() => {
 
 <template>
   <div
-    class="view-tabs-container px-8px h-34px flex inline-block items-center bg-#fff pos-sticky z-1000 top-0"
+    class="view-tabs-container px-8px h-34px flex  items-center bg-#fff pos-sticky z-1000 top-0"
   >
-    <a-tag @click="systemStore.toggleCollapsed"
-           class="p-[4px_10px] mr-8px  cursor-pointer hover:color-#0958d9 hover:border-color-#91caff hover:bg-#e6f4ff">
+    <a-tag
+      v-if="systemStore.layout.collapsed"
+      @click="systemStore.toggleCollapsed"
+      class="w-40px text-align-center py-4px mr-8px  cursor-pointer hover:color-#0958d9 hover:border-color-#91caff hover:bg-#e6f4ff">
       <component
         :is="systemStore.isCollapsed ?  MenuUnfoldOutlined: MenuFoldOutlined"
       />
     </a-tag>
     <a-tabs
-      class="w-100% abc"
+      :class="systemStore.layout.tabs.style"
       v-model:activeKey="activeTab"
       tab-position="top"
       :tabBarGutter="8"

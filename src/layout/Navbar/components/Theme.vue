@@ -3,7 +3,7 @@ import { AppstoreOutlined } from '@ant-design/icons-vue';
 
 
 import { t } from '@/i18n';
-import { themeType, useSystemStore } from '@/store/modules/systemStore';
+import { layoutType, themeType, useSystemStore } from '@/store/modules/systemStore';
 
 const systemStore = useSystemStore();
 
@@ -20,15 +20,15 @@ const themeList: { value: themeType, style: string, title: string }[] = [
   },
 ];
 
-const modeList = [
+const modeList: { value: layoutType, style: string, title: string }[] = [
   {
-    value: '1',
+    value: 'classic',
     style: 'bg-#e6f4ff border-color-#91caff color-#1677ff',
     title: t('经典'),
   },
   {
-    value: '2',
-    style: '',
+    value: 'unbounded',
+    style: 'bg-#e6f4ff',
     title: t('无界'),
   },
 ];
@@ -55,7 +55,8 @@ const modeList = [
         <a-card
           v-for="item in modeList"
           :key="item.value"
-          :class="item.style"
+          :class="systemStore.currentLayout === item.value? item.style : ''"
+          @click="systemStore.setLayout(item.value)"
           class="cursor-pointer mt-16px"
         >
           {{ item.title }}
