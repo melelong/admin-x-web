@@ -15,7 +15,7 @@ export const useSystemStore = defineStore('system', () => {
       // 经典
       classic: {
         tabs: {
-          style: `w-80vw!`
+          style: ''
         },
         collapsed: true,
         menu: {

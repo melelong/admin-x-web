@@ -101,6 +101,7 @@ onUnmounted(() => {
     <a-tabs
       :class="systemStore.layout.tabs.style"
       v-model:activeKey="activeTab"
+      style="width: calc(100vw - 300px)!important;"
       tab-position="top"
       :tabBarGutter="8"
       :tabBarStyle="{

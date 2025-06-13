@@ -10,12 +10,12 @@ const systemStore = useSystemStore();
 const themeList: { value: themeType, style: string, title: string }[] = [
   {
     value: 'light',
-    style: 'bg-#e6f4ff border-color-#91caff color-#1677ff',
+    style: 'bg-#e6f4ff border-color-#1677ff color-#1677ff border-2px',
     title: t('浅色模式'),
   },
   {
     value: 'dark',
-    style: 'border-color-#91caff color-#1677ff',
+    style: 'bg-#e6f4ff border-color-#1677ff color-#1677ff border-2px',
     title: t('深色模式'),
   },
 ];
@@ -23,12 +23,12 @@ const themeList: { value: themeType, style: string, title: string }[] = [
 const modeList: { value: layoutType, style: string, title: string }[] = [
   {
     value: 'classic',
-    style: 'bg-#e6f4ff border-color-#91caff color-#1677ff',
+    style: 'bg-#e6f4ff border-color-#1677ff color-#1677ff border-2px',
     title: t('经典'),
   },
   {
     value: 'unbounded',
-    style: 'bg-#e6f4ff',
+    style: 'bg-#e6f4ff border-color-#1677ff color-#1677ff border-2px',
     title: t('无界'),
   },
 ];
