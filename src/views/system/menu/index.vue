@@ -2,7 +2,7 @@
 import { SearchOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons-vue';
 import { onMounted } from 'vue';
 
-import { menuList } from '@/api/system/menu';
+import { menuTree } from '@/api/system/menu';
 import { t } from '@/i18n';
 
 import MenuFormModal from './components/MenuFormModal/index.vue';
@@ -12,11 +12,6 @@ const formState = reactive({
   status: '',
 });
 const columns = [
-  {
-    width: 90,
-    title: '序号',
-    customRender: ({ index }: { index: number }) => index + 1,
-  },
   {
     title: '名称',
     dataIndex: 'title',
@@ -62,8 +57,8 @@ const handleAdd = () => {
 const isLoading = ref(false);
 const getDataSource = async () => {
   isLoading.value = true;
-  const res = await menuList({ pageNum: 1, pageSize: 100 });
-  dataSource.value = res.data.records;
+  const res = await menuTree();
+  dataSource.value = res.data;
   isLoading.value = false;
 };
 
@@ -106,11 +101,19 @@ onMounted(() => {
           {{ t('新增') }}
         </a-button>
       </div>
-      <a-table :loading="isLoading" size="small" :data-source="dataSource" bordered :columns="columns">
+      <a-table
+        :pagination="false"
+        :loading="isLoading"
+        size="small"
+        rowKey="id"
+        :data-source="dataSource"
+        bordered
+        :columns="columns"
+      >
         <template #bodyCell="{ column }">
           <template v-if="column.key === 'action'">
-            <a-button type="link">{{t('编辑')}}</a-button>
-            <a-button danger type="link">{{ t('删除')}}</a-button>
+            <a-button type="link">{{ t('编辑') }}</a-button>
+            <a-button danger type="link">{{ t('删除') }}</a-button>
           </template>
         </template>
       </a-table>

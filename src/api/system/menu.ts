@@ -1,4 +1,3 @@
-import { PageResult } from '@/types/global';
 import request, { ResponseData } from '@/utils/request';
 
 export interface Menu {
@@ -16,12 +15,13 @@ export interface Menu {
   permission: string;
   sortOrder: number;
   status?: number;
+  children: Menu[];
 }
 
 export const saveMenu = (data: Menu) => {
   return request.post('/menu/save', data);
 };
 
-export const menuList = (params: { pageNum: number, pageSize: number }): Promise<ResponseData<PageResult<Menu>>> => {
-  return request.get('/menu/list', params);
+export const menuTree = (): Promise<ResponseData<Menu[]>> => {
+  return request.get('/menu/tree');
 };
