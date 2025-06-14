@@ -23,14 +23,29 @@ const columns = [
     key: 'name',
   },
   {
+    title: '类型',
+    dataIndex: 'menuType',
+    key: 'menuType',
+  },
+  {
     title: '权限',
     dataIndex: 'permission',
     key: 'permission',
   },
   {
+    title: '组件',
+    dataIndex: 'component',
+    key: 'component',
+  },
+  {
     title: '地址',
     dataIndex: 'path',
     key: 'path',
+  },
+  {
+    title: '排序',
+    dataIndex: 'sortOrder',
+    key: 'sortOrder',
   },
   {
     title: '状态',
