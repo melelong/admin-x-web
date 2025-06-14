@@ -22,10 +22,9 @@ const handleMenuClick = ({ key }: { key: string }) => {
 
 <template>
   <a-menu
-    class="overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+    class="[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
     :theme="systemStore.theme"
     :mode="systemStore.layout.menu.mode"
-    :class="systemStore.layout.menu.style"
     :inline-collapsed="systemStore.isCollapsed"
     :selectedKeys="[activeTab]"
     @click="handleMenuClick"

@@ -19,20 +19,24 @@ const route = useRoute();
       </Navbar>
     </a-layout-header>
     <a-layout>
-      <a-flex>
-        <aside v-if="systemStore.currentLayout === 'classic'">
-          <Sidebar />
-        </aside>
-        <a-layout-content>
-          <div class="h-[calc(100vh-64px)] overflow-auto">
-            <ViewTabs />
-            <router-view v-slot="{ Component }">
-              <component :is="Component" />
-            </router-view>
-            <ViewFooter v-if="route?.meta?.footer" />
-          </div>
-        </a-layout-content>
-      </a-flex>
+      <a-layout-sider
+        :width="220"
+        v-if="systemStore.currentLayout === 'classic'"
+        :collapsed="systemStore.isCollapsed"
+      >
+        <Sidebar
+          :class="systemStore.layout.menu.style"
+        />
+      </a-layout-sider>
+      <a-layout-content>
+        <ViewTabs />
+        <div class="h-[calc(100vh-100px)] overflow-y-auto">
+          <router-view v-slot="{ Component }">
+            <component :is="Component" />
+          </router-view>
+          <ViewFooter v-if="route?.meta?.footer" />
+        </div>
+      </a-layout-content>
     </a-layout>
   </a-layout>
 </template>

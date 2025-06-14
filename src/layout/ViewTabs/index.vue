@@ -88,7 +88,7 @@ onUnmounted(() => {
 
 <template>
   <div
-    class="view-tabs-container px-8px h-34px flex  items-center bg-#fff pos-sticky z-1000 top-0"
+    class="view-tabs-container flex items-center px-8px h-36px bg-#fff pos-sticky z-1000 top-0"
   >
     <a-tag
       v-if="systemStore.layout.collapsed"
@@ -100,13 +100,13 @@ onUnmounted(() => {
     </a-tag>
     <a-tabs
       :class="systemStore.layout.tabs.style"
+      class="w-0 flex-auto"
       v-model:activeKey="activeTab"
-      style="width: calc(100vw - 300px)!important;"
       tab-position="top"
       :tabBarGutter="8"
       :tabBarStyle="{
         margin: '0',
-        height: '40px',
+        height: '36px',
       }"
     >
       <a-tab-pane v-for="tab in tabsStore.tabs" :key="tab.path">

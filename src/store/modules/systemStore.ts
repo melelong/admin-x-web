@@ -19,14 +19,14 @@ export const useSystemStore = defineStore('system', () => {
         },
         collapsed: true,
         menu: {
-          style: `h-[calc(100vh-64px)] ${isCollapsed.value ? '' : 'w-220px'}`,
+          style: `overflow-y-auto h-[calc(100vh-64px)]`,
           mode: 'inline',
         },
       },
       // 无界
       unbounded: {
         tabs: {
-          style: 'w-90vw!'
+          style: ''
         },
         collapsed: false,
         menu: {
