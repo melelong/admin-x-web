@@ -24,9 +24,7 @@ const route = useRoute();
         v-if="systemStore.currentLayout === 'classic'"
         :collapsed="systemStore.isCollapsed"
       >
-        <Sidebar
-          :class="systemStore.layout.menu.style"
-        />
+        <Sidebar />
       </a-layout-sider>
       <a-layout-content>
         <ViewTabs />

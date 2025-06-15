@@ -26,6 +26,7 @@ const handleMenuClick = ({ key }: { key: string }) => {
     :theme="systemStore.theme"
     :mode="systemStore.layout.menu.mode"
     :inline-collapsed="systemStore.isCollapsed"
+    :class="systemStore.layout.menu.style"
     :selectedKeys="[activeTab]"
     @click="handleMenuClick"
   >

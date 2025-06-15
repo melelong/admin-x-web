@@ -19,7 +19,7 @@ export const useSystemStore = defineStore('system', () => {
         },
         collapsed: true,
         menu: {
-          style: `overflow-y-auto h-[calc(100vh-64px)]`,
+          style: 'overflow-y-auto h-[calc(100vh-64px)]',
           mode: 'inline',
         },
       },
