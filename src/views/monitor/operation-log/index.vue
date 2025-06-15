@@ -5,12 +5,22 @@ import dayjs from 'dayjs';
 import { logList, type Log } from '@/api/system/logs';
 import { t } from '@/i18n';
 
+import type { TablePaginationConfig } from 'ant-design-vue';
+
+const pagination = reactive<TablePaginationConfig>({
+  current: 1,
+  pageSize: 10,
+  total: 0,
+  showTotal: (total: number) => `共 ${total} 条记录`,
+});
+
 const isLoading = ref(false);
 const dataSource = ref<Log[]>([]);
 const getDataSource = async () => {
   isLoading.value = true;
-  const res = await logList({ pageNum: 1, pageSize: 10 });
+  const res = await logList({ page: pagination.current as number, size: pagination.pageSize as number });
   dataSource.value = res.content;
+  pagination.total = res.totalElements;
   isLoading.value = false;
 };
 
@@ -75,6 +85,11 @@ const handleSearch = () => {
   getDataSource();
 };
 
+const handleTableChange = (pag: TablePaginationConfig) => {
+  pagination.current = pag.current;
+  getDataSource();
+};
+
 onMounted(async () => {
   await getDataSource();
 });
@@ -101,7 +116,15 @@ onMounted(async () => {
       </a-form>
     </div>
     <div class="p-16px bg-white rounded">
-      <a-table :loading="isLoading" size="small" :data-source="dataSource" bordered :columns="columns">
+      <a-table
+        :loading="isLoading"
+        size="small"
+        :data-source="dataSource"
+        bordered
+        :pagination="pagination"
+        :columns="columns"
+        @change="handleTableChange"
+      >
         <template #bodyCell="{ column }">
           <template v-if="column.key === 'action'">
             <a-button type="link">{{ t('查看') }}</a-button>

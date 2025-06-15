@@ -4,6 +4,6 @@ export interface Log {
 
 }
 
-export const logList = (params: { pageNum: number, pageSize: number }): Promise<any> => {
+export const logList = (params: { page: number, size: number }): Promise<any> => {
   return request.get('/logs', params);
 };

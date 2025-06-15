@@ -7,13 +7,26 @@ export interface Role {
   roleKey: string;
   sort: number;
   dataScope: number;
-  status: number;  // 0-正常 1-停用
+  status: number;
   remark: string;
-  isDeleted: number;  // 0-未删除 1-已删除
-  createTime: string;  // ISO 8601格式日期
+  isDeleted: number;
+  createTime: string;
   updateTime: string;
+}
+
+export interface RoleMenuEdit {
+  roleId: number;
+  menuIds: number[];
 }
 
 export const listRoles = (data: { pageNum: number, pageSize: number }): Promise<ResponseData<PageResult<Role>>> => {
   return request.get('/system/roles', data);
+};
+
+export const rolePermissions = (roleId: number): Promise<ResponseData> => {
+  return request.get(`/system/roles/permission/${roleId}`);
+};
+
+export const setRoleMenus = (data: RoleMenuEdit): Promise<ResponseData> => {
+  return request.post('/system/roles/setRoleMenus', data);
 };

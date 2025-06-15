@@ -4,6 +4,8 @@ import { ReloadOutlined, SearchOutlined } from '@ant-design/icons-vue';
 import { listRoles, type Role } from '@/api/system/roles';
 import { t } from '@/i18n';
 
+import RoleFormModal from './components/RoleFormModal/index.vue';
+
 const isLoading = ref(false);
 const dataSource = ref<Role[]>([]);
 const getDataSource = async () => {
@@ -15,7 +17,7 @@ const getDataSource = async () => {
 
 const columns = [
   {
-    width: 90,
+    width: 50,
     title: '序号',
     customRender: ({ index }: { index: number }) => index + 1,
   },
@@ -42,7 +44,7 @@ const columns = [
   {
     title: '操作',
     key: 'action',
-    width: '160px',
+    width: 150,
   },
 ];
 
@@ -56,6 +58,16 @@ const handleReset = () => {
 
 const handleSearch = () => {
 
+};
+
+const roleFormModalRef = ref();
+const handleEdit = (record: Role) => {
+  roleFormModalRef.value.showModal({
+    row: record,
+    onSuccess: () => {
+      getDataSource()
+    },
+  });
 };
 
 onMounted(async () => {
@@ -85,13 +97,15 @@ onMounted(async () => {
     </div>
     <div class="p-16px bg-white rounded">
       <a-table :loading="isLoading" size="small" :data-source="dataSource" bordered :columns="columns">
-        <template #bodyCell="{ column }">
+        <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'action'">
-            <a-button type="link">{{ t('编辑') }}</a-button>
+            <a-button @click="handleEdit(record)" type="link">{{ t('编辑') }}</a-button>
             <a-button danger type="link">{{ t('删除') }}</a-button>
           </template>
         </template>
       </a-table>
     </div>
+    <!-- 编辑角色 -->
+    <RoleFormModal ref="roleFormModalRef" />
   </div>
 </template>
