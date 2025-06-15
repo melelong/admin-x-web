@@ -144,6 +144,8 @@ class Request {
       cancelTokenMap.delete(requestKey);
     }
 
+    await this.handleHttpError(error);
+
     // 处理取消的请求
     if (axios.isCancel(error)) {
       return Promise.reject({
