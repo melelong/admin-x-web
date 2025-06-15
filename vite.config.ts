@@ -21,7 +21,7 @@ export default defineConfig({
     eslint({
       eslintOptions: {
         fix: true,
-        cache: true,
+        cache: false,
       },
     }),
   ],
