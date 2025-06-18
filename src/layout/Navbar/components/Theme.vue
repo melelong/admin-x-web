@@ -38,7 +38,7 @@ const modeList: { value: layoutType, style: string, title: string }[] = [
   <a-popover>
     <template #content>
       <div class="w-400px overflow-hidden">
-        <div class="title-label mb-10px font-size-18px">{{ t('主题') }}</div>
+        <div class="title-label mb-10px font-size-17px">{{ t('主题') }}</div>
         <a-flex :gap="16" class="font-700">
           <a-card
             v-for="item in themeList"
@@ -51,7 +51,7 @@ const modeList: { value: layoutType, style: string, title: string }[] = [
           </a-card>
         </a-flex>
 
-        <div class="title-label mt-32px mb-10px font-size-18px">{{ t('排布模式') }}</div>
+        <div class="title-label mt-32px mb-10px font-size-17px">{{ t('排布模式') }}</div>
         <a-card
           v-for="item in modeList"
           :key="item.value"

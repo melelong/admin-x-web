@@ -28,7 +28,7 @@ h6 {
     display: block;
     left: 0;
     width: 4px;
-    height: 70%;
+    height: 1em;
     top: 50%;
     transform: translateY(-50%);
     border-radius: 2px;
