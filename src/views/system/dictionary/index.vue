@@ -1,0 +1,159 @@
+<script setup lang="ts">
+import { SearchOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons-vue';
+import { onMounted } from 'vue';
+
+import { dictPage, Dict } from '@/api/system/dictionary';
+import { t } from '@/i18n';
+
+import DictionaryDataModal from './components/DictionaryDataModal/index.vue';
+import DictionaryFormModal from './components/DictionaryFormModal/index.vue';
+
+import type { TablePaginationConfig } from 'ant-design-vue';
+
+const pagination = reactive<TablePaginationConfig>({
+  current: 1,
+  pageSize: 10,
+  total: 0,
+  showTotal: (total: number) => `共 ${total} 条记录`,
+});
+
+const formState = reactive({
+  dictName: '',
+  dictCode: '',
+});
+const columns = [
+  {
+    width: 220,
+    title: '名称',
+    dataIndex: 'dictName',
+    key: 'dictName',
+  },
+  {
+    width: 220,
+    title: '编码',
+    dataIndex: 'dictCode',
+    key: 'dictCode',
+  },
+  {
+    width: 220,
+    title: '状态',
+    dataIndex: 'status',
+    key: 'status',
+    customRender: ({ text }: { text: number }) => text === 1 ? '启用' : '禁用',
+  },
+  {
+    title: '备注',
+    dataIndex: 'remark',
+    key: 'remark',
+  },
+  {
+    title: '操作',
+    key: 'action',
+    width: 200,
+  },
+];
+const dataSource = ref<Dict[]>([]);
+
+const dictionaryFormModalRef = ref();
+const handleAdd = () => {
+  dictionaryFormModalRef.value.showModal({
+    onSuccess: () => {
+      getDataSource();
+    },
+  });
+};
+
+const dictionaryDataModalRef = ref();
+const viewDictionaryData = (row: Dict) => {
+  dictionaryDataModalRef.value.showModal({
+    row,
+  });
+};
+
+const isLoading = ref(false);
+const getDataSource = async () => {
+  isLoading.value = true;
+  const res = await dictPage({
+    pageSize: pagination.pageSize as number,
+    pageNum: pagination.current as number,
+    dictName: formState.dictName,
+    dictCode: formState.dictCode,
+  });
+  dataSource.value = res.data.records;
+  pagination.total = res.data.total;
+  isLoading.value = false;
+};
+
+const formRef = ref();
+const handleReset = () => {
+  pagination.current = 1;
+  formRef.value.resetFields();
+  getDataSource();
+};
+
+const handleSearch = () => {
+  pagination.current = 1;
+  getDataSource();
+};
+
+const handleTableChange = (pag: TablePaginationConfig) => {
+  pagination.current = pag.current;
+  getDataSource();
+};
+
+onMounted(() => {
+  getDataSource();
+});
+</script>
+<template>
+  <div class="m-10px">
+    <div class="bg-white p-16px">
+      <a-form ref="formRef" :model="formState" layout="inline">
+        <a-form-item :label="t('字典名称')" name="dictName">
+          <a-input :placeholder="t('请输入')" v-model:value="formState.dictName" />
+        </a-form-item>
+        <a-form-item :label="t('字典编码')" name="dictCode">
+          <a-input :placeholder="t('请输入')" v-model:value="formState.dictCode" />
+        </a-form-item>
+        <a-form-item>
+          <a-button @click="handleReset">
+            <ReloadOutlined />
+            {{ t('重置') }}
+          </a-button>
+          <a-button @click="handleSearch" class="ml-8px" type="primary">
+            <SearchOutlined />
+            {{ t('搜索') }}
+          </a-button>
+        </a-form-item>
+      </a-form>
+    </div>
+    <div class="my-16px p-16px bg-white">
+      <div class="mb-16px">
+        <a-button @click="handleAdd" type="primary">
+          <PlusOutlined />
+          {{ t('新增') }}
+        </a-button>
+      </div>
+      <a-table
+        :loading="isLoading"
+        size="small"
+        @change="handleTableChange"
+        :pagination="pagination"
+        rowKey="id"
+        :data-source="dataSource"
+        bordered
+        :columns="columns"
+      >
+        <template #bodyCell="{ column, record }">
+          <template v-if="column.key === 'action'">
+            <a-button type="link" @click="viewDictionaryData(record)">{{ t('数据') }}</a-button>
+            <a-button type="link">{{ t('编辑') }}</a-button>
+            <a-button danger type="link">{{ t('删除') }}</a-button>
+          </template>
+        </template>
+      </a-table>
+    </div>
+    <DictionaryFormModal ref="dictionaryFormModalRef" />
+    <DictionaryDataModal ref="dictionaryDataModalRef" />
+  </div>
+</template>

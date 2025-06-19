@@ -24,6 +24,12 @@ export const systemList = [
         meta: { title: t('🍏用户管理') },
       },
       {
+        path: 'dictionary',
+        name: 'Dictionary',
+        component: () => import('@/views/system/dictionary/index.vue'),
+        meta: { title: t('🍃字典管理') },
+      },
+      {
         path: 'role',
         name: 'Role',
         component: () => import('@/views/system/role/index.vue'),
