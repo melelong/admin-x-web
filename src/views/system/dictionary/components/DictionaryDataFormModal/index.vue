@@ -2,17 +2,19 @@
 import { message } from 'ant-design-vue';
 import { cloneDeep } from 'lodash-es';
 
-import { Dict, saveUpdate } from '@/api/system/dictionary';
+import { DictItem, saveUpdate, saveUpdateData } from '@/api/system/dictionary';
 import { t } from '@/i18n';
 
 const formRef = ref();
 const visible = ref(false);
 const modalTile = ref('');
 let callback: Function;
-const showModal = ({ onSuccess, row }: { onSuccess: Function, row?: Dict }) => {
-  formData.value = {} as Dict;
+let dictIdValue: number;
+const showModal = ({ onSuccess, row, dictId }: { onSuccess: Function, row?: DictItem, dictId: number }) => {
+  dictIdValue = dictId;
+  formData.value = {} as DictItem;
   callback = onSuccess;
-  modalTile.value = row ? t('编辑字典') : t('新增字典');
+  modalTile.value = row ? t('编辑字典数据') : t('新增字典数据');
   if (row) {
     formData.value = cloneDeep(row);
   }
@@ -21,10 +23,11 @@ const showModal = ({ onSuccess, row }: { onSuccess: Function, row?: Dict }) => {
 
 const isLoading = ref(false);
 
-const formData = ref<Dict>({} as Dict);
+const formData = ref<DictItem>({} as DictItem);
 const handleOk = async () => {
   isLoading.value = true;
-  await saveUpdate(formData.value).finally(() => {
+  formData.value.dictId = dictIdValue;
+  await saveUpdateData(formData.value).finally(() => {
     isLoading.value = false;
   });
 
@@ -42,13 +45,13 @@ defineExpose({
   <a-modal v-model:open="visible" width="600px" :title="modalTile" @ok="handleOk">
     <a-form ref="formRef" :label-col="{ span: 5 }" :wrapperCol="{ span: 18 }" :model="formData">
       <a-form-item :label="t('字典名称')" name="dictName">
-        <a-input :placeholder="t('请输入')" v-model:value="formData.dictName"></a-input>
+        <a-input :placeholder="t('请输入')" v-model:value="formData.itemLabel"></a-input>
       </a-form-item>
       <a-form-item :label="t('字典编码')" name="dictCode">
-        <a-input :placeholder="t('请输入')" v-model:value="formData.dictCode"></a-input>
+        <a-input :placeholder="t('请输入')" v-model:value="formData.itemValue"></a-input>
       </a-form-item>
-      <a-form-item :label="t('备注')" name="remark">
-        <a-input :placeholder="t('请输入')" v-model:value="formData.remark"></a-input>
+      <a-form-item :label="t('排序')" name="sort">
+        <a-input-number :placeholder="t('请输入')" v-model:value="formData.sort"></a-input-number>
       </a-form-item>
       <a-form-item :label="t('类型')" name="status">
         <a-radio-group v-model:value="formData.status">

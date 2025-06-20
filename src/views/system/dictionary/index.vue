@@ -39,7 +39,6 @@ const columns = [
     title: '状态',
     dataIndex: 'status',
     key: 'status',
-    customRender: ({ text }: { text: number }) => text === 1 ? '启用' : '禁用',
   },
   {
     title: '备注',
@@ -57,6 +56,15 @@ const dataSource = ref<Dict[]>([]);
 const dictionaryFormModalRef = ref();
 const handleAdd = () => {
   dictionaryFormModalRef.value.showModal({
+    onSuccess: () => {
+      getDataSource();
+    },
+  });
+};
+
+const delDictionaryData = (row: Dict) => {
+  dictionaryFormModalRef.value.showModal({
+    row,
     onSuccess: () => {
       getDataSource();
     },
@@ -144,10 +152,13 @@ onMounted(() => {
         bordered
         :columns="columns"
       >
-        <template #bodyCell="{ column, record }">
+        <template #bodyCell="{ text, column, record }">
+          <template v-if="column.key === 'status'">
+            <a-tag :color="text === 1 ? 'processing' : 'error'" :bordered="false">{{ text === 1 ? '启用' : '禁用' }}</a-tag>
+          </template>
           <template v-if="column.key === 'action'">
+            <a-button type="link" @click="delDictionaryData(record)">{{ t('编辑') }}</a-button>
             <a-button type="link" @click="viewDictionaryData(record)">{{ t('数据') }}</a-button>
-            <a-button type="link">{{ t('编辑') }}</a-button>
             <a-button danger type="link">{{ t('删除') }}</a-button>
           </template>
         </template>

@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { ReloadOutlined, SearchOutlined } from '@ant-design/icons-vue';
+import { PlusOutlined, ReloadOutlined, SearchOutlined } from '@ant-design/icons-vue';
 
 import { Dict, dictDataPage, DictItem } from '@/api/system/dictionary';
 import { t } from '@/i18n';
+
+import DictionaryDataFormModal from '../DictionaryDataFormModal/index.vue';
 
 import type { TablePaginationConfig } from 'ant-design-vue';
 
@@ -79,12 +81,22 @@ const handleTableChange = (pag: TablePaginationConfig) => {
 const handleReset = () => {
   pagination.current = 1;
   formRef.value.resetFields();
-  getDataSource()
+  getDataSource();
 };
 
 const handleSearch = () => {
   pagination.current = 1;
   getDataSource();
+};
+
+const dictionaryDataFormModalRef = ref();
+const handleAdd = () => {
+  dictionaryDataFormModalRef.value.showModal({
+    dictId: rowData.id,
+    onSuccess: () => {
+      getDataSource();
+    },
+  });
 };
 
 defineExpose({
@@ -94,22 +106,25 @@ defineExpose({
 
 <template>
   <a-drawer v-model:open="visible" width="600px" :title="modalTile">
-    <a-form class="mb-16px" ref="formRef" layout="inline" :model="formData">
-      <a-form-item :label="t('字典名称')" name="itemLabel">
-        <a-input :placeholder="t('请输入')" v-model:value="formData.itemLabel"></a-input>
-      </a-form-item>
-      <a-form-item>
-        <a-button @click="handleReset">
-          <ReloadOutlined />
-          {{ t('重置') }}
-        </a-button>
-        <a-button @click="handleSearch" class="ml-8px" type="primary">
-          <SearchOutlined />
-          {{ t('搜索') }}
-        </a-button>
-      </a-form-item>
-    </a-form>
-
+    <div class="mb-16px flex justify-between">
+      <a-form ref="formRef" layout="inline" :model="formData">
+        <a-form-item :label="t('字典名称')" name="itemLabel">
+          <a-input :placeholder="t('请输入')" v-model:value="formData.itemLabel"></a-input>
+        </a-form-item>
+        <a-form-item>
+          <a-button @click="handleSearch">
+            <SearchOutlined />
+          </a-button>
+          <a-button class="ml-8px" @click="handleReset">
+            <ReloadOutlined />
+          </a-button>
+        </a-form-item>
+      </a-form>
+      <a-button type="primary" @click="handleAdd">
+        <PlusOutlined />
+        {{ t('新增') }}
+      </a-button>
+    </div>
     <a-table
       :loading="isLoading"
       size="small"
@@ -127,5 +142,7 @@ defineExpose({
         </template>
       </template>
     </a-table>
+
+    <DictionaryDataFormModal ref="dictionaryDataFormModalRef" />
   </a-drawer>
 </template>

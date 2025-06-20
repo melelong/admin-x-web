@@ -27,8 +27,12 @@ export const dictPage = (params: {
   return request.get('/dict/page', params);
 };
 
-export const saveDict = (data: Dict) => {
-  return request.post('/dict/save', data);
+export const saveUpdate = (data: Dict) => {
+  return request.post('/dict/saveUpdate', data);
+};
+
+export const saveUpdateData = (data: DictItem) => {
+  return request.post('/dict/saveUpdateData', data);
 };
 
 export const dictDataPage = (params: {
