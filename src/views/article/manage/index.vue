@@ -22,9 +22,26 @@ const formState = reactive({
 });
 const columns = [
   {
+    width: 400,
     title: '标题',
     dataIndex: 'title',
     key: 'title',
+  },
+  {
+    title: '分类',
+    dataIndex: 'categoryName',
+    key: 'categoryName',
+  },
+  {
+    title: '作者',
+    dataIndex: 'authorName',
+    key: 'authorName',
+  },
+  {
+    width: 100,
+    title: '点赞数量',
+    dataIndex: 'likeCount',
+    key: 'likeCount',
   },
   {
     width: 100,
