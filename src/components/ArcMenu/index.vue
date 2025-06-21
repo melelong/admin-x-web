@@ -196,21 +196,17 @@ onUnmounted(() => {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
   z-index: 10;
+  transform: rotate(0) scale(1);
   position: relative;
 }
 
 .arc-menu-control:hover {
-  transform: scale(1.1);
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
 }
 
 .arc-menu-control.open {
-  transform: rotate(0);
-  background-color: #f5f5f5;
-}
-
-.arc-menu-control.open:hover {
   transform: rotate(-45deg) scale(1.1);
+  background-color: #f5f5f5;
 }
 
 .arc-menu-control i {
