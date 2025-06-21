@@ -2,7 +2,7 @@
 import { message } from 'ant-design-vue';
 import { cloneDeep } from 'lodash-es';
 
-import { Dict, saveUpdate } from '@/api/system/dictionary';
+import { Dict, saveDict } from '@/api/system/dictionary';
 import { t } from '@/i18n';
 
 const formRef = ref();
@@ -24,7 +24,7 @@ const isLoading = ref(false);
 const formData = ref<Dict>({} as Dict);
 const handleOk = async () => {
   isLoading.value = true;
-  await saveUpdate(formData.value).finally(() => {
+  await saveDict(formData.value).finally(() => {
     isLoading.value = false;
   });
 

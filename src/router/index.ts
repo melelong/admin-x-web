@@ -5,7 +5,7 @@ import { t } from '@/i18n';
 import Layout from '@/layout/Layout.vue';
 import { useTabsStore } from '@/store/modules/tabsStore';
 
-import { contentList } from './content';
+import { articleList } from './article';
 import { monitorList } from './monitor';
 import { settingList } from './setting';
 import { systemList } from './system';
@@ -57,7 +57,7 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
-  ...contentList,
+  ...articleList,
   ...systemList,
   ...monitorList,
   ...settingList,
