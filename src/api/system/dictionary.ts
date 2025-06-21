@@ -35,6 +35,15 @@ export const saveUpdateData = (data: DictItem) => {
   return request.post('/dict/saveUpdateData', data);
 };
 
+export const deleteDict = (id: number) => {
+  return request.delete(`/dict/deleteDict/${id}`);
+};
+
+export const deleteDictData = (id: number) => {
+  return request.delete(`/dict/deleteDictData/${id}`);
+};
+
+
 export const dictDataPage = (params: {
   pageNum: number;
   pageSize: number;

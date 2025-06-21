@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { PlusOutlined, ReloadOutlined, SearchOutlined } from '@ant-design/icons-vue';
+import { message } from 'ant-design-vue';
 
-import { Dict, dictDataPage, DictItem } from '@/api/system/dictionary';
+import { Dict, deleteDictData, dictDataPage, DictItem } from '@/api/system/dictionary';
+import ConfirmButton from '@/components/ConfirmButton/index.vue';
 import { t } from '@/i18n';
 
 import DictionaryDataFormModal from '../DictionaryDataFormModal/index.vue';
@@ -99,6 +101,22 @@ const handleAdd = () => {
   });
 };
 
+const editDictData = (row: DictItem) => {
+  dictionaryDataFormModalRef.value.showModal({
+    row,
+    dictId: rowData.id,
+    onSuccess: () => {
+      getDataSource();
+    },
+  });
+};
+
+const delDictData = async (id: number) => {
+  await deleteDictData(id);
+  message.success('操作成功');
+  await getDataSource();
+};
+
 defineExpose({
   showModal,
 });
@@ -135,10 +153,14 @@ defineExpose({
       bordered
       :columns="columns"
     >
-      <template #bodyCell="{ column, record }">
+      <template #bodyCell="{ column, record, text }">
+        <template v-if="column.key === 'status'">
+          <a-tag :color="text === 1 ? 'processing' : 'error'" :bordered="false">{{ text === 1 ? '启用' : '禁用' }}
+          </a-tag>
+        </template>
         <template v-if="column.key === 'action'">
-          <a-button type="link">{{ t('编辑') }}</a-button>
-          <a-button danger type="link">{{ t('删除') }}</a-button>
+          <a-button @click="editDictData(record)" type="link">{{ t('编辑') }}</a-button>
+          <ConfirmButton @confirm="delDictData(record.id)" :name="t('删除')" :title="t('确定删除吗？')" />
         </template>
       </template>
     </a-table>

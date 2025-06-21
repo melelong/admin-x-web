@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { SearchOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons-vue';
+import { message, TablePaginationConfig } from 'ant-design-vue';
 import { onMounted } from 'vue';
 
-import { dictPage, Dict } from '@/api/system/dictionary';
+import { deleteDict, dictPage, Dict } from '@/api/system/dictionary';
+import ConfirmButton from '@/components/ConfirmButton/index.vue';
 import { t } from '@/i18n';
 
 import DictionaryDataModal from './components/DictionaryDataModal/index.vue';
 import DictionaryFormModal from './components/DictionaryFormModal/index.vue';
 
-import type { TablePaginationConfig } from 'ant-design-vue';
 
 const pagination = reactive<TablePaginationConfig>({
   current: 1,
@@ -62,7 +63,7 @@ const handleAdd = () => {
   });
 };
 
-const delDictionaryData = (row: Dict) => {
+const editDictionary = (row: Dict) => {
   dictionaryFormModalRef.value.showModal({
     row,
     onSuccess: () => {
@@ -107,6 +108,12 @@ const handleSearch = () => {
 const handleTableChange = (pag: TablePaginationConfig) => {
   pagination.current = pag.current;
   getDataSource();
+};
+
+const delDict = async (id: number) => {
+  await deleteDict(id);
+  message.success('操作成功');
+  await getDataSource();
 };
 
 onMounted(() => {
@@ -154,12 +161,13 @@ onMounted(() => {
       >
         <template #bodyCell="{ text, column, record }">
           <template v-if="column.key === 'status'">
-            <a-tag :color="text === 1 ? 'processing' : 'error'" :bordered="false">{{ text === 1 ? '启用' : '禁用' }}</a-tag>
+            <a-tag :color="text === 1 ? 'processing' : 'error'" :bordered="false">{{ text === 1 ? '启用' : '禁用' }}
+            </a-tag>
           </template>
           <template v-if="column.key === 'action'">
-            <a-button type="link" @click="delDictionaryData(record)">{{ t('编辑') }}</a-button>
+            <a-button type="link" @click="editDictionary(record)">{{ t('编辑') }}</a-button>
             <a-button type="link" @click="viewDictionaryData(record)">{{ t('数据') }}</a-button>
-            <a-button danger type="link">{{ t('删除') }}</a-button>
+            <ConfirmButton @confirm="delDict(record.id)" :name="t('删除')" :title="t('确定删除吗？')" />
           </template>
         </template>
       </a-table>
