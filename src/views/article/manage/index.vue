@@ -28,11 +28,13 @@ const columns = [
     key: 'title',
   },
   {
+    width: 150,
     title: '分类',
     dataIndex: 'categoryName',
     key: 'categoryName',
   },
   {
+    width: 150,
     title: '作者',
     dataIndex: 'authorName',
     key: 'authorName',

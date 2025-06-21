@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { SearchOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons-vue';
 import { message, TablePaginationConfig } from 'ant-design-vue';
-import { onMounted } from 'vue';
+import dayjs from 'dayjs';
 
 import { ArticleCategory, pageArticleCategory, delArticleCategory } from '@/api/system/article';
 import ConfirmButton from '@/components/ConfirmButton/index.vue';
@@ -24,6 +24,20 @@ const columns = [
     title: '名称',
     dataIndex: 'categoryName',
     key: 'categoryName',
+  },
+  {
+    width: 150,
+    title: '创建时间',
+    dataIndex: 'createTime',
+    key: 'createTime',
+    customRender: ({ text }: { text: string }) => dayjs(text).format('YYYY-MM-DD HH:mm:ss'),
+  },
+  {
+    width: 150,
+    title: '更新时间',
+    dataIndex: 'updateTime',
+    key: 'updateTime',
+    customRender: ({ text }: { text: string }) => dayjs(text).format('YYYY-MM-DD HH:mm:ss'),
   },
   {
     title: '操作',
@@ -127,7 +141,7 @@ onMounted(() => {
         bordered
         :columns="columns"
       >
-        <template #bodyCell="{ text, column, record }">
+        <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'action'">
             <a-button type="link" @click="handleEdit(record)">{{ t('编辑') }}</a-button>
             <ConfirmButton @confirm="handleDel(record.categoryId)" :name="t('删除')" :title="t('确定删除吗？')" />
