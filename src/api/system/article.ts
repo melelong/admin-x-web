@@ -28,11 +28,19 @@ export interface Article {
   title: string;
   content: string;
   categoryId: string;
+  categoryName: string;
+  nickname: string;
+  avatar: string;
   userId: number;
   status: number;
   likeCount: number;
+  commentCount: number;
+  favoriteCount: number;
   auditStatus: number;
   auditRemark: number;
+  createTime: string;
+  isLiked: boolean;
+  isFavorite: boolean;
 }
 
 export interface ArticleCategory {

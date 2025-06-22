@@ -79,6 +79,7 @@ const handleAdd = () => {
     },
   });
 };
+
 const handleEdit = (index: number) => {
   userFormModalRef.value.showModal({
     title: '编辑用户',
@@ -91,6 +92,7 @@ const handleEdit = (index: number) => {
 const handleDel = (index: number) => {
   dataSource.value.splice(index, 1);
 };
+
 const isLoading = ref(false);
 const getDataSource = async () => {
   isLoading.value = true;
@@ -99,26 +101,32 @@ const getDataSource = async () => {
   isLoading.value = false;
 };
 
-onMounted(() => {
+const formRef = ref();
+const handleReset = () => {
+  formRef.value.resetFields();
   getDataSource()
+};
+
+onMounted(() => {
+  getDataSource();
 });
 </script>
 <template>
   <div class="m-10px">
     <div class="bg-white p-16px">
-      <a-form layout="inline">
+      <a-form :model="formState" ref="formRef" layout="inline">
         <a-form-item label="姓名" name="username">
           <a-input placeholder="请输入" v-model:value="formState.username" />
         </a-form-item>
         <a-form-item label="昵称" name="nickname">
-          <a-input placeholder="请输入" v-model:value="formState.username" />
+          <a-input placeholder="请输入" v-model:value="formState.nickname" />
         </a-form-item>
         <a-form-item>
-          <a-button>
+          <a-button @click="handleReset">
             <ReloadOutlined />
             重置
           </a-button>
-          <a-button class="ml-8px" type="primary">
+          <a-button @click="getDataSource" class="ml-8px" type="primary">
             <SearchOutlined />
             搜索
           </a-button>
@@ -132,7 +140,7 @@ onMounted(() => {
           新增
         </a-button>
       </div>
-      <a-table size="small" :data-source="dataSource" bordered :columns="columns">
+      <a-table :loading="isLoading" size="small" :data-source="dataSource" bordered :columns="columns">
         <template #bodyCell="{ column, index }">
           <template v-if="column.key === 'action'">
             <a-button type="link" @click="handleEdit(index)">编辑</a-button>
