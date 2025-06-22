@@ -33,6 +33,7 @@ export const articleList = [
         name: 'ArticleDetail',
         component: () => import('@/views/article/detail/index.vue'),
         meta: {
+          hidden: true,
           title: t('文章详情')
         },
       },
