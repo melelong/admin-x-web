@@ -8,6 +8,7 @@ import { defineConfig } from 'vite';
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: process.env.NODE_ENV === 'production' ? '/admin-x-web/' : '/',
   plugins: [
     vue(),
     UnoCSS(),
@@ -27,6 +28,11 @@ export default defineConfig({
   ],
   build: {
     outDir: 'dist',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+      },
+    },
   },
   server: {
     proxy: {
