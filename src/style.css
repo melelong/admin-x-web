@@ -17,10 +17,13 @@ h6 {
     box-sizing: border-box;
 }
 
-
 .title-label {
     position: relative;
     padding-left: 8px;
+}
+
+li {
+    list-style: none;
 }
 
 .title-label:before {

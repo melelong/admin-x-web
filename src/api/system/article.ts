@@ -13,6 +13,16 @@ export enum AuditStatus {
   REJECTED = 2
 }
 
+/**
+ * 文章互动类型
+ */
+export enum InteractionType {
+  /** like: 点赞 */
+  LIKE = 'like',
+  /** favorite: 收藏 */
+  FAVORITE = 'favorite'
+}
+
 export interface Article {
   articleId: number;
   title: string;
@@ -46,7 +56,7 @@ export const delArticle = (id: number) => {
   return request.delete(`/article/del/${id}`);
 };
 
-export const detailArticle = (id: number): Promise<ResponseData<Article>> => {
+export const detailArticle = (id: string): Promise<ResponseData<Article>> => {
   return request.get(`/article/${id}`);
 };
 
@@ -69,3 +79,11 @@ export const delArticleCategory = (id: number) => {
 export const allCategory = (): Promise<ResponseData<ArticleCategory[]>> => {
   return request.get('/article/category/all');
 };
+
+export const toggleInteraction = (data: {
+  articleId: number,
+  type: string,
+}): Promise<ResponseData<string>> => {
+  return request.post('/interaction/toggle', data);
+};
+

@@ -6,8 +6,8 @@ import { onMounted } from 'vue';
 import { Article, pageArticle, delArticle, AuditStatus } from '@/api/system/article';
 import ConfirmButton from '@/components/ConfirmButton/index.vue';
 import { t } from '@/i18n';
+import router from '@/router';
 
-import ArticleViewModal from './components/ArticleViewModal/index.vue';
 import FormModal from './components/FormModal/index.vue';
 
 const pagination = reactive<TablePaginationConfig>({
@@ -113,9 +113,8 @@ const handleDel = async (id: number) => {
   await getDataSource();
 };
 
-const articleViewModalRef = ref();
 const viewDetail = (row: Article) => {
-  articleViewModalRef.value.showModal({ row });
+  router.push({ path: `/article/detail/${row.articleId}` });
 };
 
 /**
@@ -209,6 +208,5 @@ onMounted(() => {
       </a-table>
     </div>
     <FormModal ref="formModalRef" />
-    <ArticleViewModal ref="articleViewModalRef" />
   </div>
 </template>
