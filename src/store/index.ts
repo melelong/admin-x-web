@@ -1,2 +1,2 @@
-export * from './modules/user';
+export * from './modules/userStore';
 export * from './modules/tabsStore';

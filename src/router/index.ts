@@ -3,7 +3,7 @@ import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 
 import { t } from '@/i18n';
 import Layout from '@/layout/Layout.vue';
-import { useTabsStore } from '@/store/modules/tabsStore';
+import { useUserStore, useTabsStore } from '@/store';
 
 import { articleList } from './article';
 import { monitorList } from './monitor';
@@ -79,6 +79,20 @@ const router = createRouter({
 
 // 全局路由守卫
 router.beforeEach((to, from, next) => {
+  const userStore = useUserStore();
+
+  if (to.name === 'Login') {
+    return next();
+  }
+
+  if (!userStore.isAuthenticated) {
+    return next({ name: 'Login', query: { redirect: to.fullPath } });
+  }
+
+  if (!userStore.user?.userId) {
+    userStore.getUserInfo().finally();
+  }
+
   const store = useTabsStore();
   store.addTab(to);
   next();

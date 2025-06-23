@@ -3,8 +3,13 @@ import { UserOutlined } from '@ant-design/icons-vue';
 
 import { useAuth } from '@/hooks/modules/useAuth';
 import { t } from '@/i18n';
+import { useUserStore } from '@/store';
 
+const userStore = useUserStore();
 const auth = useAuth();
+
+const avatar = computed(() => userStore.user?.avatar);
+const username = computed(() => userStore.user?.username);
 
 const handleClick = ({ key }: { key: 'Profile' | 'signOut' }) => {
   if (key === 'signOut') {
@@ -18,11 +23,11 @@ const handleClick = ({ key }: { key: 'Profile' | 'signOut' }) => {
 </script>
 
 <template>
-  <a-flex align="center">
-    <div class="mr-8px">格子惊蛰版</div>
+  <a-flex class="ml-44px" align="center">
+    <div class="mr-8px">{{ username }}</div>
     <a-dropdown>
       <a-avatar
-        src="https://p26-passport.byteacctimg.com/img/user-avatar/e90991924d697daba79ae944826049ba~80x80.awebp"
+        :src="avatar"
         :size="44"
       >
         <template #icon>

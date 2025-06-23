@@ -5,11 +5,11 @@ import { userLogin, type UserLogin } from '@/api/user';
 import { t } from '@/i18n';
 import { useUserStore } from '@/store';
 
-const userStore = useUserStore();
 
 export const useAuth = () => {
   const route = useRoute();
   const router = useRouter();
+  const userStore = useUserStore();
 
   /** 账号登录 */
   const accountLogin = async (data: UserLogin) => {
