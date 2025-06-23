@@ -15,7 +15,7 @@ export const useSystemStore = defineStore('system', () => {
       // 经典
       classic: {
         tabs: {
-          style: ''
+          style: '',
         },
         collapsed: true,
         menu: {
@@ -26,7 +26,7 @@ export const useSystemStore = defineStore('system', () => {
       // 无界
       unbounded: {
         tabs: {
-          style: ''
+          style: '',
         },
         collapsed: false,
         menu: {
@@ -59,6 +59,10 @@ export const useSystemStore = defineStore('system', () => {
     currentLayout.value = value;
   };
 
+  const setCollapsed = (value: boolean) => {
+    isCollapsed.value = value;
+  };
+
   return {
     theme,
     isCollapsed,
@@ -67,5 +71,6 @@ export const useSystemStore = defineStore('system', () => {
     setLayout,
     currentLayout,
     toggleCollapsed,
+    setCollapsed,
   };
 });

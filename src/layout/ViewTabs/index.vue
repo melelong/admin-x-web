@@ -74,7 +74,6 @@ const initDraggableTabs = () => {
   }
 };
 
-
 onMounted(() => {
   initDraggableTabs();
   document.addEventListener('click', handleClickOutside);

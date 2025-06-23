@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useScreenSize } from '@/hooks/modules/useScreenSize';
 import Fullscreen from '@/layout/Navbar/components/Fullscreen.vue';
 import Notice from '@/layout/Navbar/components/Notice.vue';
 import Reload from '@/layout/Navbar/components/Reload.vue';
@@ -6,6 +7,9 @@ import Search from '@/layout/Navbar/components/Search.vue';
 import Theme from '@/layout/Navbar/components/Theme.vue';
 import Translate from '@/layout/Navbar/components/Translate.vue';
 import User from '@/layout/Navbar/components/User.vue';
+
+const screenSize = useScreenSize();
+const isMobile = computed(() => screenSize.isMobile.value);
 </script>
 
 <template>
@@ -17,16 +21,16 @@ import User from '@/layout/Navbar/components/User.vue';
           <slot></slot>
         </div>
       </a-flex>
-      <div>
-        <a-space class="font-size-18px" :size="44">
+      <div class="flex items-center">
+        <a-space v-if="!isMobile" class="font-size-18px" :size="44">
           <Notice />
           <Search />
           <Theme />
           <Reload />
           <Translate />
           <Fullscreen />
-          <User />
         </a-space>
+        <User />
       </div>
     </a-flex>
   </div>
