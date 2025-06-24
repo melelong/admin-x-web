@@ -7,6 +7,8 @@ export interface UserLogin {
 
 export interface UserRegister extends Partial<UserLogin> {
   email: string;
+  password: string;
+  nickname: string;
 }
 
 export interface LoginResponse {

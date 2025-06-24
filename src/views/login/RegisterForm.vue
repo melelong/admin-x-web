@@ -1,21 +1,20 @@
 <script setup lang="ts">
 import { message } from 'ant-design-vue';
 
-import { useAuth } from '@/hooks';
-
-import RegisterForm from './RegisterForm.vue';
+import { userRegister } from '@/api/user';
 
 const checked = ref(false);
-const auth = useAuth();
 const isLoading = ref(false);
 const formData = reactive({
-  username: '',
+  email: '',
   password: '',
+  nickname: '',
 });
 
 /**
- * 登录
+ * 注册
  */
+const formRef = ref();
 const handleSubmit = async () => {
   if (!checked.value) {
     message.warn('请先同意服务协议和隐私权说明');
@@ -23,30 +22,45 @@ const handleSubmit = async () => {
   }
 
   isLoading.value = true;
-  await auth.accountLogin(formData).finally(() => {
+  await userRegister(formData).finally(() => {
     isLoading.value = false;
   });
 };
 
-const registerFormRef = ref();
-const handleRegister = () => {
-  registerFormRef.value.initModal();
+/**
+ * 初始化表单
+ */
+const visible = ref(false);
+const initModal = () => {
+  formRef.value?.resetFields();
+  visible.value = true;
 };
+
+defineExpose({
+  initModal,
+});
 </script>
 
 <template>
-  <div class="w-360px bg-white p-30px rounded-8px">
+  <a-modal :footer="null" :width="400" v-model:open="visible">
     <h1 class="mb-30px">Admin X</h1>
     <a-form
       @finish="handleSubmit"
-      :model="formData"
+      ref="formRef"
       size="large"
+      :model="formData"
     >
       <a-form-item
-        name="username"
-        :rules="[{ required: true, message: '请输入用户名或邮箱' }]"
+        name="nickname"
+        :rules="[{ required: true, message: '请输入昵称' }]"
       >
-        <a-input v-model:value="formData.username" placeholder="请输入用户名或邮箱"></a-input>
+        <a-input v-model:value="formData.nickname" placeholder="请输入昵称"></a-input>
+      </a-form-item>
+      <a-form-item
+        name="email"
+        :rules="[{ required: true, message: '请输入邮箱' }]"
+      >
+        <a-input v-model:value="formData.email" placeholder="请输入邮箱"></a-input>
       </a-form-item>
       <a-form-item
         name="password"
@@ -61,22 +75,16 @@ const handleRegister = () => {
           html-type="submit"
           :loading="isLoading"
         >
-          登录
+          注册
         </a-button>
-        <div class="mt-9px flex items-center">
-          <span>没有账号？</span>
-          <a-button class="px-0!" @click="handleRegister" type="link">点击注册</a-button>
-        </div>
       </a-form-item>
     </a-form>
-    <div>
+    <div class="pb-30px">
       <a-checkbox class="mr-8px" v-model:checked="checked"></a-checkbox>
       <span>我已阅读并同意</span>
       <a-button class="px-0" type="link">服务协议</a-button>
       <span> 和 </span>
       <a-button class="px-0" type="link">隐私权说明</a-button>
     </div>
-
-    <RegisterForm ref="registerFormRef" />
-  </div>
+  </a-modal>
 </template>
