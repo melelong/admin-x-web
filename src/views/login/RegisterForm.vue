@@ -25,6 +25,8 @@ const handleSubmit = async () => {
   await userRegister(formData).finally(() => {
     isLoading.value = false;
   });
+  message.success('注册成功');
+  visible.value = false;
 };
 
 /**

@@ -78,8 +78,9 @@ const router = createRouter({
 });
 
 // 全局路由守卫
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const userStore = useUserStore();
+  const tabsStore = useTabsStore();
 
   if (to.name === 'Login') {
     return next();
@@ -89,12 +90,21 @@ router.beforeEach((to, from, next) => {
     return next({ name: 'Login', query: { redirect: to.fullPath } });
   }
 
-  if (!userStore.user?.userId) {
-    userStore.getUserInfo().finally();
+  if (!userStore.user) {
+    try {
+      const result = await userStore.getUserInfo();
+      if (!result) {
+        next({ name: 'Login' });
+        return;
+      }
+    } catch (error) {
+      next({ name: 'Login' });
+      return;
+    }
   }
 
-  const store = useTabsStore();
-  store.addTab(to);
+
+  tabsStore.addTab(to);
   next();
 });
 
