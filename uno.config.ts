@@ -2,7 +2,7 @@ import {
   defineConfig,
   presetAttributify,
   transformerDirectives,
-  presetMini
+  presetWind3
 } from 'unocss'
 
 export default defineConfig({
@@ -20,7 +20,7 @@ export default defineConfig({
     }
   },
   presets: [
-    presetMini(),
+    presetWind3(),
     presetAttributify()
   ],
   transformers: [

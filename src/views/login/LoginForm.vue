@@ -65,17 +65,16 @@ const handleRegister = () => {
         </a-button>
         <div class="mt-9px flex items-center">
           <span>没有账号？</span>
-          <a-button class="px-0!" @click="handleRegister" type="link">点击注册</a-button>
+          <a-button class="px-0!" @click="handleRegister" type="link" size="mini">点击注册</a-button>
         </div>
       </a-form-item>
     </a-form>
-    <div>
-      <a-checkbox class="mr-8px" v-model:checked="checked"></a-checkbox>
-      <span>我已阅读并同意</span>
-      <a-button class="px-0" type="link">服务协议</a-button>
+    <a-checkbox v-model:checked="checked">
+      我已阅读并同意
+      <a-button class="px-0" type="link" @click.stop>服务协议</a-button>
       <span> 和 </span>
-      <a-button class="px-0" type="link">隐私权说明</a-button>
-    </div>
+      <a-button class="px-0" type="link" @click.stop>隐私权说明</a-button>
+    </a-checkbox>
 
     <RegisterForm ref="registerFormRef" />
   </div>
