@@ -1,4 +1,3 @@
-import Antd from 'ant-design-vue';
 import { createPinia } from 'pinia';
 import { createApp } from 'vue';
 
@@ -14,4 +13,4 @@ setupI18n(app);
 const pinia = createPinia();
 app.use(pinia);
 app.use(router);
-app.use(Antd).mount('#app');
+app.mount('#app');

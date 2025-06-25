@@ -7,7 +7,7 @@ import vueParser from 'vue-eslint-parser';
 export default [
   // 需要忽略的一些文件
   {
-    ignores: ['eslint.config.js', 'src/i18n/extractor.js'],
+    ignores: ['eslint.config.js', 'commitlint.config.cjs', 'src/i18n/extractor.js'],
   },
 
   // 基础配置
