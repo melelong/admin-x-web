@@ -13,28 +13,28 @@ h3,
 h4,
 h5,
 h6 {
-    margin: 0;
-    box-sizing: border-box;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 .title-label {
-    position: relative;
-    padding-left: 8px;
+  position: relative;
+  padding-left: 8px;
 }
 
 li {
-    list-style: none;
+  list-style: none;
 }
 
 .title-label:before {
-    position: absolute;
-    display: block;
-    left: 0;
-    width: 4px;
-    height: 1em;
-    top: 50%;
-    transform: translateY(-50%);
-    border-radius: 2px;
-    content: '';
-    background-color: #1677ff;
+  position: absolute;
+  display: block;
+  left: 0;
+  width: 4px;
+  height: 1em;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 2px;
+  content: '';
+  background-color: #1677ff;
 }

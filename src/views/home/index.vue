@@ -21,7 +21,8 @@ const handleMenuClick = (menu: MenuItem, index: number) => {
 };
 
 const initialPosition = {
-  x: window.innerWidth - 100, y: window.innerHeight - 100,
+  x: window.innerWidth - 100,
+  y: window.innerHeight - 100,
 };
 </script>
 

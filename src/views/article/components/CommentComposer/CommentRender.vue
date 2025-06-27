@@ -5,23 +5,38 @@ import { Comment } from '@/api/content';
 import CommentInput from '@/components/CommentInput/index.vue';
 import { t } from '@/i18n';
 
-const props = withDefaults(defineProps<{
-  isChild: boolean
-  comment: Comment
-}>(), {
-  isChild: false,
-  comment: () => ({} as Comment),
-});
+const props = withDefaults(
+  defineProps<{
+    isChild: boolean;
+    comment: Comment;
+  }>(),
+  {
+    isChild: false,
+    comment: () => ({}) as Comment,
+  },
+);
 
 const emit = defineEmits<{
-  (e: 'submit', payload: { text: string, done: Function, parentId?: number, replyToUserId?: number }): void;
+  (
+    e: 'submit',
+    payload: {
+      text: string;
+      done: (...args: any[]) => any;
+      parentId?: number;
+      replyToUserId?: number;
+    },
+  ): void;
 }>();
 
-const handleSubmit = ({ text, done, replyToUserId }: {
-  text: string,
-  done: Function,
-  parentId?: number,
-  replyToUserId?: number
+const handleSubmit = ({
+  text,
+  done,
+  replyToUserId,
+}: {
+  text: string;
+  done: (...args: any[]) => any;
+  parentId?: number;
+  replyToUserId?: number;
 }) => {
   const parentId = props.comment.id;
   emit('submit', { text, done, parentId, replyToUserId });
@@ -38,11 +53,7 @@ const handleReply = (item: Comment) => {
 
 <template>
   <a-flex>
-    <a-avatar
-      class="flex-shrink-0"
-      :src="comment.userAvatar"
-      :size="36"
-    >
+    <a-avatar class="flex-shrink-0" :src="comment.userAvatar" :size="36">
       <template #icon>
         <UserOutlined />
       </template>
@@ -64,13 +75,13 @@ const handleReply = (item: Comment) => {
         <CommentInput
           v-if="comment.isComment"
           @closed="handleClosed(comment)"
-          @submit="(data) => handleSubmit({...data, replyToUserId: comment.userId})"
+          @submit="(data) => handleSubmit({ ...data, replyToUserId: comment.userId })"
         />
         <a v-else @click="handleReply(comment)" type="link">{{ t('回复') }}</a>
         <ul v-if="comment?.replies?.length > 0" class="px-0 mt-8px">
           <li class="mb-16px" v-for="reply in comment.replies" :key="reply.id">
             <CommentRender
-              @submit="(data) => handleSubmit({...data, replyToUserId: reply.userId})"
+              @submit="(data) => handleSubmit({ ...data, replyToUserId: reply.userId })"
               :is-child="true"
               :comment="reply"
             />

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {message} from 'ant-design-vue';
+import { message } from 'ant-design-vue';
 
-import {userRegister} from '@/api/user';
+import { userRegister } from '@/api/user';
 
 const checked = ref(false);
 const isLoading = ref(false);
@@ -12,7 +12,7 @@ const formData = reactive({
 });
 
 const emit = defineEmits<{
-  (e: 'toggle'): void
+  (e: 'toggle'): void;
 }>();
 
 /**
@@ -30,43 +30,26 @@ const handleSubmit = async () => {
     isLoading.value = false;
   });
   message.success('注册成功');
-  emit('toggle')
+  emit('toggle');
 };
 </script>
 
 <template>
-
-  <a-form
-      @finish="handleSubmit"
-      ref="formRef"
-      size="large"
-      :model="formData"
-  >
-    <a-form-item
-        name="nickname"
-        :rules="[{ required: true, message: '请输入昵称' }]"
-    >
+  <a-form @finish="handleSubmit" ref="formRef" size="large" :model="formData">
+    <a-form-item name="nickname" :rules="[{ required: true, message: '请输入昵称' }]">
       <a-input v-model:value="formData.nickname" placeholder="请输入昵称"></a-input>
     </a-form-item>
-    <a-form-item
-        name="email"
-        :rules="[{ required: true, message: '请输入邮箱' }]"
-    >
+    <a-form-item name="email" :rules="[{ required: true, message: '请输入邮箱' }]">
       <a-input v-model:value="formData.email" placeholder="请输入邮箱"></a-input>
     </a-form-item>
-    <a-form-item
-        name="password"
-        :rules="[{ required: true, message: '请输入密码' }]"
-    >
-      <a-input-password v-model:value="formData.password" placeholder="请输入密码"></a-input-password>
+    <a-form-item name="password" :rules="[{ required: true, message: '请输入密码' }]">
+      <a-input-password
+        v-model:value="formData.password"
+        placeholder="请输入密码"
+      ></a-input-password>
     </a-form-item>
     <a-form-item class="mt-36px">
-      <a-button
-          class="w-full"
-          type="primary"
-          html-type="submit"
-          :loading="isLoading"
-      >
+      <a-button class="w-full" type="primary" html-type="submit" :loading="isLoading">
         注册
       </a-button>
       <div class="mt-9px flex items-center">

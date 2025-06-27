@@ -3,7 +3,7 @@ import { isFunction, isUndefined, omit } from 'lodash-es';
 
 import SchemaFormMap from '@/components/Schema/components';
 import { DisplayMode } from '@/components/Schema/enums';
-import { FormConfig, FormItemChangeParams, FormItemConfig } from '@/components/Schema/types';
+import { FormConfig, FormItemConfig } from '@/components/Schema/types';
 import { isTruthValue } from '@/components/Schema/utils';
 
 interface Props {
@@ -19,11 +19,6 @@ const props = withDefaults(defineProps<Props>(), {
   formItems: () => [],
   model: () => ({}),
 });
-
-const emit = defineEmits<{
-  (e: 'update:model', value: any): void;
-  (e: 'change', value: any): void;
-}>();
 
 const formData = reactive(props.model);
 
@@ -115,60 +110,8 @@ const isReadonly = (params: { index: number; item: FormItemConfig; value: any })
  */
 const formItemListRef = ref();
 
-/**
- * 根据字段名获取当前字段绑定的组件实例
- * @param targetField 字段名
- */
-const getInstanceByField: (targetField: string) => any = (targetField) => {
-  for (const itemRef of formItemListRef.value) {
-    if (itemRef.bindFieldName === targetField) {
-      return itemRef;
-    }
-  }
-  return null;
-};
-
-/**
- * 根据字段名获取当前字段配置
- * @param targetField 字段名
- */
-const getPropsByField: (targetField: string) => FormItemConfig | undefined = (targetField) => {
-  const findIndex = props.formItems.findIndex((item) => item.name === targetField);
-  if (findIndex >= 0) {
-    return props.formItems[findIndex];
-  }
-};
-
-/**
- * 加载字典数据，如下拉选择、多选、单选
- * @param targetField 目标字段
- * @param params 自定义请求参数
- */
-const loadOptions = (targetField: string, params?: Record<string, any>) => {
-  const itemRef: any = getInstanceByField(targetField);
-  if (itemRef && isFunction(itemRef.loadOptions)) {
-    return itemRef.loadOptions(params);
-  }
-};
-
-/**
- * 表单数据发生改变时触发
- */
-const handleChange = (params: { index: number; item: FormItemConfig; event: any }) => {
-  const { item } = params || {};
-  const payload: FormItemChangeParams = {
-    ...params,
-    loadOptions,
-    getInstanceByField,
-    getPropsByField,
-    formData: formData,
-    instance: formItemListRef.value,
-  };
-  if (isFunction(item.change)) {
-    item.change(payload);
-  }
-  emit('update:model', formData);
-  emit('change', payload);
+const fieldChange = (data: any) => {
+  formData[data.item.name] = data.event.value;
 };
 
 /**
@@ -185,11 +128,6 @@ const validate = () => {
  */
 const resetFields = () => {
   formRef.value?.resetFields();
-};
-
-const fieldChange = (data: any) => {
-  console.log('fieldChange', data.event);
-  formData[data.item.name] = data.event.value;
 };
 
 /**

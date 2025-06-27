@@ -3,7 +3,7 @@
     class="arc-menu-wrapper"
     :style="{
       left: position.x + 'px',
-      top: position.y + 'px'
+      top: position.y + 'px',
     }"
   >
     <div
@@ -48,20 +48,23 @@ interface Position {
 }
 
 // 定义组件Props
-const props = withDefaults(defineProps<{
-  menus: MenuItem[];
-  initialPosition?: Position;
-  draggable?: boolean;
-  radius?: number;
-  angle?: number;
-  direction?: string | number;
-}>(), {
-  initialPosition: () => ({ x: 300, y: 200 }),
-  draggable: true,
-  radius: 120,
-  angle: 180,
-  direction: 'top',
-});
+const props = withDefaults(
+  defineProps<{
+    menus: MenuItem[];
+    initialPosition?: Position;
+    draggable?: boolean;
+    radius?: number;
+    angle?: number;
+    direction?: string | number;
+  }>(),
+  {
+    initialPosition: () => ({ x: 300, y: 200 }),
+    draggable: true,
+    radius: 120,
+    angle: 180,
+    direction: 'top',
+  },
+);
 
 // 定义组件事件
 const emit = defineEmits<{
@@ -76,10 +79,10 @@ const dragStartPos = reactive<Position>({ x: 0, y: 0 });
 
 // 方向角度映射
 const directionAngles = {
-  'top': 270,
-  'right': 0,
-  'bottom': 90,
-  'left': 180,
+  top: 270,
+  right: 0,
+  bottom: 90,
+  left: 180,
   'top-left': 225,
   'top-right': 315,
   'bottom-left': 135,
@@ -89,9 +92,10 @@ const directionAngles = {
 // 计算起始角度
 const startAngle = computed(() => {
   // 从映射中获取角度值，如果传入的是数字则直接使用
-  const angleValue = typeof props.direction === 'string'
-    ? directionAngles[props.direction as keyof typeof directionAngles] || 270
-    : props.direction;
+  const angleValue =
+    typeof props.direction === 'string'
+      ? directionAngles[props.direction as keyof typeof directionAngles] || 270
+      : props.direction;
 
   // 计算起始角度（减去一半的展开角度）
   return angleValue - props.angle / 2;
@@ -162,10 +166,14 @@ const stopDrag = () => {
 };
 
 // 监听初始位置变化
-watch(() => props.initialPosition, (newPos) => {
-  position.x = newPos.x;
-  position.y = newPos.y;
-}, { deep: true });
+watch(
+  () => props.initialPosition,
+  (newPos) => {
+    position.x = newPos.x;
+    position.y = newPos.y;
+  },
+  { deep: true },
+);
 
 // 清理事件监听器
 onUnmounted(() => {
@@ -178,35 +186,35 @@ onUnmounted(() => {
 .arc-menu-wrapper {
   position: fixed;
   z-index: 1000;
+  user-select: none;
   transform: translate(-50%, -50%);
   transition: transform 0.2s ease;
-  user-select: none;
 }
 
 .arc-menu-control {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: #f5f5f5;
-  border: 1px solid #e9e9e9;
+  position: relative;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 60px;
+  height: 60px;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-  z-index: 10;
+  background-color: #f5f5f5;
+  border: 1px solid #e9e9e9;
+  border-radius: 50%;
+  box-shadow: 0 4px 20px rgb(0 0 0 / 5%);
   transform: rotate(0) scale(1);
-  position: relative;
+  transition: all 0.3s ease;
 }
 
 .arc-menu-control:hover {
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 25px rgb(0 0 0 / 10%);
 }
 
 .arc-menu-control.open {
-  transform: rotate(-45deg) scale(1.1);
   background-color: #f5f5f5;
+  transform: rotate(-45deg) scale(1.1);
 }
 
 .arc-menu-control i {
@@ -219,35 +227,35 @@ onUnmounted(() => {
   position: absolute;
   top: 0;
   left: 0;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.95);
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+  width: 50px;
+  height: 50px;
   cursor: pointer;
-  z-index: 1;
+  background: rgb(255 255 255 / 95%);
+  border-radius: 50%;
+  box-shadow: 0 3px 15px rgb(0 0 0 / 20%);
   transform: translate(0, 0);
 }
 
 .arc-menu-item:hover {
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
   z-index: 20;
+  box-shadow: 0 5px 20px rgb(0 0 0 / 30%);
 }
 
 .arc-menu-item i {
-  font-size: 18px;
   margin-bottom: 2px;
+  font-size: 18px;
 }
 
 .arc-menu-item span {
   font-size: 10px;
-  color: #333;
   font-weight: 600;
-  text-align: center;
   line-height: 1.1;
+  color: #333;
+  text-align: center;
 }
 </style>

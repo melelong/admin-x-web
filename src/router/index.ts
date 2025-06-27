@@ -10,7 +10,6 @@ import { monitorList } from './monitor';
 import { settingList } from './setting';
 import { systemList } from './system';
 
-
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -97,12 +96,11 @@ router.beforeEach(async (to, from, next) => {
         next({ name: 'Login' });
         return;
       }
-    } catch (error) {
+    } catch {
       next({ name: 'Login' });
       return;
     }
   }
-
 
   tabsStore.addTab(to);
   next();

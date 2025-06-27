@@ -1,11 +1,8 @@
 <script setup lang="ts">
-
 import { SearchOutlined } from '@ant-design/icons-vue';
 
-const searchValue = ref('')
-const onSearch = () => {
-
-}
+const searchValue = ref('');
+const onSearch = () => {};
 </script>
 
 <template>

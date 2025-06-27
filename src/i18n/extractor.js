@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable no-undef */
 import crypto from 'crypto';
 import fs from 'fs/promises';
 import path from 'path';
@@ -110,7 +112,6 @@ async function runExtraction() {
   const newZh = { ...existingZh };
   const newEn = { ...existingEn };
   let addedCount = 0;
-  let removedTextCount = 0;
 
   // 处理每个实际使用的文本
   for (const text of usedTexts) {
@@ -222,7 +223,7 @@ async function runExtraction() {
 
 // 运行提取
 runExtraction()
-  .then((stats) => {
+  .then(() => {
     console.log('\n✨ 操作成功完成');
     process.exit(0);
   })

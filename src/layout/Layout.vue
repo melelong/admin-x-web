@@ -13,9 +13,10 @@ const route = useRoute();
 <template>
   <a-layout>
     <a-layout-header
-      :class="`px-10px! ${systemStore.theme === 'light' ? 'border-b-#f5f5f5 border-b-solid bg-#fff! color-#4d6bfe!' : ' color-#fff!'}`">
+      :class="`px-10px! ${systemStore.theme === 'light' ? 'border-b-#f5f5f5 border-b-solid bg-#fff! color-#4d6bfe!' : ' color-#fff!'}`"
+    >
       <Navbar>
-        <Sidebar v-if="systemStore.currentLayout =='unbounded'" />
+        <Sidebar v-if="systemStore.currentLayout == 'unbounded'" />
       </Navbar>
     </a-layout-header>
     <a-layout>

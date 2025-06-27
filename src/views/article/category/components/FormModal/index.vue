@@ -8,8 +8,14 @@ import { t } from '@/i18n';
 const formRef = ref();
 const visible = ref(false);
 const modalTile = ref('');
-let callback: Function;
-const showModal = ({ onSuccess, row }: { onSuccess: Function, row?: ArticleCategory }) => {
+let callback: (...args: any[]) => any;
+const showModal = ({
+  onSuccess,
+  row,
+}: {
+  onSuccess: (...args: any[]) => any;
+  row?: ArticleCategory;
+}) => {
   formData.value = {} as ArticleCategory;
   callback = onSuccess;
   modalTile.value = row ? t('编辑文章') : t('新增文章');
@@ -39,18 +45,8 @@ defineExpose({
 </script>
 
 <template>
-  <a-modal
-    v-model:open="visible"
-    width="600px"
-    :title="modalTile"
-    @ok="handleOk"
-  >
-    <a-form
-      ref="formRef"
-      :label-col="{ span: 5 }"
-      :wrapperCol="{ span: 18 }"
-      :model="formData"
-    >
+  <a-modal v-model:open="visible" width="600px" :title="modalTile" @ok="handleOk">
+    <a-form ref="formRef" :label-col="{ span: 5 }" :wrapperCol="{ span: 18 }" :model="formData">
       <a-form-item :label="t('分类名称')" name="dictName">
         <a-input :placeholder="t('请输入')" v-model:value="formData.categoryName"></a-input>
       </a-form-item>

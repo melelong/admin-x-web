@@ -5,7 +5,6 @@ import { userLogin, type UserLogin } from '@/api/user';
 import { t } from '@/i18n';
 import { useUserStore } from '@/store';
 
-
 export const useAuth = () => {
   const route = useRoute();
   const router = useRouter();

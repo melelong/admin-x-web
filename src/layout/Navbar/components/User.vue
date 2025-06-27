@@ -17,7 +17,7 @@ const handleClick = ({ key }: { key: 'Profile' | 'signOut' }) => {
   }
 
   if (key === 'Profile') {
-
+    // TODO: Navigate to profile page
   }
 };
 </script>
@@ -26,10 +26,7 @@ const handleClick = ({ key }: { key: 'Profile' | 'signOut' }) => {
   <a-flex class="ml-44px" align="center">
     <div class="mr-8px">{{ username }}</div>
     <a-dropdown>
-      <a-avatar
-        :src="avatar"
-        :size="44"
-      >
+      <a-avatar :src="avatar" :size="44">
         <template #icon>
           <UserOutlined />
         </template>

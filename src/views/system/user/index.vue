@@ -104,7 +104,7 @@ const getDataSource = async () => {
 const formRef = ref();
 const handleReset = () => {
   formRef.value.resetFields();
-  getDataSource()
+  getDataSource();
 };
 
 onMounted(() => {
@@ -140,7 +140,13 @@ onMounted(() => {
           新增
         </a-button>
       </div>
-      <a-table :loading="isLoading" size="small" :data-source="dataSource" bordered :columns="columns">
+      <a-table
+        :loading="isLoading"
+        size="small"
+        :data-source="dataSource"
+        bordered
+        :columns="columns"
+      >
         <template #bodyCell="{ column, index }">
           <template v-if="column.key === 'action'">
             <a-button type="link" @click="handleEdit(index)">编辑</a-button>

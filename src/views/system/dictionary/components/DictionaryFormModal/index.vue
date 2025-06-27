@@ -8,8 +8,8 @@ import { t } from '@/i18n';
 const formRef = ref();
 const visible = ref(false);
 const modalTile = ref('');
-let callback: Function;
-const showModal = ({ onSuccess, row }: { onSuccess: Function, row?: Dict }) => {
+let callback: (...args: any[]) => any;
+const showModal = ({ onSuccess, row }: { onSuccess: (...args: any[]) => any; row?: Dict }) => {
   formData.value = {} as Dict;
   callback = onSuccess;
   modalTile.value = row ? t('编辑字典') : t('新增字典');

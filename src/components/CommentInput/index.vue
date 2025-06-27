@@ -11,7 +11,7 @@ const vClickOutside = clickOutside;
 const text = ref('');
 
 const emit = defineEmits<{
-  (e: 'submit', payload: { text: string, done: Function }): void;
+  (e: 'submit', payload: { text: string; done: () => void }): void;
   (e: 'closed'): void;
 }>();
 
@@ -72,21 +72,7 @@ const onClickOutside = () => {
               <a-col v-for="(item, index) in fontIcons" :key="index" :span="3">
                 <div
                   @click="insertIcon(item)"
-                  class="
-                   size-40px
-                   flex
-                   items-center
-                   justify-center
-                   rd-3px
-                   cursor-pointer
-                   font-size-26px
-                   border-1px
-                   border-solid
-                   border-color-transparent
-                   select-none
-                   duration-300
-                   hover:bg-#e6f4ff
-                   hover:border-color-#91caff"
+                  class="size-40px flex items-center justify-center rd-3px cursor-pointer font-size-26px border-1px border-solid border-color-transparent select-none duration-300 hover:bg-#e6f4ff hover:border-color-#91caff"
                 >
                   {{ item.icon }}
                 </div>

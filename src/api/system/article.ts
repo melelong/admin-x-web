@@ -10,7 +10,7 @@ export enum AuditStatus {
   /** 1: 审核通过 */
   APPROVED = 1,
   /** 2: 审核拒绝 */
-  REJECTED = 2
+  REJECTED = 2,
 }
 
 /**
@@ -20,7 +20,7 @@ export enum InteractionType {
   /** like: 点赞 */
   LIKE = 'like',
   /** favorite: 收藏 */
-  FAVORITE = 'favorite'
+  FAVORITE = 'favorite',
 }
 
 export interface Article {
@@ -89,9 +89,8 @@ export const allCategory = (): Promise<ResponseData<ArticleCategory[]>> => {
 };
 
 export const toggleInteraction = (data: {
-  articleId: number,
-  type: string,
+  articleId: number;
+  type: string;
 }): Promise<ResponseData<string>> => {
   return request.post('/interaction/toggle', data);
 };
-

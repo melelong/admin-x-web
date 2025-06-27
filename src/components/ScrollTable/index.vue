@@ -199,19 +199,19 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .scroll-table-container {
+  position: relative;
   width: 100%;
+  overflow: hidden;
   background-color: #fff;
   border: 1px solid #f5f5f5;
-  overflow: hidden;
-  position: relative;
 }
 
 .table-header {
   display: flex;
-  background-color: #fff;
-  color: #0958d9;
-  font-weight: bold;
   padding: 0 16px;
+  font-weight: bold;
+  color: #0958d9;
+  background-color: #fff;
   border-bottom: 1px solid #f5f5f5;
 }
 
@@ -222,8 +222,8 @@ onBeforeUnmount(() => {
 }
 
 .scroll-wrapper {
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
 }
 
 .scroll-content {
@@ -233,9 +233,9 @@ onBeforeUnmount(() => {
 .table-row {
   display: flex;
   align-items: center;
+  padding: 0 16px;
   border-bottom: 1px solid #f5f5f5;
   transition: background-color 0.3s;
-  padding: 0 16px;
 }
 
 .table-row:nth-child(2n) {
@@ -252,22 +252,22 @@ onBeforeUnmount(() => {
 
 .table-cell {
   padding: 0 12px;
-  text-align: center;
-  font-size: 14px;
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 14px;
   color: #0958d9;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .status-bar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   padding: 15px 16px;
+  font-size: 12px;
   background-color: #fff;
   border-top: 1px solid #f5f5f5;
-  font-size: 12px;
 }
 
 .scroll-status {
@@ -275,13 +275,15 @@ onBeforeUnmount(() => {
   align-items: center;
 }
 
+/* stylelint-disable-next-line declaration-property-value-no-unknown */
 .scroll-status::before {
-  content: '';
   display: inline-block;
   width: 8px;
   height: 8px;
-  border-radius: 50%;
-  background-color: v-bind('isPaused ? "#f5222d" : "#52c41a"');
   margin-right: 8px;
+  content: '';
+  /* stylelint-disable-next-line declaration-property-value-no-unknown */
+  background-color: v-bind('isPaused ? "#f5222d" : "#52c41a"');
+  border-radius: 50%;
 }
 </style>

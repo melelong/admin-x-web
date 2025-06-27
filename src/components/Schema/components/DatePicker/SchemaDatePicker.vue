@@ -10,13 +10,16 @@ interface Props extends FormItemProps {
 
 const props = withDefaults(defineProps<Props>(), {});
 
-const { isView, viewSlot, viewValue } = useFormOptions(props, computed(() => props.value));
+const { isView, viewSlot, viewValue } = useFormOptions(
+  props,
+  computed(() => props.value),
+);
 
 const emit = defineEmits<{
-  (e: 'field-change', payload: { name: string; value: any }): void
+  (e: 'field-change', payload: { name: string; value: any }): void;
 }>();
 const handleChange = (value: string) => {
-  emit('field-change', { name: props.name, value});
+  emit('field-change', { name: props.name, value });
 };
 
 defineExpose({

@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { AppstoreOutlined } from '@ant-design/icons-vue';
 
-
 import { t } from '@/i18n';
 import { layoutType, themeType, useSystemStore } from '@/store/modules/systemStore';
 
 const systemStore = useSystemStore();
 
-const themeList: { value: themeType, style: string, title: string }[] = [
+const themeList: { value: themeType; style: string; title: string }[] = [
   {
     value: 'light',
     style: 'bg-#e6f4ff border-color-#1677ff color-#1677ff border-2px',
@@ -20,7 +19,7 @@ const themeList: { value: themeType, style: string, title: string }[] = [
   },
 ];
 
-const modeList: { value: layoutType, style: string, title: string }[] = [
+const modeList: { value: layoutType; style: string; title: string }[] = [
   {
     value: 'classic',
     style: 'bg-#e6f4ff border-color-#1677ff color-#1677ff border-2px',
@@ -45,7 +44,7 @@ const modeList: { value: layoutType, style: string, title: string }[] = [
             :key="item.value"
             class="w-full cursor-pointer"
             @click="systemStore.setTheme(item.value)"
-            :class="systemStore.theme === item.value ? item.style: ''"
+            :class="systemStore.theme === item.value ? item.style : ''"
           >
             {{ item.title }}
           </a-card>
@@ -55,7 +54,7 @@ const modeList: { value: layoutType, style: string, title: string }[] = [
         <a-card
           v-for="item in modeList"
           :key="item.value"
-          :class="systemStore.currentLayout === item.value? item.style : ''"
+          :class="systemStore.currentLayout === item.value ? item.style : ''"
           @click="systemStore.setLayout(item.value)"
           class="cursor-pointer mt-16px"
         >

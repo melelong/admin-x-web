@@ -59,7 +59,7 @@ const columns = [
     title: '状态',
     dataIndex: 'status',
     key: 'status',
-    customRender: ({ text }: { text: number }) => text === 1 ? '启用' : '禁用',
+    customRender: ({ text }: { text: number }) => (text === 1 ? '启用' : '禁用'),
   },
   {
     title: '顺序',
@@ -155,12 +155,17 @@ defineExpose({
     >
       <template #bodyCell="{ column, record, text }">
         <template v-if="column.key === 'status'">
-          <a-tag :color="text === 1 ? 'processing' : 'error'" :bordered="false">{{ text === 1 ? '启用' : '禁用' }}
+          <a-tag :color="text === 1 ? 'processing' : 'error'" :bordered="false"
+            >{{ text === 1 ? '启用' : '禁用' }}
           </a-tag>
         </template>
         <template v-if="column.key === 'action'">
           <a-button @click="editDictData(record)" type="link">{{ t('编辑') }}</a-button>
-          <ConfirmButton @confirm="delDictData(record.id)" :name="t('删除')" :title="t('确定删除吗？')" />
+          <ConfirmButton
+            @confirm="delDictData(record.id)"
+            :name="t('删除')"
+            :title="t('确定删除吗？')"
+          />
         </template>
       </template>
     </a-table>

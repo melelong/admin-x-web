@@ -17,7 +17,10 @@ export interface User {
   gender: number;
 }
 
-export const listUser = (data: { pageNum: number, pageSize: number }): Promise<ResponseData<PageResult<User>>> => {
+export const listUser = (data: {
+  pageNum: number;
+  pageSize: number;
+}): Promise<ResponseData<PageResult<User>>> => {
   return request.get('/user/listUser', data);
 };
 

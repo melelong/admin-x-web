@@ -22,7 +22,7 @@ export const useTabsStore = defineStore('tabs', () => {
 
   // 添加新标签（不激活）
   const addTab = (route: any) => {
-    if(route.meta?.hidden) return false;
+    if (route.meta?.hidden) return false;
     // 如果标签已存在，只更新激活状态
     const existingTab = tabs.value.find((t: any) => t.path === route.path);
     if (existingTab) {

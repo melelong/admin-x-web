@@ -1,4 +1,1 @@
-export const useUser = () => {
-
-
-};
+export const useUser = () => {};

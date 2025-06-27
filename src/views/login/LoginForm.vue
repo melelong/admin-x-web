@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {message} from 'ant-design-vue';
+import { message } from 'ant-design-vue';
 
-import {useAuth} from '@/hooks';
+import { useAuth } from '@/hooks';
 
 const checked = ref(false);
 const auth = useAuth();
@@ -12,7 +12,7 @@ const formData = reactive({
 });
 
 const emit = defineEmits<{
-  (e: 'toggle'): void
+  (e: 'toggle'): void;
 }>();
 
 /**
@@ -31,35 +31,23 @@ const handleSubmit = async () => {
 };
 
 const handleRegister = () => {
-  emit('toggle')
+  emit('toggle');
 };
 </script>
 
 <template>
-  <a-form
-      @finish="handleSubmit"
-      :model="formData"
-      size="large"
-  >
-    <a-form-item
-        name="username"
-        :rules="[{ required: true, message: '请输入用户名或邮箱' }]"
-    >
+  <a-form @finish="handleSubmit" :model="formData" size="large">
+    <a-form-item name="username" :rules="[{ required: true, message: '请输入用户名或邮箱' }]">
       <a-input v-model:value="formData.username" placeholder="请输入用户名或邮箱"></a-input>
     </a-form-item>
-    <a-form-item
-        name="password"
-        :rules="[{ required: true, message: '请输入密码' }]"
-    >
-      <a-input-password v-model:value="formData.password" placeholder="请输入密码"></a-input-password>
+    <a-form-item name="password" :rules="[{ required: true, message: '请输入密码' }]">
+      <a-input-password
+        v-model:value="formData.password"
+        placeholder="请输入密码"
+      ></a-input-password>
     </a-form-item>
     <a-form-item class="mt-36px">
-      <a-button
-          class="w-full"
-          type="primary"
-          html-type="submit"
-          :loading="isLoading"
-      >
+      <a-button class="w-full" type="primary" html-type="submit" :loading="isLoading">
         登录
       </a-button>
       <div class="mt-9px flex items-center">

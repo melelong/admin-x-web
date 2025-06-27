@@ -1,9 +1,9 @@
-const svgIcons = import.meta.glob('@/assets/svg/*.svg', { as: 'url', eager: true })
+const svgIcons = import.meta.glob('@/assets/svg/*.svg', { as: 'url', eager: true });
 
 export interface IconData {
-  name: string
-  url: string
-  component?: Component
+  name: string;
+  url: string;
+  component?: Component;
 }
 
 export const loadIcons = (): IconData[] => {
@@ -11,8 +11,8 @@ export const loadIcons = (): IconData[] => {
     const name = path
       .split('/')
       .pop()
-      ?.replace(/\.svg$/, '') as string
+      ?.replace(/\.svg$/, '') as string;
 
-    return { name, url }
-  })
-}
+    return { name, url };
+  });
+};

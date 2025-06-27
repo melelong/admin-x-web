@@ -52,12 +52,10 @@ const formState = ref({
   name: '',
 });
 
-const handleReset = () => {
-
-};
+const handleReset = () => {};
 
 const handleSearch = () => {
-  getDataSource()
+  getDataSource();
 };
 
 const roleFormModalRef = ref();
@@ -65,7 +63,7 @@ const handleEdit = (record: Role) => {
   roleFormModalRef.value.showModal({
     row: record,
     onSuccess: () => {
-      getDataSource()
+      getDataSource();
     },
   });
 };
@@ -73,7 +71,6 @@ const handleEdit = (record: Role) => {
 onMounted(async () => {
   await getDataSource();
 });
-
 </script>
 
 <template>
@@ -96,7 +93,13 @@ onMounted(async () => {
       </a-form>
     </div>
     <div class="p-16px bg-white rounded">
-      <a-table :loading="isLoading" size="small" :data-source="dataSource" bordered :columns="columns">
+      <a-table
+        :loading="isLoading"
+        size="small"
+        :data-source="dataSource"
+        bordered
+        :columns="columns"
+      >
         <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'action'">
             <a-button @click="handleEdit(record)" type="link">{{ t('编辑') }}</a-button>

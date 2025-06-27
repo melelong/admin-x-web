@@ -9,9 +9,9 @@ const visible = ref(false);
 const modalTile = ref('');
 const menuTree = ref([]);
 const permissionKeys = ref([]);
-let callback: Function;
+let callback: (...args: any[]) => any;
 const roleId = ref();
-const showModal = async ({ row, onSuccess }: { row: Role, onSuccess: Function }) => {
+const showModal = async ({ row, onSuccess }: { row: Role; onSuccess: (...args: any[]) => any }) => {
   menuTree.value = [];
   permissionKeys.value = [];
   roleId.value = row.roleId;
@@ -49,7 +49,7 @@ defineExpose({
       v-model:checkedKeys="permissionKeys"
       checkable
       :fieldNames="{
-        key: 'id'
+        key: 'id',
       }"
       :tree-data="menuTree"
     >

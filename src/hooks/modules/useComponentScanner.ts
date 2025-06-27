@@ -1,11 +1,11 @@
 // 组件信息类型
 export interface ComponentInfo {
-  name: string;        // 组件名称（基于文件路径）
-  filePath: string;    // 文件相对路径（相对于src/views）
-  fullPath: string;    // 完整文件路径
-  importPath: string;  // 导入路径（用于动态导入）
-  directory: string;   // 所在目录
-  group: string;       // 分组名称（目录的第一级）
+  name: string; // 组件名称（基于文件路径）
+  filePath: string; // 文件相对路径（相对于src/views）
+  fullPath: string; // 完整文件路径
+  importPath: string; // 导入路径（用于动态导入）
+  directory: string; // 所在目录
+  group: string; // 分组名称（目录的第一级）
 }
 
 export function useComponentScanner() {
@@ -47,7 +47,7 @@ export function useComponentScanner() {
       }
 
       components.value = componentList;
-    } catch (error) {
+    } catch {
       components.value = [];
     } finally {
       loading.value = false;

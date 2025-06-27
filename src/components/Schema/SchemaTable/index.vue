@@ -51,7 +51,7 @@ const getInstanceByField = (data: { targetField: string; index: number }): any =
 /**
  * 当前渲染组件类型
  */
-const getComponent = (component: string) => {
+const _getComponent = (component: string) => {
   return SchemaFormMap[component] || component;
 };
 
@@ -84,7 +84,7 @@ const getPropsByField: (targetField: string) => ColumnItem | undefined = (target
 /**
  * 表单数据发生改变时触发
  */
-const handleChange = (params: { value: any; scope: any; item: ColumnItem; event: any }) => {
+const _handleChange = (params: { value: any; scope: any; item: ColumnItem; event: any }) => {
   const { item, scope } = params || {};
   const payload: CellChangeParams = {
     loadOptions: (data: { targetField: string; index?: number; params?: Record<string, any> }) => {
@@ -114,7 +114,7 @@ const handleChange = (params: { value: any; scope: any; item: ColumnItem; event:
 /**
  * 格式化单元格的值
  */
-const formatCellValue = (params: { value: any; scope: any; item: ColumnItem }) => {
+const _formatCellValue = (params: { value: any; scope: any; item: ColumnItem }) => {
   const { value, item } = params;
   let cellValue = value;
   if (isFunction(item.format)) {
@@ -126,7 +126,7 @@ const formatCellValue = (params: { value: any; scope: any; item: ColumnItem }) =
 /**
  * 设置当前单元格表单组件并返回是否使用表单组件
  */
-const chkAndSetCellComponent = (params: { value: any; scope: any; item: ColumnItem }) => {
+const _chkAndSetCellComponent = (params: { value: any; scope: any; item: ColumnItem }) => {
   const { item, scope } = params;
   let component = item.component;
   if (isFunction(item.component)) {
@@ -141,7 +141,7 @@ const chkAndSetCellComponent = (params: { value: any; scope: any; item: ColumnIt
 /**
  * 设置当前单元格表单插槽并返回是否使用表单插槽
  */
-const chkAndSetCellSlot = (params: { value: any; scope: any; item: ColumnItem }) => {
+const _chkAndSetCellSlot = (params: { value: any; scope: any; item: ColumnItem }) => {
   const { item, scope } = params;
   let slot = item.slot;
   if (isFunction(item.slot)) {
@@ -156,7 +156,7 @@ const chkAndSetCellSlot = (params: { value: any; scope: any; item: ColumnItem })
 /**
  * 设置当前单元格自定义插槽并返回是否使用自定义插槽
  */
-const chkAndSetCellCustomSlot = (params: { value: any; scope: any; item: ColumnItem }) => {
+const _chkAndSetCellCustomSlot = (params: { value: any; scope: any; item: ColumnItem }) => {
   const { item, scope } = params;
   let customSlot = item.customSlot;
   if (isFunction(item.customSlot)) {
@@ -171,7 +171,7 @@ const chkAndSetCellCustomSlot = (params: { value: any; scope: any; item: ColumnI
 /**
  * 表单组件属性
  */
-const getComponentProps = (item: ColumnItem, scope: any) => {
+const _getComponentProps = (item: ColumnItem, scope: any) => {
   return {
     // 忽略 disabled、readonly
     ...omit(item, 'disabled', 'readonly'),
@@ -186,7 +186,7 @@ const columnStore = reactive<Record<string, any>>({});
 /**
  * 表单项校验规则 TABLE_COLUMN_RULES
  */
-const chkAndSetRules = (item: ColumnItem) => {
+const _chkAndSetRules = (item: ColumnItem) => {
   let rules: any[] = [];
   if (Array.isArray(item?.rules)) {
     rules = item?.rules;
@@ -233,7 +233,7 @@ const getFormData = () => {
 /**
  * 自定义列表描述样式类
  */
-const labelClassName = (item: ColumnItem) => {
+const _labelClassName = (item: ColumnItem) => {
   if (columnStore[item.dataIndex]) {
     return 'schema-column-required';
   }

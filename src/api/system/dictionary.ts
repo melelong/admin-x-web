@@ -22,7 +22,7 @@ export const dictPage = (params: {
   pageNum: number;
   pageSize: number;
   dictName?: string;
-  dictCode?: string
+  dictCode?: string;
 }): Promise<ResponseData<PageResult<Dict>>> => {
   return request.get('/dict/page', params);
 };

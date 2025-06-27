@@ -45,7 +45,7 @@ defineExpose({
       :value="item[valueKey]"
       v-bind="props?.itemProps?.optionProps"
     >
-      {{ item[labelKey]}}
+      {{ item[labelKey] }}
     </a-checkbox>
   </a-checkbox-group>
 </template>

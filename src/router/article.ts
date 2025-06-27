@@ -34,7 +34,7 @@ export const articleList = [
         component: () => import('@/views/article/detail/index.vue'),
         meta: {
           hidden: true,
-          title: t('文章详情')
+          title: t('文章详情'),
         },
       },
     ],

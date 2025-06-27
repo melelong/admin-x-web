@@ -6,16 +6,20 @@ export const useScreenSize = (breakpoint = 900) => {
   const systemStore = useSystemStore();
   const isMobile = ref(false);
 
-  const checkScreenSize = debounce(() => {
-    const mobile = window.innerWidth < breakpoint;
+  const checkScreenSize = debounce(
+    () => {
+      const mobile = window.innerWidth < breakpoint;
 
-    if (isMobile.value !== mobile) {
-      isMobile.value = mobile;
-      if (mobile) {
-        systemStore.setCollapsed(true);
+      if (isMobile.value !== mobile) {
+        isMobile.value = mobile;
+        if (mobile) {
+          systemStore.setCollapsed(true);
+        }
       }
-    }
-  }, 200, { leading: true });
+    },
+    200,
+    { leading: true },
+  );
 
   onMounted(() => {
     checkScreenSize();

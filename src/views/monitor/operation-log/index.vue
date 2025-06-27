@@ -18,7 +18,10 @@ const isLoading = ref(false);
 const dataSource = ref<Log[]>([]);
 const getDataSource = async () => {
   isLoading.value = true;
-  const res = await logList({ page: pagination.current as number, size: pagination.pageSize as number });
+  const res = await logList({
+    page: pagination.current as number,
+    size: pagination.pageSize as number,
+  });
   dataSource.value = res.content;
   pagination.total = res.totalElements;
   isLoading.value = false;
@@ -93,7 +96,6 @@ const handleTableChange = (pag: TablePaginationConfig) => {
 onMounted(async () => {
   await getDataSource();
 });
-
 </script>
 
 <template>

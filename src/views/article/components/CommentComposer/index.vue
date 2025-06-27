@@ -10,10 +10,10 @@ import CommentRender from './CommentRender.vue';
 const content = ref<Article>({} as Article);
 
 const handleSubmit = async (data: {
-  text: string
-  done: Function
-  parentId?: number
-  replyToUserId?: number
+  text: string;
+  done: (...args: any[]) => any;
+  parentId?: number;
+  replyToUserId?: number;
 }) => {
   const { text, done, parentId, replyToUserId } = data;
   await saveComment({
@@ -28,7 +28,7 @@ const handleSubmit = async (data: {
   await getCommentList();
 };
 
-const commentList = ref<Comment []>([]);
+const commentList = ref<Comment[]>([]);
 const getCommentList = async () => {
   const res = await pageComment({
     pageNum: 1,
@@ -56,10 +56,6 @@ defineExpose({
         <CommentRender @submit="handleSubmit" :comment="comment" />
       </li>
     </ul>
-    <a-empty
-      v-if="commentList.length === 0"
-      description="暂无评论，期待你的评论"
-    >
-    </a-empty>
+    <a-empty v-if="commentList.length === 0" description="暂无评论，期待你的评论"> </a-empty>
   </a-card>
 </template>

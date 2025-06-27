@@ -8,9 +8,17 @@ import { t } from '@/i18n';
 const formRef = ref();
 const visible = ref(false);
 const modalTile = ref('');
-let callback: Function;
+let callback: (...args: any[]) => any;
 let dictIdValue: number;
-const showModal = ({ onSuccess, row, dictId }: { onSuccess: Function, row?: DictItem, dictId: number }) => {
+const showModal = ({
+  onSuccess,
+  row,
+  dictId,
+}: {
+  onSuccess: (...args: any[]) => any;
+  row?: DictItem;
+  dictId: number;
+}) => {
   dictIdValue = dictId;
   formData.value = {} as DictItem;
   callback = onSuccess;

@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
 
-export type themeType = 'light' | 'dark'
+export type themeType = 'light' | 'dark';
 
-export type layoutType = 'classic' | 'unbounded'
+export type layoutType = 'classic' | 'unbounded';
 
 export const useSystemStore = defineStore('system', () => {
   const themeStr: themeType | null = localStorage.getItem('theme') as themeType;

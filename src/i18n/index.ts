@@ -6,7 +6,6 @@ import { getLang, setLang } from '@/utils/lang';
 import enUS from './locales/en-US.json';
 import zhCN from './locales/zh-CN.json';
 
-
 type SupportedLocale = 'zh-CN' | 'en-US';
 
 // 定义翻译文件类型
@@ -60,6 +59,7 @@ export const t = (input: string): string => {
   } catch (error) {
     // 在开发环境下输出错误信息
     if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
       console.warn(`翻译错误: key=${key}, input=${input}`, error);
     }
     return isKey ? key : input;

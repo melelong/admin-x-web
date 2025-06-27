@@ -15,12 +15,12 @@ const props = defineProps({
 
 const currentContextTab = computed(() => props.currentContextTab);
 
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close']);
 /**
  * 关闭键菜单
  */
 const closeContextMenu = () => {
-  emit('close')
+  emit('close');
 };
 
 const closeCurrent = () => {
@@ -33,7 +33,7 @@ const closeLeft = () => {
   if (!currentContextTab.value) return;
 
   const tabs = tabsStore.tabs;
-  const currentIndex = tabs.findIndex(tab => tab.path === currentContextTab.value.path);
+  const currentIndex = tabs.findIndex((tab) => tab.path === currentContextTab.value.path);
 
   // 收集要关闭的左侧标签
   const tabsToRemove: string[] = [];
@@ -44,7 +44,7 @@ const closeLeft = () => {
   }
 
   // 移除标签
-  tabsToRemove.forEach(path => tabsStore.removeTab(path));
+  tabsToRemove.forEach((path) => tabsStore.removeTab(path));
   closeContextMenu();
 };
 
@@ -52,7 +52,7 @@ const closeRight = () => {
   if (!currentContextTab.value) return;
 
   const tabs = tabsStore.tabs;
-  const currentIndex = tabs.findIndex(tab => tab.path === currentContextTab.value.path);
+  const currentIndex = tabs.findIndex((tab) => tab.path === currentContextTab.value.path);
 
   // 收集要关闭的右侧标签
   const tabsToRemove: string[] = [];
@@ -63,7 +63,7 @@ const closeRight = () => {
   }
 
   // 移除标签
-  tabsToRemove.forEach(path => tabsStore.removeTab(path));
+  tabsToRemove.forEach((path) => tabsStore.removeTab(path));
   closeContextMenu();
 };
 
@@ -83,35 +83,29 @@ const closeOther = () => {
 
   // 收集要关闭的其他标签
   const tabsToRemove: string[] = [];
-  tabs.forEach(tab => {
+  tabs.forEach((tab) => {
     if (tab.path !== currentContextTab.value.path && tab.closable) {
       tabsToRemove.push(tab.path);
     }
   });
 
   // 移除标签
-  tabsToRemove.forEach(path => tabsStore.removeTab(path));
+  tabsToRemove.forEach((path) => tabsStore.removeTab(path));
   closeContextMenu();
 };
 
 const closeAll = () => {
   // 收集所有可关闭的标签
-  const tabsToRemove = tabsStore.tabs
-    .filter(tab => tab.closable)
-    .map(tab => tab.path);
+  const tabsToRemove = tabsStore.tabs.filter((tab) => tab.closable).map((tab) => tab.path);
 
   // 移除标签
-  tabsToRemove.forEach(path => tabsStore.removeTab(path));
+  tabsToRemove.forEach((path) => tabsStore.removeTab(path));
   closeContextMenu();
 };
-
 </script>
 
 <template>
-  <div
-    class="context-menu-container"
-    @click.stop
-  >
+  <div class="context-menu-container" @click.stop>
     <div class="menu-item" @click="closeCurrent">
       <CloseOutlined class="icon" />
       <span>关闭</span>
@@ -144,14 +138,15 @@ const closeAll = () => {
 <style scoped>
 .context-menu-container {
   position: fixed;
-  background: #fff;
-  border-radius: 4px;
-  box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12),
-  0 6px 16px 0 rgba(0, 0, 0, 0.08),
-  0 9px 28px 8px rgba(0, 0, 0, 0.05);
   z-index: 9999;
   min-width: 140px;
   padding: 4px 0;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow:
+    0 3px 6px -4px rgb(0 0 0 / 12%),
+    0 6px 16px 0 rgb(0 0 0 / 8%),
+    0 9px 28px 8px rgb(0 0 0 / 5%);
 }
 
 .menu-item {
@@ -164,8 +159,8 @@ const closeAll = () => {
   transition: all 0.3s;
 
   &:hover {
-    background-color: #f5f5f5;
     color: #0958d9;
+    background-color: #f5f5f5;
   }
 
   .icon {
@@ -176,7 +171,7 @@ const closeAll = () => {
 
 .menu-divider {
   height: 1px;
-  background-color: #f0f0f0;
   margin: 4px 0;
+  background-color: #f0f0f0;
 }
 </style>

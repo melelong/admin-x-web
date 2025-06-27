@@ -102,7 +102,6 @@ class Request {
    * 请求错误拦截器
    */
   private requestErrorInterceptor(error: AxiosError): Promise<AxiosError> {
-
     return Promise.reject(error);
   }
 

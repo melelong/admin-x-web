@@ -1,25 +1,27 @@
 <script lang="ts" setup>
-
 import { t } from '@/i18n';
 
 const attrs = useAttrs();
-const props = withDefaults(defineProps<{
-  name?: string,
-  title: string
-  placement?: string
-  cancelText?: string
-  okText?: string
-}>(), {
-  name: '',
-  title: '',
-  placement: 'topLeft',
-  cancelText: t('取消'),
-  okText: t('确定'),
-});
+const _props = withDefaults(
+  defineProps<{
+    name?: string;
+    title: string;
+    placement?: string;
+    cancelText?: string;
+    okText?: string;
+  }>(),
+  {
+    name: '',
+    title: '',
+    placement: 'topLeft',
+    cancelText: t('取消'),
+    okText: t('确定'),
+  },
+);
 
 const emit = defineEmits<{
-  (e: 'confirm', payload: MouseEvent): void
-  (e: 'cancel', payload: MouseEvent): void
+  (e: 'confirm', payload: MouseEvent): void;
+  (e: 'cancel', payload: MouseEvent): void;
 }>();
 
 const confirm = (e: MouseEvent) => {

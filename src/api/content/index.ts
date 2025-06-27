@@ -2,10 +2,10 @@ import { PageResult } from '@/types/global';
 import request, { ResponseData } from '@/utils/request';
 
 export interface CommentForm {
-  articleId: number,
-  content: string,
-  replyToUserId?: number,
-  parentId?: number,
+  articleId: number;
+  content: string;
+  replyToUserId?: number;
+  parentId?: number;
 }
 
 export interface Comment {
@@ -30,9 +30,9 @@ export const saveComment = (data: CommentForm) => {
 };
 
 export const pageComment = (data: {
-  articleId: number,
-  pageNum: number,
-  pageSize: number
+  articleId: number;
+  pageNum: number;
+  pageSize: number;
 }): Promise<ResponseData<PageResult<Comment>>> => {
   return request.get('/comment/page', data);
 };

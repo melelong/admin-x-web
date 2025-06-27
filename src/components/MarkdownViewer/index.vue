@@ -26,11 +26,38 @@ const props = defineProps({
 
 const SECURITY_CONFIG = {
   ALLOWED_TAGS: [
-    'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-    'blockquote', 'p', 'a', 'ul', 'ol', 'nl', 'li',
-    'b', 'i', 'strong', 'em', 'strike', 'code', 'hr',
-    'br', 'div', 'table', 'thead', 'caption', 'tbody',
-    'tr', 'th', 'td', 'pre', 'span', 'img',
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'h6',
+    'blockquote',
+    'p',
+    'a',
+    'ul',
+    'ol',
+    'nl',
+    'li',
+    'b',
+    'i',
+    'strong',
+    'em',
+    'strike',
+    'code',
+    'hr',
+    'br',
+    'div',
+    'table',
+    'thead',
+    'caption',
+    'tbody',
+    'tr',
+    'th',
+    'td',
+    'pre',
+    'span',
+    'img',
   ],
   ALLOWED_ATTR: ['href', 'src', 'alt', 'title', 'class', 'id', 'target'],
 };
@@ -45,11 +72,8 @@ const md = new MarkdownIt({
 
 const safeHtml = computed(() => {
   const rawHtml = md.render(props.content);
-  return props.features.sanitize
-    ? DOMPurify.sanitize(rawHtml, SECURITY_CONFIG)
-    : rawHtml;
+  return props.features.sanitize ? DOMPurify.sanitize(rawHtml, SECURITY_CONFIG) : rawHtml;
 });
-
 </script>
 
 <style scoped>

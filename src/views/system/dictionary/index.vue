@@ -10,7 +10,6 @@ import { t } from '@/i18n';
 import DictionaryDataModal from './components/DictionaryDataModal/index.vue';
 import DictionaryFormModal from './components/DictionaryFormModal/index.vue';
 
-
 const pagination = reactive<TablePaginationConfig>({
   current: 1,
   pageSize: 10,
@@ -161,13 +160,18 @@ onMounted(() => {
       >
         <template #bodyCell="{ text, column, record }">
           <template v-if="column.key === 'status'">
-            <a-tag :color="text === 1 ? 'processing' : 'error'" :bordered="false">{{ text === 1 ? '启用' : '禁用' }}
+            <a-tag :color="text === 1 ? 'processing' : 'error'" :bordered="false"
+              >{{ text === 1 ? '启用' : '禁用' }}
             </a-tag>
           </template>
           <template v-if="column.key === 'action'">
             <a-button type="link" @click="editDictionary(record)">{{ t('编辑') }}</a-button>
             <a-button type="link" @click="viewDictionaryData(record)">{{ t('数据') }}</a-button>
-            <ConfirmButton @confirm="delDict(record.id)" :name="t('删除')" :title="t('确定删除吗？')" />
+            <ConfirmButton
+              @confirm="delDict(record.id)"
+              :name="t('删除')"
+              :title="t('确定删除吗？')"
+            />
           </template>
         </template>
       </a-table>

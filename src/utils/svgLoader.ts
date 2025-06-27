@@ -17,7 +17,7 @@ export const loadSvg = async (name: string): Promise<string> => {
 
   try {
     return await svgModules[key]();
-  } catch (error) {
+  } catch {
     return '';
   }
 };
@@ -28,7 +28,7 @@ export const loadSvg = async (name: string): Promise<string> => {
  */
 export const getAllSvgNames = (): string[] => {
   return Object.keys(svgModules)
-    .map(path => {
+    .map((path) => {
       const match = path.match(/\/svg\/(.+)\.svg$/);
       return match ? match[1] : null;
     })

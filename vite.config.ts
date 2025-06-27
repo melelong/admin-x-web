@@ -107,8 +107,8 @@ export default defineConfig({
       },
     },
     warmup: {
-      clientFiles: ['./index.html', './src/{views,components}/*']
-    }
+      clientFiles: ['./index.html', './src/{views,components}/*'],
+    },
   },
   resolve: {
     alias: {

@@ -10,7 +10,7 @@ const loadMarkdownFile = async () => {
   try {
     const response = await fetch('README.md');
     markdownContent.value = await response.text();
-  } catch (error) {
+  } catch {
     markdownContent.value = '# 加载失败\n请检查文件路径';
   } finally {
     isLoading.value = false;

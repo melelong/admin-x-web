@@ -144,7 +144,11 @@ onMounted(() => {
         <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'action'">
             <a-button type="link" @click="handleEdit(record)">{{ t('编辑') }}</a-button>
-            <ConfirmButton @confirm="handleDel(record.categoryId)" :name="t('删除')" :title="t('确定删除吗？')" />
+            <ConfirmButton
+              @confirm="handleDel(record.categoryId)"
+              :name="t('删除')"
+              :title="t('确定删除吗？')"
+            />
           </template>
         </template>
       </a-table>

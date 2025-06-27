@@ -41,9 +41,13 @@ const handleClose = () => {
   router.back();
 };
 
-watch(() => route.params.articleId, () => {
-  getDetail();
-}, { immediate: true });
+watch(
+  () => route.params.articleId,
+  () => {
+    getDetail();
+  },
+  { immediate: true },
+);
 
 const targetElementRef = ref<HTMLElement | null>(null);
 const handleComment = () => {
@@ -105,11 +109,7 @@ const handleComment = () => {
       </div>
       <a-spin :spinning="isLoading">
         <div class="flex items-center mb-30px">
-          <a-avatar
-            class="flex-shrink-0"
-            :src="articleData?.avatar"
-            :size="50"
-          >
+          <a-avatar class="flex-shrink-0" :src="articleData?.avatar" :size="50">
             <template #icon>
               <UserOutlined />
             </template>
@@ -122,17 +122,16 @@ const handleComment = () => {
         <h1 class="mb-16px font-size-20px">{{ articleData?.title }}</h1>
         <a-badge-ribbon :text="articleData?.categoryName">
           <a-card>
-            <MarkdownViewer
-              v-if="articleData"
-              :content="articleData.content"
-            />
+            <MarkdownViewer v-if="articleData" :content="articleData.content" />
           </a-card>
         </a-badge-ribbon>
       </a-spin>
       <div ref="targetElementRef">
         <a-divider orientation="left">
           <span>评论</span>
-          <span class="ml-5px" v-if="articleData?.commentCount">{{ articleData?.commentCount }}</span>
+          <span class="ml-5px" v-if="articleData?.commentCount">{{
+            articleData?.commentCount
+          }}</span>
         </a-divider>
         <CommentComposer ref="commentComposerRef" />
       </div>

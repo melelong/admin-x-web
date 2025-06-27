@@ -1,98 +1,87 @@
-import typescriptParser from '@typescript-eslint/parser';
-import eslintPluginImport from 'eslint-plugin-import';
-import eslintPluginVue from 'eslint-plugin-vue';
-import globals from 'globals';
-import vueParser from 'vue-eslint-parser';
+import js from '@eslint/js';
+import prettier from 'eslint-config-prettier';
+import eslintPluginPrettier from 'eslint-plugin-prettier';
+import vuePlugin from 'eslint-plugin-vue';
+import tseslint from 'typescript-eslint';
 
 export default [
-  // 需要忽略的一些文件
-  {
-    ignores: ['eslint.config.js', 'commitlint.config.cjs', 'src/i18n/extractor.js'],
-  },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
 
-  // 基础配置
+  // Vue
   {
+    files: ['**/*.vue', '**/*.tsx'],
+    plugins: {
+      vue: vuePlugin,
+    },
     languageOptions: {
-      ecmaVersion: 2022,
-      sourceType: 'module',
-      globals: { ...globals.browser, ...globals.node },
-      parser: vueParser,
+      parser: (await import('vue-eslint-parser')).default,
       parserOptions: {
-        parser: typescriptParser,
+        parser: tseslint.parser,
+        ecmaVersion: 2022,
+        sourceType: 'module',
         extraFileExtensions: ['.vue'],
-        project: './tsconfig.json',
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
-    rules: {
-      'no-console': 'warn',
-    },
-  },
-
-  // 导入排序配置
-  {
-    files: ['**/*.{js,ts,vue}'],
-    plugins: {
-      'import': eslintPluginImport,
-    },
-    rules: {
-      'import/order': [
-        'error',
-        {
-          groups: [
-            'builtin',
-            'external',
-            'internal',
-            ['parent', 'sibling'],
-            'index',
-            'object',
-            'type',
-          ],
-          'newlines-between': 'always',
-          alphabetize: {
-            order: 'asc',
-            caseInsensitive: true,
-          },
-          pathGroups: [
-            {
-              pattern: '@/**',
-              group: 'internal',
-              position: 'before',
-            },
-            {
-              pattern: '*.{css,scss,less}',
-              group: 'object',
-              position: 'after',
-            },
-          ],
-          pathGroupsExcludedImportTypes: ['builtin'],
-          warnOnUnassignedImports: true,
-        },
-      ],
-    },
-    settings: {
-      'import/resolver': {
-        typescript: {
-          project: './tsconfig.json',
-          alwaysTryTypes: true,
-        },
-        node: {
-          extensions: ['.js', '.ts', '.vue'],
+        ecmaFeatures: {
+          jsx: true,
         },
       },
-      'import/extensions': ['.js', '.ts', '.vue'],
-    },
-  },
-
-  // Vue 配置
-  {
-    files: ['**/*.vue'],
-    plugins: {
-      'vue': eslintPluginVue,
     },
     rules: {
       'vue/multi-word-component-names': 'off',
-      'vue/component-api-style': ['error', ['script-setup']],
+      'vue/no-v-html': 'off',
+      'vue/require-default-prop': 'off',
     },
+  },
+
+  // TypeScript
+  {
+    files: ['**/*.ts', '**/*.tsx', '**/*.vue'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off',
+      '@typescript-eslint/ban-ts-comment': 'off',
+      'no-undef': 'off',
+      'vue/require-default-prop': 'off',
+      '@typescript-eslint/no-unused-expressions': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        1,
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+        },
+      ],
+    },
+  },
+
+  // Prettier
+  {
+    plugins: {
+      prettier: eslintPluginPrettier,
+    },
+    rules: {
+      ...prettier.rules,
+      'prettier/prettier': 'warn',
+      'no-console': 'error',
+    },
+  },
+
+  {
+    ignores: [
+      '**/node_modules/**',
+      '**/*.local',
+      '**/.vscode/**',
+      '**/.idea/**',
+      '**/*.log',
+      '**/*.cache',
+      '**/coverage/**',
+      '**/public/**',
+      '**/*.d.ts',
+      '**/*.svg',
+      '**/*.sh',
+      '**/auto-imports.d.ts',
+      '**/components.d.ts',
+      '.stylelintrc',
+      '**/dist/**',
+    ],
   },
 ];

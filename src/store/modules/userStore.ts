@@ -4,7 +4,6 @@ import { User } from '@/api/user';
 import { userInfo } from '@/api/user';
 
 export const useUserStore = defineStore('user', () => {
-
   const token = ref<string | null>(localStorage.getItem('token'));
   const user = ref<User | null>(null);
   const loading = ref(false);
@@ -39,7 +38,7 @@ export const useUserStore = defineStore('user', () => {
       const res = await userInfo();
       user.value = res.data;
       return true;
-    } catch (error) {
+    } catch {
       logout();
       return false;
     } finally {

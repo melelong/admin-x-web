@@ -1,9 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:base",
-    "schedule:daily"
-  ],
+  "extends": ["config:base", "schedule:daily"],
   "postUpdateOptions": ["pnpmDedupe"],
   "prFooter": "",
   "ignoreDeps": ["pnpm"],
@@ -34,7 +31,5 @@
       "enabled": false
     }
   ],
-  "ignorePaths": [
-    "**/node_modules/**"
-  ]
+  "ignorePaths": ["**/node_modules/**"]
 }

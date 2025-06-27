@@ -10,8 +10,8 @@ const { components } = useComponentScanner();
 const formRef = ref();
 const visible = ref(false);
 const modalTile = ref('');
-let callback: Function;
-const showModal = ({ onSuccess }: { onSuccess: Function }) => {
+let callback: (...args: any[]) => any;
+const showModal = ({ onSuccess }: { onSuccess: (...args: any[]) => any }) => {
   callback = onSuccess;
   modalTile.value = t('新增菜单');
   visible.value = true;
@@ -52,14 +52,19 @@ defineExpose({
         <a-input :placeholder="t('请输入')" v-model:value="formData.path"></a-input>
       </a-form-item>
       <a-form-item :label="t('顺序')" name="sortOrder">
-        <a-input-number class="w-full" :placeholder="t('请输入')" v-model:value="formData.sortOrder"></a-input-number>
+        <a-input-number
+          class="w-full"
+          :placeholder="t('请输入')"
+          v-model:value="formData.sortOrder"
+        ></a-input-number>
       </a-form-item>
       <a-form-item :label="t('图标')" name="icon">
         <a-input :placeholder="t('请选择')" v-model:value="formData.icon"></a-input>
       </a-form-item>
       <a-form-item :label="t('组件')" name="component">
         <a-select :placeholder="t('请选择')" show-search v-model:value="formData.component">
-          <a-select-option v-for="path in components" :key="path.filePath" :value="path.filePath">{{ path.filePath }}
+          <a-select-option v-for="path in components" :key="path.filePath" :value="path.filePath"
+            >{{ path.filePath }}
           </a-select-option>
         </a-select>
       </a-form-item>

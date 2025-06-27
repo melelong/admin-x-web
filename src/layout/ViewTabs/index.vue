@@ -61,7 +61,9 @@ const handleClickOutside = () => {
 
 let sortable: Sortable | null = null;
 const initDraggableTabs = () => {
-  const tabsRef: HTMLElement | null = document.querySelector('.view-tabs-container  .ant-tabs-nav-list');
+  const tabsRef: HTMLElement | null = document.querySelector(
+    '.view-tabs-container  .ant-tabs-nav-list',
+  );
   if (tabsRef) {
     sortable = Sortable.create(tabsRef, {
       animation: 180,
@@ -86,16 +88,13 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div
-    class="view-tabs-container flex items-center px-8px h-36px bg-#fff pos-sticky z-1000 top-0"
-  >
+  <div class="view-tabs-container flex items-center px-8px h-36px bg-#fff pos-sticky z-1000 top-0">
     <a-tag
       v-if="systemStore.layout.collapsed"
       @click="systemStore.toggleCollapsed"
-      class="w-40px text-align-center py-4px mr-8px  cursor-pointer hover:color-#0958d9 hover:border-color-#91caff hover:bg-#e6f4ff">
-      <component
-        :is="systemStore.isCollapsed ?  MenuUnfoldOutlined: MenuFoldOutlined"
-      />
+      class="w-40px text-align-center py-4px mr-8px cursor-pointer hover:color-#0958d9 hover:border-color-#91caff hover:bg-#e6f4ff"
+    >
+      <component :is="systemStore.isCollapsed ? MenuUnfoldOutlined : MenuFoldOutlined" />
     </a-tag>
     <a-tabs
       :class="systemStore.layout.tabs.style"
@@ -141,13 +140,12 @@ onUnmounted(() => {
 
 <style scoped>
 .view-tabs-container {
-
   :deep(.ant-tabs-ink-bar) {
     display: none;
   }
 
   :deep(.ant-tabs-nav) {
-    &:before {
+    &::before {
       display: none;
     }
   }

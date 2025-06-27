@@ -19,7 +19,10 @@ export interface RoleMenuEdit {
   menuIds: number[];
 }
 
-export const listRoles = (data: { pageNum: number, pageSize: number }): Promise<ResponseData<PageResult<Role>>> => {
+export const listRoles = (data: {
+  pageNum: number;
+  pageSize: number;
+}): Promise<ResponseData<PageResult<Role>>> => {
   return request.get('/system/roles', data);
 };
 
