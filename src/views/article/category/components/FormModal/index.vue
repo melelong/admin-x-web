@@ -18,7 +18,7 @@ const showModal = ({
 }) => {
   formData.value = {} as ArticleCategory;
   callback = onSuccess;
-  modalTile.value = row ? t('编辑文章') : t('新增文章');
+  modalTile.value = row ? t('编辑分类') : t('新增分类');
   if (row) {
     formData.value = cloneDeep(row);
   }
