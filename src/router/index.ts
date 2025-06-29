@@ -32,7 +32,7 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/readme/index.vue'),
         meta: {
           icon: NodeIndexOutlined,
-          title: t('🪲请阅读我'),
+          title: t('请阅读我 🪲'),
         },
       },
       {
@@ -41,7 +41,7 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/dashboard/index.vue'),
         meta: {
           footer: true,
-          title: t('🍉数据看板'),
+          title: t('数据看板'),
           icon: BugOutlined,
         },
       },
@@ -51,7 +51,7 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/profile/index.vue'),
         meta: {
           icon: UserOutlined,
-          title: t('🌽个人中心'),
+          title: t('个人中心'),
         },
       },
     ],
