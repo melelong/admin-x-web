@@ -10,12 +10,20 @@ const toggleChange = () => {
 
 <template>
   <div class="w-screen h-screen bg-[url('/src/assets/images/login-bg.png')] bg-no-repeat bg-cover">
-    <div class="pr-10% h-full flex items-center justify-end">
-      <div class="w-360px bg-white p-30px rounded-8px">
-        <h1 class="mb-30px">Admin X</h1>
+    <div class="h-full flex items-center justify-center">
+      <div class="form-container w-375px p-30px rounded-8px">
+        <h2 class="mb-30px">{{ isLogin ? '欢迎登录' : '欢迎注册' }} Admin x</h2>
         <LoginForm v-if="isLogin" @toggle="toggleChange" />
         <RegisterForm v-else @toggle="toggleChange" />
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+.form-container {
+  user-select: none;
+  background-color: rgb(255 255 255 / 80%);
+  border: 1px solid #fff;
+}
+</style>

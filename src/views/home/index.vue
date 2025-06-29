@@ -32,7 +32,7 @@ const initialPosition = {
       <div>
         <h1>首页</h1>
         <div class="mt-10px flex justify-between items-end font-size-16px">
-          <p>欢迎使用 Admin X</p>
+          <p>欢迎使用 Admin x</p>
         </div>
       </div>
     </div>

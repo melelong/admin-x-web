@@ -2,6 +2,7 @@
 import { message } from 'ant-design-vue';
 
 import { useAuth } from '@/hooks';
+import { captcha } from '@/api/user/auth';
 
 const checked = ref(false);
 const auth = useAuth();
@@ -9,11 +10,25 @@ const isLoading = ref(false);
 const formData = reactive({
   username: '',
   password: '',
+  captchaId: '',
+  code: '',
 });
 
 const emit = defineEmits<{
   (e: 'toggle'): void;
 }>();
+
+const captchaLoading = ref(true);
+const captchaId = ref('');
+const captchaImageBase64 = ref('');
+const refreshCode = async () => {
+  captchaLoading.value = true;
+  const { data } = await captcha().finally(() => {
+    captchaLoading.value = false;
+  });
+  captchaId.value = data.captchaId;
+  captchaImageBase64.value = data.captchaImageBase64;
+};
 
 /**
  * 登录
@@ -25,6 +40,7 @@ const handleSubmit = async () => {
   }
 
   isLoading.value = true;
+  formData.captchaId = captchaId.value;
   await auth.accountLogin(formData).finally(() => {
     isLoading.value = false;
   });
@@ -33,6 +49,10 @@ const handleSubmit = async () => {
 const handleRegister = () => {
   emit('toggle');
 };
+
+onMounted(() => {
+  refreshCode();
+});
 </script>
 
 <template>
@@ -46,13 +66,29 @@ const handleRegister = () => {
         placeholder="请输入密码"
       ></a-input-password>
     </a-form-item>
+    <a-form-item name="code" :rules="[{ required: true, message: '请输入验证码' }]">
+      <a-space>
+        <a-input v-model:value="formData.code" placeholder="请输入验证码"></a-input>
+        <a-button
+          :loading="captchaLoading"
+          @click="refreshCode"
+          :style="{ backgroundImage: `url(${captchaImageBase64})` }"
+          class="w-110px! bg-contain bg-center bg-no-repeat"
+        ></a-button>
+      </a-space>
+    </a-form-item>
     <a-form-item class="mt-36px">
       <a-button class="w-full" type="primary" html-type="submit" :loading="isLoading">
         登录
       </a-button>
-      <div class="mt-9px flex items-center">
-        <span>没有账号？</span>
-        <a-button class="px-0!" @click="handleRegister" type="link" size="small">点击注册</a-button>
+      <div class="mt-9px flex items-center justify-between">
+        <div>
+          <span>没有账号？</span>
+          <a-button class="px-0!" @click="handleRegister" type="link" size="small"
+            >点击注册
+          </a-button>
+        </div>
+        <a-button class="px-0!" type="link" size="small">忘记密码？ </a-button>
       </div>
     </a-form-item>
   </a-form>

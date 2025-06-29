@@ -16,7 +16,7 @@ const isMobile = computed(() => screenSize.isMobile.value);
   <div>
     <a-flex justify="space-between">
       <a-flex>
-        <h1 class="ml-17px tracking-[3px]">Admin X</h1>
+        <h1 class="ml-17px tracking-[3px]">Admin x</h1>
         <div class="mx-30px max-w-40vw overflow-x-scroll">
           <slot></slot>
         </div>
