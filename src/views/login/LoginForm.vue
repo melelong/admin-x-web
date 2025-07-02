@@ -42,6 +42,7 @@ const handleSubmit = async () => {
   isLoading.value = true;
   formData.captchaId = captchaId.value;
   await auth.accountLogin(formData).finally(() => {
+    refreshCode();
     isLoading.value = false;
   });
 };
