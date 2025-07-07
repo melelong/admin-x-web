@@ -1,7 +1,7 @@
 import { message } from 'ant-design-vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import { userLogin, type UserLogin } from '@/api/user';
+import { userLogin, type UserLogin } from '@/api/user/auth';
 import { t } from '@/i18n';
 import { useUserStore } from '@/store';
 

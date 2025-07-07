@@ -14,8 +14,8 @@ const formState = reactive({
 const columns = [
   {
     title: '名称',
-    dataIndex: 'title',
-    key: 'title',
+    dataIndex: 'titleZh',
+    key: 'titleZh',
   },
   {
     title: '编码',
@@ -86,6 +86,28 @@ const handleSearch = () => {
   getDataSource();
 };
 
+const formatMenuType = (type: number) => {
+  switch (type) {
+    case 0:
+      return '目录';
+    case 1:
+      return '菜单';
+    case 2:
+      return '按钮';
+  }
+};
+
+const setMenuTypeColor = (type: number) => {
+  switch (type) {
+    case 0:
+      return 'processing';
+    case 1:
+      return 'cyan';
+    case 2:
+      return 'blue';
+  }
+};
+
 onMounted(() => {
   getDataSource();
 });
@@ -125,7 +147,12 @@ onMounted(() => {
         bordered
         :columns="columns"
       >
-        <template #bodyCell="{ column }">
+        <template #bodyCell="{ record, column }">
+          <template v-if="column.key === 'menuType'">
+            <a-tag :bordered="false" :color="setMenuTypeColor(record.menuType)">
+              {{ formatMenuType(record.menuType) }}
+            </a-tag>
+          </template>
           <template v-if="column.key === 'action'">
             <a-button type="link">{{ t('编辑') }}</a-button>
             <a-button danger type="link">{{ t('删除') }}</a-button>

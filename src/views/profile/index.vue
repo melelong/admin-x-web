@@ -1,5 +1,3 @@
 <script setup lang="ts"></script>
 
-<template></template>
-
-<style scoped></style>
+<template>个人中心</template>

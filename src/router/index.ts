@@ -1,83 +1,26 @@
-import { HomeOutlined, NodeIndexOutlined, BugOutlined, UserOutlined } from '@ant-design/icons-vue';
-import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
-
-import { t } from '@/i18n';
-import Layout from '@/layout/Layout.vue';
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { usePermissionStore } from '@/store/modules/permission';
 import { useUserStore, useTabsStore } from '@/store';
-
-import { articleList } from './article';
-import { monitorList } from './monitor';
-import { settingList } from './setting';
-import { systemList } from './system';
-
-const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/',
-    redirect: '/home',
-    component: Layout,
-    meta: { directlyShowChildren: true },
-    children: [
-      {
-        path: 'home',
-        name: 'Home',
-        component: () => import('@/views/home/index.vue'),
-        meta: {
-          title: t('首页'),
-          icon: HomeOutlined,
-        },
-      },
-      {
-        path: 'readme',
-        name: 'Readme',
-        component: () => import('@/views/readme/index.vue'),
-        meta: {
-          icon: NodeIndexOutlined,
-          title: t('请阅读我 🪲'),
-        },
-      },
-      {
-        path: 'dashboard',
-        name: 'Dashboard',
-        component: () => import('@/views/dashboard/index.vue'),
-        meta: {
-          footer: true,
-          title: t('数据看板'),
-          icon: BugOutlined,
-        },
-      },
-      {
-        path: 'profile',
-        name: 'Profile',
-        component: () => import('@/views/profile/index.vue'),
-        meta: {
-          icon: UserOutlined,
-          title: t('个人中心'),
-        },
-      },
-    ],
-  },
-  ...articleList,
-  ...systemList,
-  ...monitorList,
-  ...settingList,
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import('@/views/login/index.vue'),
-    meta: {
-      hidden: true,
-      title: t('🍃 登录/注册'),
-    },
-  },
-];
+import { type RouteRaw } from '@/types/router';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes,
+  routes: [],
 });
 
+const convertRoute = (route: RouteRaw): RouteRecordRaw => {
+  return {
+    ...route,
+    children: route.children?.map(convertRoute),
+    meta: {
+      ...route.meta,
+      visible: route.meta?.visible,
+    },
+  } as RouteRecordRaw;
+};
+
 // 全局路由守卫
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to, _from, next) => {
   const userStore = useUserStore();
   const tabsStore = useTabsStore();
 
@@ -96,6 +39,12 @@ router.beforeEach(async (to, from, next) => {
         next({ name: 'Login' });
         return;
       }
+      await userStore.getPermissions();
+      const permissionStore = usePermissionStore();
+      permissionStore.menuRoutes.forEach((route: RouteRaw) => {
+        router.addRoute(convertRoute(route));
+      });
+      next({ ...to, replace: true });
     } catch {
       next({ name: 'Login' });
       return;

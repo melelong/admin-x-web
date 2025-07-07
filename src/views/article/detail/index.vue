@@ -10,7 +10,7 @@ import {
 import { message } from 'ant-design-vue';
 import { useRoute } from 'vue-router';
 
-import { Article, detailArticle, InteractionType, toggleInteraction } from '@/api/system/article';
+import { Article, detailArticle, InteractionType, toggleInteraction } from '@/api/article/article';
 import MarkdownViewer from '@/components/MarkdownViewer/index.vue';
 import router from '@/router';
 import CommentComposer from '@/views/article/components/CommentComposer/index.vue';

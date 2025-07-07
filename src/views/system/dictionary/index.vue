@@ -82,8 +82,8 @@ const isLoading = ref(false);
 const getDataSource = async () => {
   isLoading.value = true;
   const res = await dictPage({
-    pageSize: pagination.pageSize as number,
-    pageNum: pagination.current as number,
+    size: pagination.pageSize as number,
+    current: pagination.current as number,
     dictName: formState.dictName,
     dictCode: formState.dictCode,
   });

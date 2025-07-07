@@ -1,4 +1,4 @@
-import { PageResult } from '@/types/global';
+import { PageParams, PageResult } from '@/types/global';
 import request, { ResponseData } from '@/utils/request';
 
 export interface Dict {
@@ -18,12 +18,12 @@ export interface DictItem {
   status: number;
 }
 
-export const dictPage = (params: {
-  pageNum: number;
-  pageSize: number;
-  dictName?: string;
-  dictCode?: string;
-}): Promise<ResponseData<PageResult<Dict>>> => {
+export const dictPage = (
+  params: PageParams & {
+    dictName?: string;
+    dictCode?: string;
+  },
+): Promise<ResponseData<PageResult<Dict>>> => {
   return request.get('/dict/page', params);
 };
 
@@ -43,11 +43,11 @@ export const deleteDictData = (id: number) => {
   return request.delete(`/dict/deleteDictData/${id}`);
 };
 
-export const dictDataPage = (params: {
-  pageNum: number;
-  pageSize: number;
-  dictId: number;
-  itemLabel: string;
-}): Promise<ResponseData<PageResult<DictItem>>> => {
+export const dictDataPage = (
+  params: PageParams & {
+    dictId: number;
+    itemLabel: string;
+  },
+): Promise<ResponseData<PageResult<DictItem>>> => {
   return request.get('/dict/pageData', params);
 };

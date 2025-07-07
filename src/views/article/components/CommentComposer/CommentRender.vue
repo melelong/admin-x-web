@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { UserOutlined } from '@ant-design/icons-vue';
-
-import { Comment } from '@/api/content';
+import { Comment } from '@/api/article/comment';
 import CommentInput from '@/components/CommentInput/index.vue';
 import { t } from '@/i18n';
+import Avatar from '@/components/Avatar/index.vue';
 
 const props = withDefaults(
   defineProps<{
@@ -53,14 +52,10 @@ const handleReply = (item: Comment) => {
 
 <template>
   <a-flex>
-    <a-avatar class="flex-shrink-0" :src="comment.userAvatar" :size="36">
-      <template #icon>
-        <UserOutlined />
-      </template>
-    </a-avatar>
+    <Avatar :src="comment.userAvatar" :size="36" />
     <div class="flex-1 ml-8px">
       <div>
-        <span class="font-size-16px mr-8px">{{ comment.userName }}</span>
+        <span class="font-size-16px mr-8px">{{ comment.nickName }}</span>
         <a-tag v-if="comment.isOwn" :bordered="false" color="processing">作者</a-tag>
         <template v-if="isChild">
           <span>回复</span>

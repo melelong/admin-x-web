@@ -1,7 +1,16 @@
 import request from '@/utils/request';
+import { PageParams } from '@/types/global';
 
-export type Log = object;
+export interface Log {
+  operator: string;
+  description: string;
+  module: string;
+  type: string;
+  ip: string;
+  requestMethod: string;
+  operationTime: string;
+}
 
-export const logList = (params: { page: number; size: number }): Promise<any> => {
-  return request.get('/logs', params);
+export const logPage = (params: PageParams): Promise<any> => {
+  return request.get('/log/page', params);
 };

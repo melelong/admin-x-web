@@ -2,7 +2,13 @@
 interface Menu {
   name: string;
   path: string;
-  meta?: Record<string, any>;
+  icon: string;
+  cache: boolean;
+  visible: boolean;
+  permission: string;
+  component: string;
+  titleZh: string;
+  meta: Record<string, any>;
   children?: Menu[];
 }
 

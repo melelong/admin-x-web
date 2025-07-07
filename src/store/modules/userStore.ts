@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
+import { usePermissionStore } from '@/store/modules/permission';
 
-import { User } from '@/api/user';
+import { fetchPermissions, User } from '@/api/user';
 import { userInfo } from '@/api/user';
 
 export const useUserStore = defineStore('user', () => {
@@ -14,6 +15,8 @@ export const useUserStore = defineStore('user', () => {
    * 退出登录
    */
   const logout = () => {
+    const permissionStore = usePermissionStore();
+    permissionStore.restorePermissions();
     token.value = null;
     user.value = null;
     localStorage.removeItem('token');
@@ -46,13 +49,14 @@ export const useUserStore = defineStore('user', () => {
     }
   };
 
-  const init = async () => {
-    if (token.value && !user.value) {
-      await getUserInfo();
-    }
+  /**
+   * 获取权限信息
+   */
+  const getPermissions = async () => {
+    const { data } = await fetchPermissions();
+    const permissionStore = usePermissionStore();
+    permissionStore.setPermissions(data.menus, [...data.permissions]);
   };
-
-  init().finally();
 
   return {
     user,
@@ -61,5 +65,6 @@ export const useUserStore = defineStore('user', () => {
     setToken,
     logout,
     getUserInfo,
+    getPermissions,
   };
 });

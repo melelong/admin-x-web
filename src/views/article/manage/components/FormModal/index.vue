@@ -2,7 +2,7 @@
 import { message } from 'ant-design-vue';
 import { cloneDeep } from 'lodash-es';
 
-import { Article, ArticleCategory, saveArticle, allCategory } from '@/api/system/article';
+import { Article, ArticleCategory, saveArticle, listCategory } from '@/api/article/article';
 import { t } from '@/i18n';
 
 const categoryList = ref<ArticleCategory[]>([]);
@@ -24,7 +24,7 @@ const showModal = async ({
     formData.value = cloneDeep(row);
   }
   visible.value = true;
-  const res = await allCategory();
+  const res = await listCategory();
   categoryList.value = res.data;
 };
 

@@ -2,7 +2,7 @@
 import { ReloadOutlined, SearchOutlined } from '@ant-design/icons-vue';
 import dayjs from 'dayjs';
 
-import { logList, type Log } from '@/api/system/logs';
+import { logPage, type Log } from '@/api/system/logs';
 import { t } from '@/i18n';
 
 import type { TablePaginationConfig } from 'ant-design-vue';
@@ -18,12 +18,12 @@ const isLoading = ref(false);
 const dataSource = ref<Log[]>([]);
 const getDataSource = async () => {
   isLoading.value = true;
-  const res = await logList({
-    page: pagination.current as number,
+  const res = await logPage({
+    current: pagination.current as number,
     size: pagination.pageSize as number,
   });
-  dataSource.value = res.content;
-  pagination.total = res.totalElements;
+  dataSource.value = res.data.records;
+  pagination.total = res.data.total;
   isLoading.value = false;
 };
 

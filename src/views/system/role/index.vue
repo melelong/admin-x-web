@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ReloadOutlined, SearchOutlined } from '@ant-design/icons-vue';
 
-import { listRoles, type Role } from '@/api/system/roles';
+import { rolePage, type Role } from '@/api/system/role';
 import { t } from '@/i18n';
 
 import RoleFormModal from './components/RoleFormModal/index.vue';
@@ -10,7 +10,7 @@ const isLoading = ref(false);
 const dataSource = ref<Role[]>([]);
 const getDataSource = async () => {
   isLoading.value = true;
-  const res = await listRoles({ pageNum: 1, pageSize: 10 });
+  const res = await rolePage({ current: 1, size: 10 });
   dataSource.value = res.data.records;
   isLoading.value = false;
 };
@@ -101,6 +101,11 @@ onMounted(async () => {
         :columns="columns"
       >
         <template #bodyCell="{ column, record }">
+          <template v-if="column.key === 'status'">
+            <a-tag :bordered="false" :color="record.status === 0 ? 'processing' : 'error'">
+              {{ record.status === 0 ? '启用' : '停用' }}
+            </a-tag>
+          </template>
           <template v-if="column.key === 'action'">
             <a-button @click="handleEdit(record)" type="link">{{ t('编辑') }}</a-button>
             <a-button danger type="link">{{ t('删除') }}</a-button>

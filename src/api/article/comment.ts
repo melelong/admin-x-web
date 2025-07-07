@@ -1,4 +1,4 @@
-import { PageResult } from '@/types/global';
+import { PageParams, PageResult } from '@/types/global';
 import request, { ResponseData } from '@/utils/request';
 
 export interface CommentForm {
@@ -11,13 +11,11 @@ export interface CommentForm {
 export interface Comment {
   id: number;
   articleId: number;
-  auditRemark: string;
-  auditStatus: number;
   content: string;
   createTime: string;
   parentId: number;
   userId: number;
-  userName: string;
+  nickName: string;
   userAvatar: string;
   isOwn: boolean;
   isComment?: boolean;
@@ -29,10 +27,8 @@ export const saveComment = (data: CommentForm) => {
   return request.post('/comment/save', data);
 };
 
-export const pageComment = (data: {
-  articleId: number;
-  pageNum: number;
-  pageSize: number;
-}): Promise<ResponseData<PageResult<Comment>>> => {
+export const pageComment = (
+  data: PageParams & { articleId: number },
+): Promise<ResponseData<PageResult<Comment>>> => {
   return request.get('/comment/page', data);
 };

@@ -2,7 +2,7 @@
 import { t } from '@/i18n';
 
 const attrs = useAttrs();
-const _props = withDefaults(
+withDefaults(
   defineProps<{
     name?: string;
     title: string;

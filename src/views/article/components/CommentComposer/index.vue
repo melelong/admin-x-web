@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { message } from 'ant-design-vue';
 
-import { Comment, pageComment, saveComment } from '@/api/content';
-import { Article } from '@/api/system/article';
+import { Comment, pageComment, saveComment } from '@/api/article/comment';
+import { Article } from '@/api/article/article';
 import CommentInput from '@/components/CommentInput/index.vue';
 
 import CommentRender from './CommentRender.vue';
@@ -31,8 +31,8 @@ const handleSubmit = async (data: {
 const commentList = ref<Comment[]>([]);
 const getCommentList = async () => {
   const res = await pageComment({
-    pageNum: 1,
-    pageSize: 50,
+    current: 1,
+    size: 50,
     articleId: content.value.articleId,
   });
   commentList.value = res.data.records;

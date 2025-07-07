@@ -23,17 +23,11 @@ export const articleList = [
         meta: { title: t('分类管理') },
       },
       {
-        path: 'audit',
-        name: 'ArticleAudit',
-        component: () => import('@/views/article/audit/index.vue'),
-        meta: { title: t('评论审核') },
-      },
-      {
         path: 'detail/:articleId',
         name: 'ArticleDetail',
         component: () => import('@/views/article/detail/index.vue'),
         meta: {
-          hidden: true,
+          visible: true,
           title: t('文章详情'),
         },
       },

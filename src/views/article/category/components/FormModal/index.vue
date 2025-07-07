@@ -2,7 +2,7 @@
 import { message } from 'ant-design-vue';
 import { cloneDeep } from 'lodash-es';
 
-import { ArticleCategory, saveArticleCategory } from '@/api/system/article';
+import { ArticleCategory, saveArticleCategory } from '@/api/article/article';
 import { t } from '@/i18n';
 
 const formRef = ref();
@@ -47,8 +47,19 @@ defineExpose({
 <template>
   <a-modal v-model:open="visible" width="600px" :title="modalTile" @ok="handleOk">
     <a-form ref="formRef" :label-col="{ span: 5 }" :wrapperCol="{ span: 18 }" :model="formData">
-      <a-form-item :label="t('分类名称')" name="dictName">
+      <a-form-item :label="t('分类名称')" name="categoryName">
         <a-input :placeholder="t('请输入')" v-model:value="formData.categoryName"></a-input>
+      </a-form-item>
+      <a-form-item :label="t('备注')" name="remark">
+        <a-textarea
+          :rows="5"
+          show-count
+          :maxlength="500"
+          class="bg-#f9f9f9 rd-5px"
+          v-model:value="formData.remark"
+          :placeholder="t('请输入')"
+        >
+        </a-textarea>
       </a-form-item>
     </a-form>
   </a-modal>

@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 
+import { filterRoutes } from '@/utils/router';
+import { usePermissionStore } from '@/store/modules/permission';
 import { useSystemStore } from '@/store/modules/systemStore';
 import { useTabsStore } from '@/store/modules/tabsStore';
-
 import MenuRecursive from './MenuRecursive.vue';
 
+const router = useRouter();
 const tabsStore = useTabsStore();
 const systemStore = useSystemStore();
-
+const permissionStore = usePermissionStore();
 const activeTab = computed(() => tabsStore.activeTab);
-const router = useRouter();
-const menuRoutes = computed(() => {
-  return router.options.routes;
-});
+const menuRoutes = computed(() => filterRoutes(permissionStore.menuRoutes));
+
 const handleMenuClick = ({ key }: { key: string | number }) => {
   tabsStore.setActiveTab(key as string);
   router.push(key as string);

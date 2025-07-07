@@ -1,4 +1,4 @@
-import { PageResult } from '@/types/global';
+import { PageParams, PageResult } from '@/types/global';
 import request, { ResponseData } from '@/utils/request';
 
 export interface Role {
@@ -9,7 +9,6 @@ export interface Role {
   dataScope: number;
   status: number;
   remark: string;
-  isDeleted: number;
   createTime: string;
   updateTime: string;
 }
@@ -19,17 +18,14 @@ export interface RoleMenuEdit {
   menuIds: number[];
 }
 
-export const listRoles = (data: {
-  pageNum: number;
-  pageSize: number;
-}): Promise<ResponseData<PageResult<Role>>> => {
-  return request.get('/system/roles', data);
+export const rolePage = (data: PageParams): Promise<ResponseData<PageResult<Role>>> => {
+  return request.get('/role/page', data);
 };
 
 export const rolePermissions = (roleId: number): Promise<ResponseData> => {
-  return request.get(`/system/roles/permission/${roleId}`);
+  return request.get(`/role/permission/${roleId}`);
 };
 
 export const setRoleMenus = (data: RoleMenuEdit): Promise<ResponseData> => {
-  return request.post('/system/roles/setRoleMenus', data);
+  return request.post('/role/setRoleMenus', data);
 };

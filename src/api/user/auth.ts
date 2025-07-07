@@ -9,6 +9,7 @@ export interface UserLogin {
 
 export interface UserRegister extends Omit<UserLogin, 'username'> {
   email: string;
+  nickname: string;
 }
 
 export interface LoginResponse {

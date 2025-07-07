@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { message } from 'ant-design-vue';
-import { sendMailCode, userRegister } from '@/api/user';
+import { sendMailCode, userRegister } from '@/api/user/auth';
 import { isValidEmail } from '@/utils/validate';
 
 const checked = ref(false);
 const isLoading = ref(false);
 const formData = reactive({
+  nickname: '',
   email: '',
   password: '',
   captchaId: '',
@@ -117,6 +118,9 @@ const handleSubmit = async () => {
 
 <template>
   <a-form @finish="handleSubmit" ref="formRef" size="large" :model="formData">
+    <a-form-item name="nickname" :rules="[{ required: true, message: '请输入昵称' }]">
+      <a-input v-model:value="formData.nickname" placeholder="请输入昵称"></a-input>
+    </a-form-item>
     <a-form-item name="email" :rules="[{ required: true, message: '请输入邮箱' }]">
       <a-input v-model:value="formData.email" placeholder="请输入邮箱"></a-input>
     </a-form-item>

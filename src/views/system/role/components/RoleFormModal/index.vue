@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { message } from 'ant-design-vue';
 
-import { Role, rolePermissions, setRoleMenus } from '@/api/system/roles';
+import { Role, rolePermissions, setRoleMenus } from '@/api/system/role';
 import { t } from '@/i18n';
 
 const formRef = ref();
@@ -50,6 +50,7 @@ defineExpose({
       checkable
       :fieldNames="{
         key: 'id',
+        title: 'titleZh',
       }"
       :tree-data="menuTree"
     >

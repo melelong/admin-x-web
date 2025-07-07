@@ -3,7 +3,7 @@ import { SearchOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons-
 import { message, TablePaginationConfig } from 'ant-design-vue';
 import { onMounted } from 'vue';
 
-import { Article, pageArticle, delArticle, AuditStatus } from '@/api/system/article';
+import { Article, articlePage, delArticle } from '@/api/article/article';
 import ConfirmButton from '@/components/ConfirmButton/index.vue';
 import { t } from '@/i18n';
 import router from '@/router';
@@ -22,7 +22,7 @@ const formState = reactive({
 });
 const columns = [
   {
-    width: 400,
+    width: 300,
     title: '标题',
     dataIndex: 'title',
     key: 'title',
@@ -34,22 +34,24 @@ const columns = [
     key: 'categoryName',
   },
   {
-    width: 150,
-    title: '作者',
-    dataIndex: 'authorName',
-    key: 'authorName',
-  },
-  {
-    width: 100,
     title: '点赞数量',
     dataIndex: 'likeCount',
     key: 'likeCount',
   },
   {
-    width: 100,
-    title: '状态',
-    dataIndex: 'status',
-    key: 'status',
+    title: '创建人',
+    dataIndex: 'createUser',
+    key: 'createUser',
+  },
+  {
+    title: '创建时间',
+    dataIndex: 'createTime',
+    key: 'createTime',
+  },
+  {
+    title: '更新时间',
+    dataIndex: 'updateTime',
+    key: 'updateTime',
   },
   {
     title: '操作',
@@ -80,9 +82,9 @@ const handleEdit = (row: Article) => {
 const isLoading = ref(false);
 const getDataSource = async () => {
   isLoading.value = true;
-  const res = await pageArticle({
-    pageSize: pagination.pageSize as number,
-    pageNum: pagination.current as number,
+  const res = await articlePage({
+    size: pagination.pageSize as number,
+    current: pagination.current as number,
     title: formState.title,
   });
   dataSource.value = res.data.records;
@@ -115,42 +117,6 @@ const handleDel = async (id: number) => {
 
 const viewDetail = (row: Article) => {
   router.push({ path: `/article/detail/${row.articleId}` });
-};
-
-/**
- * 获取审核状态描述
- * @param status 审核状态值
- * @returns 对应的状态描述
- */
-const getStatusText = (status: AuditStatus): string => {
-  switch (status) {
-    case AuditStatus.PENDING:
-      return '待审核';
-    case AuditStatus.APPROVED:
-      return '已通过';
-    case AuditStatus.REJECTED:
-      return '已拒绝';
-    default:
-      return '';
-  }
-};
-
-/**
- * 获取审核状态标签类型
- * @param status 审核状态值
- * @returns 对应的标签类型 (用于UI展示)
- */
-const getTagType = (status: AuditStatus): 'warning' | 'success' | 'danger' | 'info' => {
-  switch (status) {
-    case AuditStatus.PENDING:
-      return 'warning';
-    case AuditStatus.APPROVED:
-      return 'success';
-    case AuditStatus.REJECTED:
-      return 'danger';
-    default:
-      return 'info';
-  }
 };
 
 onMounted(() => {
@@ -194,11 +160,6 @@ onMounted(() => {
         :columns="columns"
       >
         <template #bodyCell="{ text, column, record }">
-          <template v-if="column.key === 'status'">
-            <a-tag :color="getTagType(text)" :bordered="false">
-              {{ getStatusText(text) }}
-            </a-tag>
-          </template>
           <template v-if="column.key === 'action'">
             <a-button type="link" @click="handleEdit(record)">{{ t('编辑') }}</a-button>
             <a-button type="link" @click="viewDetail(record)">{{ t('详情') }}</a-button>

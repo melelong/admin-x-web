@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { SearchOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons-vue';
 import { message, TablePaginationConfig } from 'ant-design-vue';
-import dayjs from 'dayjs';
 
-import { ArticleCategory, pageArticleCategory, delArticleCategory } from '@/api/system/article';
+import { ArticleCategory, articleCategoryPage, delArticleCategory } from '@/api/article/article';
 import ConfirmButton from '@/components/ConfirmButton/index.vue';
 import { t } from '@/i18n';
 
@@ -17,7 +16,7 @@ const pagination = reactive<TablePaginationConfig>({
 });
 
 const formState = reactive({
-  keyword: '',
+  categoryName: '',
 });
 const columns = [
   {
@@ -26,18 +25,27 @@ const columns = [
     key: 'categoryName',
   },
   {
-    width: 150,
+    title: '备注',
+    dataIndex: 'remark',
+    key: 'remark',
+  },
+  {
+    width: 170,
+    title: '创建人',
+    dataIndex: 'createUser',
+    key: 'createUser',
+  },
+  {
+    width: 170,
     title: '创建时间',
     dataIndex: 'createTime',
     key: 'createTime',
-    customRender: ({ text }: { text: string }) => dayjs(text).format('YYYY-MM-DD HH:mm:ss'),
   },
   {
-    width: 150,
+    width: 170,
     title: '更新时间',
     dataIndex: 'updateTime',
     key: 'updateTime',
-    customRender: ({ text }: { text: string }) => dayjs(text).format('YYYY-MM-DD HH:mm:ss'),
   },
   {
     title: '操作',
@@ -68,10 +76,10 @@ const handleEdit = (row: ArticleCategory) => {
 const isLoading = ref(false);
 const getDataSource = async () => {
   isLoading.value = true;
-  const res = await pageArticleCategory({
-    pageSize: pagination.pageSize as number,
-    pageNum: pagination.current as number,
-    keyword: formState.keyword,
+  const res = await articleCategoryPage({
+    size: pagination.pageSize as number,
+    current: pagination.current as number,
+    categoryName: formState.categoryName,
   });
   dataSource.value = res.data.records;
   pagination.total = res.data.total;
@@ -109,8 +117,8 @@ onMounted(() => {
   <div class="m-10px">
     <div class="bg-white p-16px">
       <a-form ref="formRef" :model="formState" layout="inline">
-        <a-form-item :label="t('分类名称')" name="keyword">
-          <a-input :placeholder="t('请输入')" v-model:value="formState.keyword" />
+        <a-form-item :label="t('分类名称')" name="categoryName">
+          <a-input :placeholder="t('请输入')" v-model:value="formState.categoryName" />
         </a-form-item>
         <a-form-item>
           <a-button @click="handleReset">

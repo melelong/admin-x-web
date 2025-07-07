@@ -1,6 +1,4 @@
 <script setup>
-import { filterRoutes } from '@/utils/router';
-
 const props = defineProps({
   routes: {
     type: Array,
@@ -24,7 +22,7 @@ const resolvePath = (path) => {
 </script>
 
 <template>
-  <template v-for="route in filterRoutes(routes)" :key="route.path">
+  <template v-for="route in routes" :key="route.path">
     <template v-if="route.meta?.directlyShowChildren">
       <MenuRecursive :routes="route.children" :base-path="resolvePath(route.path)" />
     </template>
@@ -35,7 +33,7 @@ const resolvePath = (path) => {
           <template v-if="route.meta?.icon">
             <component :is="route.meta?.icon" />
           </template>
-          <span>{{ route.meta.title }}</span>
+          <span>{{ route.meta?.title }}</span>
         </a-menu-item>
       </template>
 

@@ -1,5 +1,4 @@
 import { SafetyCertificateOutlined } from '@ant-design/icons-vue';
-
 import { t } from '@/i18n';
 import Layout from '@/layout/Layout.vue';
 
@@ -20,7 +19,7 @@ export const monitorList = [
       {
         path: 'log',
         name: 'OperationLog',
-        component: () => import('@/views/monitor/operation-log/index.vue'),
+        component: () => import('@/views/monitor/log/index.vue'),
         meta: { title: t('操作日志') },
       },
     ],

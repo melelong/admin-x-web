@@ -1,11 +1,12 @@
 export interface PageResult<T> {
-  records: T[];
   total: number;
-  size: number;
   current: number;
-  optimizeCountSql: boolean;
-  searchCount: boolean;
-  maxLimit: number | null;
-  countId: string | null;
+  size: number;
   pages: number;
+  records: T[];
+}
+
+export interface PageParams {
+  current: number;
+  size: number;
 }
