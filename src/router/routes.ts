@@ -58,15 +58,6 @@ export const constantRoutes: RouteRaw[] = [
   ...monitorList,
   ...settingList,
   {
-    path: '/login',
-    name: 'Login',
-    component: () => import('@/views/login/index.vue'),
-    meta: {
-      visible: true,
-      title: t('🍃 登录/注册'),
-    },
-  },
-  {
     path: '/404',
     name: 'NotFound',
     component: () => import('@/views/error/404.vue'),

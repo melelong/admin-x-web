@@ -2,10 +2,21 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import { usePermissionStore } from '@/store/modules/permission';
 import { useUserStore, useTabsStore } from '@/store';
 import { type RouteRaw } from '@/types/router';
+import { t } from '@/i18n';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [],
+  routes: [
+    {
+      path: '/login',
+      name: 'Login',
+      component: () => import('@/views/login/index.vue'),
+      meta: {
+        visible: true,
+        title: t('🍃 登录/注册'),
+      },
+    },
+  ],
 });
 
 const convertRoute = (route: RouteRaw): RouteRecordRaw => {
