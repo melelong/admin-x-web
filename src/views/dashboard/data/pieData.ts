@@ -1,7 +1,8 @@
 import { t } from '@/i18n';
+import { getLessVar } from '@/utils';
 
 export const pieData = {
-  backgroundColor: '#fff',
+  backgroundColor: getLessVar('--color-bg-container'),
   tooltip: {
     trigger: 'item',
     formatter: '{a} <br/>{b}: <span style="font-weight:700">{c}</span> ({d}%)',

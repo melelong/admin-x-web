@@ -100,7 +100,7 @@ onMounted(async () => {
 
 <template>
   <div class="m-10px">
-    <div class="bg-white p-16px">
+    <a-card>
       <a-form ref="formRef" :model="formState" layout="inline">
         <a-form-item :label="t('名称')" name="name">
           <a-input :placeholder="t('请输入')" v-model:value="formState.name" />
@@ -116,8 +116,8 @@ onMounted(async () => {
           </a-button>
         </a-form-item>
       </a-form>
-    </div>
-    <div class="p-16px bg-white rounded">
+    </a-card>
+    <a-card class="my-16px">
       <a-table
         :loading="isLoading"
         size="small"
@@ -133,6 +133,6 @@ onMounted(async () => {
           </template>
         </template>
       </a-table>
-    </div>
+    </a-card>
   </div>
 </template>

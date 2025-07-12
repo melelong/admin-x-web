@@ -6,7 +6,7 @@ import { setupI18n } from './i18n';
 import router from './router';
 import permission from '@/directives/permission';
 import './style.css';
-
+import './assets/styles/theme.less';
 import 'virtual:uno.css';
 
 const app = createApp(App);

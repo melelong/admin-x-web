@@ -28,14 +28,14 @@ const initialPosition = {
 
 <template>
   <div class="m-10px">
-    <div class="p-16px bg-white rounded">
+    <a-card>
       <div>
         <h1>首页</h1>
-        <div class="mt-10px flex justify-between items-end font-size-16px">
+        <div class="mt-8px flex justify-between items-end font-size-16px">
           <p>欢迎使用 Admin x</p>
         </div>
       </div>
-    </div>
+    </a-card>
     <ArcMenu
       :menus="menus"
       :initialPosition="initialPosition"

@@ -121,7 +121,7 @@ onMounted(() => {
 </script>
 <template>
   <div class="m-10px">
-    <div class="bg-white p-16px">
+    <a-card>
       <a-form ref="formRef" :model="formState" layout="inline">
         <a-form-item :label="t('字典名称')" name="dictName">
           <a-input :placeholder="t('请输入')" v-model:value="formState.dictName" />
@@ -140,8 +140,8 @@ onMounted(() => {
           </a-button>
         </a-form-item>
       </a-form>
-    </div>
-    <div class="my-16px p-16px bg-white">
+    </a-card>
+    <a-card class="my-16px">
       <div class="mb-16px">
         <a-button @click="handleAdd" type="primary">
           <PlusOutlined />
@@ -175,7 +175,7 @@ onMounted(() => {
           </template>
         </template>
       </a-table>
-    </div>
+    </a-card>
     <DictionaryFormModal ref="dictionaryFormModalRef" />
     <DictionaryDataModal ref="dictionaryDataModalRef" />
   </div>

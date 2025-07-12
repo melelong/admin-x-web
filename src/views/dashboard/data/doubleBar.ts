@@ -1,5 +1,7 @@
+import { getLessVar } from '@/utils';
+
 export const doubleBar = {
-  backgroundColor: '#fff',
+  backgroundColor: getLessVar('--color-bg-container'),
   tooltip: {
     trigger: 'axis',
     backgroundColor: 'rgba(15, 30, 50, 0.95)',

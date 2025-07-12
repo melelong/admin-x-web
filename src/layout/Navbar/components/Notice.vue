@@ -31,14 +31,10 @@ const activeKey = ref('privateMessage');
         <a-tabs v-model:activeKey="activeKey">
           <a-tab-pane key="privateMessage" :tab="t('私信')"> </a-tab-pane>
           <a-tab-pane key="task" :tab="t('任务管理')">
-            <div
-              v-for="item in taskList"
-              :key="item.id"
-              class="border-[#f0f0f0] border-1px border-solid p-[5px_10px] rd-5px mb-10px"
-            >
+            <a-card class="mb-10px" v-for="item in taskList" :key="item.id">
               <span>{{ item.name }}</span>
               <a-progress class="mb-3px" :percent="item.percent" />
-            </div>
+            </a-card>
           </a-tab-pane>
           <a-tab-pane key="system" :tab="t('系统通知')" />
         </a-tabs>

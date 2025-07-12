@@ -101,7 +101,7 @@ onMounted(() => {
 </script>
 <template>
   <div class="m-10px">
-    <div class="bg-white p-16px">
+    <a-card>
       <a-form :model="formState" ref="formRef" layout="inline">
         <a-form-item label="用户名" name="username">
           <a-input placeholder="请输入" v-model:value="formState.username" />
@@ -120,8 +120,8 @@ onMounted(() => {
           </a-button>
         </a-form-item>
       </a-form>
-    </div>
-    <div class="my-16px p-16px bg-white">
+    </a-card>
+    <a-card class="my-16px">
       <a-table
         :loading="isLoading"
         size="small"
@@ -145,7 +145,7 @@ onMounted(() => {
           </template>
         </template>
       </a-table>
-    </div>
+    </a-card>
 
     <!-- 新增和编辑用户 -->
     <UserFormModal ref="userFormModalRef" />

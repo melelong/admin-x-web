@@ -1,3 +1,3 @@
-<script setup lang="ts"></script>
+<template></template>
 
-<template>主题设置</template>
+<script setup lang="ts"></script>

@@ -29,7 +29,7 @@ export const constantRoutes: RouteRaw[] = [
         component: () => import('@/views/readme/index.vue'),
         meta: {
           icon: NodeIndexOutlined,
-          title: t('请阅读我 🪲'),
+          title: t('请阅读我'),
         },
       },
       {

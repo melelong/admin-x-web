@@ -14,7 +14,7 @@
     >
       <slot>
         <i>
-          <BugOutlined class="color-#4d6bfe" />
+          <BugOutlined class="color-[var(--color-primary)]" />
         </i>
       </slot>
     </div>
@@ -182,7 +182,7 @@ onUnmounted(() => {
 });
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .arc-menu-wrapper {
   position: fixed;
   z-index: 1000;
@@ -200,8 +200,8 @@ onUnmounted(() => {
   width: 60px;
   height: 60px;
   cursor: pointer;
-  background-color: #f5f5f5;
-  border: 1px solid #e9e9e9;
+  background-color: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
   border-radius: 50%;
   box-shadow: 0 4px 20px rgb(0 0 0 / 5%);
   transform: rotate(0) scale(1);
@@ -213,13 +213,13 @@ onUnmounted(() => {
 }
 
 .arc-menu-control.open {
-  background-color: #f5f5f5;
+  background-color: var(--color-bg-container);
+  border: 1px solid var(--color-border);
   transform: rotate(-45deg) scale(1.1);
 }
 
 .arc-menu-control i {
   font-size: 24px;
-  color: white;
   transition: transform 0.3s ease;
 }
 
@@ -235,7 +235,8 @@ onUnmounted(() => {
   width: 50px;
   height: 50px;
   cursor: pointer;
-  background: rgb(255 255 255 / 95%);
+  background-color: var(--color-bg-container);
+  border: 1px solid var(--color-border);
   border-radius: 50%;
   box-shadow: 0 3px 15px rgb(0 0 0 / 20%);
   transform: translate(0, 0);
@@ -255,7 +256,7 @@ onUnmounted(() => {
   font-size: 10px;
   font-weight: 600;
   line-height: 1.1;
-  color: #333;
+  color: var(--color-text);
   text-align: center;
 }
 </style>

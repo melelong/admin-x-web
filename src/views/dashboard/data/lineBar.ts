@@ -1,5 +1,7 @@
+import { getLessVar } from '@/utils';
+
 export const lineBar = {
-  backgroundColor: '#fff',
+  backgroundColor: getLessVar('--color-bg-container'),
   grid: {
     left: '3%',
     right: '5%',

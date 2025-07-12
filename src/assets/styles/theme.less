@@ -1,0 +1,40 @@
+@header-height: 55px;
+
+:root {
+  --header-height: @header-height;
+  --transition-duration: 0.3s;
+}
+
+body {
+  transition:
+    background-color var(--transition-duration) ease,
+    color var(--transition-duration) ease;
+}
+
+.ant-layout .ant-layout-header {
+  height: @header-height;
+  background: var(--color-bg-container) !important;
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+
+.ant-layout .ant-layout-sider {
+  background: var(--color-bg-container) !important;
+}
+
+.title-label {
+  position: relative;
+  padding-left: 16px;
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    display: block;
+    width: 4px;
+    height: 1em;
+    content: '';
+    background-color: var(--color-primary);
+    border-radius: 2px;
+    transform: translateY(-50%);
+  }
+}

@@ -28,7 +28,7 @@ const handleClick = ({ key }: { key: string | number }) => {
   <a-flex class="ml-44px" align="center">
     <div class="mr-8px">{{ nickname }}</div>
     <a-dropdown>
-      <Avatar :src="avatar" :size="44" />
+      <Avatar :src="avatar" :size="36" />
       <template #overlay>
         <a-menu @click="handleClick">
           <a-menu-item key="Profile">{{ t('个人中心') }}</a-menu-item>

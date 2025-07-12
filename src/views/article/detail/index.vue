@@ -62,7 +62,7 @@ const handleComment = () => {
 
 <template>
   <div class="m-10px">
-    <div class="m-auto p-16px w-66% bg-white">
+    <a-card class="m-auto w-66%">
       <div class="pos-absolute top-150px">
         <div class="pos-sticky z-100 left-0 -translate-x-90px">
           <a-flex vertical :gap="16">
@@ -135,6 +135,6 @@ const handleComment = () => {
         </a-divider>
         <CommentComposer ref="commentComposerRef" />
       </div>
-    </div>
+    </a-card>
   </div>
 </template>

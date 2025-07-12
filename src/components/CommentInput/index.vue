@@ -57,7 +57,7 @@ const onClickOutside = () => {
         :rows="3"
         show-count
         :maxlength="2000"
-        class="bg-#f9f9f9 rd-5px"
+        class="rd-5px"
         v-model:value="text"
         :bordered="false"
         :placeholder="t('友好交流，理性讨论~')"

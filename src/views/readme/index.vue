@@ -24,10 +24,10 @@ onMounted(() => {
 
 <template>
   <div class="m-10px">
-    <div class="p-16px bg-white rounded">
+    <a-card>
       <a-spin :spinning="isLoading">
         <MarkdownViewer :content="markdownContent" />
       </a-spin>
-    </div>
+    </a-card>
   </div>
 </template>

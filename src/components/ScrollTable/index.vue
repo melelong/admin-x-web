@@ -197,13 +197,13 @@ onBeforeUnmount(() => {
 });
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .scroll-table-container {
   position: relative;
   width: 100%;
   overflow: hidden;
-  background-color: #fff;
-  border: 1px solid #f5f5f5;
+  background: var(--color-bg-container);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .table-header {
@@ -211,8 +211,8 @@ onBeforeUnmount(() => {
   padding: 0 16px;
   font-weight: bold;
   color: #0958d9;
-  background-color: #fff;
-  border-bottom: 1px solid #f5f5f5;
+  background: var(--color-bg-container);
+  border-bottom: 1px solid var(--color-border-secondary);
 }
 
 .header-cell {
@@ -234,12 +234,12 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   padding: 0 16px;
-  border-bottom: 1px solid #f5f5f5;
+  background: var(--color-bg-container);
   transition: background-color 0.3s;
 }
 
 .table-row:nth-child(2n) {
-  background-color: #f5f5f5;
+  background: var(--color-bg-container);
 
   .table-cell {
     color: #00b3b5;
@@ -247,7 +247,7 @@ onBeforeUnmount(() => {
 }
 
 .table-row:hover {
-  background-color: #f5f5f5;
+  background: var(--color-bg-container);
 }
 
 .table-cell {
@@ -266,8 +266,8 @@ onBeforeUnmount(() => {
   justify-content: space-between;
   padding: 15px 16px;
   font-size: 12px;
-  background-color: #fff;
-  border-top: 1px solid #f5f5f5;
+  background: var(--color-bg-container);
+  border-top: 1px solid var(--color-border-secondary);
 }
 
 .scroll-status {

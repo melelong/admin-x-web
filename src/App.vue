@@ -7,18 +7,14 @@ import { RouterView } from 'vue-router';
 
 const { locale } = useI18n();
 const antLocale = computed(() => (locale.value === 'zh-CN' ? zhCN : enUS));
+import { storeToRefs } from 'pinia';
+import { useThemeStore } from '@/store/modules/theme';
+const themeStore = useThemeStore();
+const { themeConfig } = storeToRefs(themeStore);
 </script>
 
 <template>
-  <a-config-provider
-    :theme="{
-      token: {
-        colorLink: '#4d6bfe',
-        colorPrimary: '#4d6bfe',
-      },
-    }"
-    :locale="antLocale"
-  >
+  <a-config-provider :theme="themeConfig" :locale="antLocale">
     <RouterView />
   </a-config-provider>
 </template>

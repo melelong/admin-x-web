@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { CloseOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue';
-import { isNumber } from 'lodash-es';
+import { isNumber, omit } from 'lodash-es';
 import Sortable from 'sortablejs';
 
 import ContextMenu from '@/layout/ViewTabs/ContextMenu.vue';
 import { useSystemStore } from '@/store/modules/systemStore';
 import { useTabsStore } from '@/store/modules/tabsStore';
-
 const router = useRouter();
 const tabsStore = useTabsStore();
 const systemStore = useSystemStore();
@@ -85,20 +84,31 @@ onUnmounted(() => {
   sortable?.destroy();
   document.removeEventListener('click', handleClickOutside);
 });
+
+const setTabProps = (tab: MenuTab) => {
+  const isActive = tab.path === activeTab.value;
+  const obj = {
+    ghost: isActive,
+    type: 'primary',
+  };
+  if (isActive) {
+    return obj;
+  }
+  return omit(obj, 'type');
+};
 </script>
 
 <template>
-  <div class="view-tabs-container flex items-center px-8px h-36px bg-#fff pos-sticky z-1000 top-0">
-    <a-tag
+  <div class="view-tabs-container flex items-center px-8px h-40px pos-sticky z-9 top-0">
+    <a-button
       v-if="systemStore.layout.collapsed"
       @click="systemStore.toggleCollapsed"
-      class="w-40px text-align-center py-4px mr-8px cursor-pointer hover:color-#0958d9 hover:border-color-#91caff hover:bg-#e6f4ff"
+      class="w-40px text-align-center"
     >
       <component :is="systemStore.isCollapsed ? MenuUnfoldOutlined : MenuFoldOutlined" />
-    </a-tag>
+    </a-button>
     <a-tabs
-      :class="systemStore.layout.tabs.style"
-      class="w-0 flex-auto"
+      class="w-0 flex-auto ml-8px"
       v-model:activeKey="activeTab"
       tab-position="top"
       :tabBarGutter="8"
@@ -109,21 +119,17 @@ onUnmounted(() => {
     >
       <a-tab-pane v-for="tab in tabsStore.tabs" :key="tab.path">
         <template #tab>
-          <a-tag
+          <a-button
             :draggable="true"
             @click.stop="handleChange(tab.path)"
             @contextmenu.prevent="handleRightClick(tab, $event)"
-            :color="tab.path === activeTab ? 'blue' : ''"
-            class="p-[4px_10px] mr-0 font-size-16px cursor-pointer hover:color-#0958d9 hover:bg-#e6f4ff hover:border-color-#91caff"
+            class="px-10px"
+            v-bind="setTabProps(tab)"
           >
             <component class="mr-0!" :is="tab.icon" />
             <span>{{ tab.title }}</span>
-            <CloseOutlined
-              class="mr-0! rd-2px hover:bg-#fff"
-              v-if="tab.closable"
-              @click.stop="handleDel(tab.path)"
-            />
-          </a-tag>
+            <CloseOutlined class="mr-0!" v-if="tab.closable" @click.stop="handleDel(tab.path)" />
+          </a-button>
         </template>
       </a-tab-pane>
     </a-tabs>
@@ -138,8 +144,11 @@ onUnmounted(() => {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="less">
 .view-tabs-container {
+  background-color: var(--color-bg-container) !important;
+  border-bottom: 1px solid var(--color-border-secondary);
+
   :deep(.ant-tabs-ink-bar) {
     display: none;
   }

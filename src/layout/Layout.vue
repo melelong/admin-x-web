@@ -12,9 +12,7 @@ const route = useRoute();
 
 <template>
   <a-layout>
-    <a-layout-header
-      :class="`px-10px! ${systemStore.theme === 'light' ? 'border-b-#f5f5f5 border-b-solid bg-#fff! color-#4d6bfe!' : 'color-#fff!'}`"
-    >
+    <a-layout-header class="px-10px!">
       <Navbar>
         <Sidebar v-if="systemStore.currentLayout == 'unbounded'" />
       </Navbar>
@@ -29,7 +27,7 @@ const route = useRoute();
       </a-layout-sider>
       <a-layout-content>
         <ViewTabs />
-        <div class="h-[calc(100vh-100px)] overflow-y-auto">
+        <div class="h-[calc(100vh_-_95px)] overflow-y-auto">
           <router-view v-slot="{ Component }">
             <component :is="Component" />
           </router-view>
