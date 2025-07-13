@@ -8,6 +8,15 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/password-reset',
+      name: 'PasswordReset',
+      component: import('@/views/login/password-reset/index.vue'),
+      meta: {
+        visible: true,
+        title: t('重置密码'),
+      },
+    },
+    {
       path: '/login',
       name: 'Login',
       component: () => import('@/views/login/index.vue'),
@@ -35,7 +44,7 @@ router.beforeEach(async (to, _from, next) => {
   const userStore = useUserStore();
   const tabsStore = useTabsStore();
 
-  if (to.name === 'Login') {
+  if (['Login', 'PasswordReset'].includes(to.name as string)) {
     return next();
   }
 

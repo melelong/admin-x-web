@@ -2,6 +2,7 @@
 import { message } from 'ant-design-vue';
 import { sendMailCode, userRegister } from '@/api/user/auth';
 import { isValidEmail } from '@/utils/validate';
+import { PASSWORD_REGEX } from '@/utils/regex';
 
 const checked = ref(false);
 const isLoading = ref(false);
@@ -78,7 +79,7 @@ const getMailCode = async () => {
 
   sendLoading.value = true;
   try {
-    const { data } = await sendMailCode(formData.email);
+    const { data } = await sendMailCode(formData.email, 'REGISTER');
     message.success('验证码已发送');
     captchaId.value = data.captchaId;
 
@@ -124,7 +125,16 @@ const handleSubmit = async () => {
     <a-form-item name="email" :rules="[{ required: true, message: '请输入邮箱' }]">
       <a-input v-model:value="formData.email" placeholder="请输入邮箱"></a-input>
     </a-form-item>
-    <a-form-item name="password" :rules="[{ required: true, message: '请输入密码' }]">
+    <a-form-item
+      name="password"
+      :rules="[
+        { required: true, message: '请输入密码' },
+        {
+          pattern: PASSWORD_REGEX,
+          message: '必须包含小写字母、大写字母、数字和特殊符号(6-32位)',
+        },
+      ]"
+    >
       <a-input-password
         v-model:value="formData.password"
         placeholder="请输入密码"

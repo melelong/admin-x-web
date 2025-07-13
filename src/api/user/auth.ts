@@ -12,6 +12,11 @@ export interface UserRegister extends Omit<UserLogin, 'username'> {
   nickname: string;
 }
 
+export interface UserPasswordReset extends Omit<UserLogin, 'username'> {
+  email: string;
+  confirmPassword: string;
+}
+
 export interface LoginResponse {
   token: string;
 }
@@ -26,6 +31,11 @@ export const userLogin = (data: UserLogin): Promise<ResponseData<LoginResponse>>
   return request.post<LoginResponse>('/auth/login', data, { withToken: false });
 };
 
+/** 重置密码 */
+export const passwordReset = (data: UserPasswordReset) => {
+  return request.post('/auth/passwordReset', data);
+};
+
 /** 获取图片验证码 */
 export const captcha = (): Promise<
   ResponseData<{ captchaId: string; captchaImageBase64: string }>
@@ -34,6 +44,9 @@ export const captcha = (): Promise<
 };
 
 /** 获取邮箱验证码 */
-export const sendMailCode = (email: string): Promise<ResponseData<{ captchaId: string }>> => {
-  return request.get(`auth/sendMailCode/${email}`);
+export const sendMailCode = (
+  email: string,
+  type: string,
+): Promise<ResponseData<{ captchaId: string }>> => {
+  return request.get(`auth/sendMailCode/${email}/${type}`);
 };

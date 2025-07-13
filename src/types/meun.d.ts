@@ -1,15 +1,20 @@
 /** 菜单 */
-interface Menu {
+export interface Menu {
+  id?: number;
+  parentId?: number;
   name: string;
+  title: string;
   path: string;
-  icon: string;
-  cache: boolean;
-  visible: boolean;
-  permission: string;
   component: string;
-  titleZh: string;
-  meta: Record<string, any>;
-  children?: Menu[];
+  icon?: string;
+  cache?: boolean;
+  visible?: boolean;
+  redirect?: string;
+  menuType: number;
+  permission: string;
+  sortOrder: number;
+  status?: number;
+  children: Menu[];
 }
 
 interface MenuTab {

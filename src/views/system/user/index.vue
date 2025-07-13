@@ -25,6 +25,12 @@ const columns = [
   },
   {
     width: 150,
+    title: '用户名',
+    dataIndex: 'username',
+    key: 'username',
+  },
+  {
+    width: 150,
     title: '性别',
     dataIndex: 'gender',
     key: 'gender',
@@ -132,7 +138,7 @@ onMounted(() => {
         <template #bodyCell="{ record, column, index }">
           <template v-if="column.key === 'nickname'">
             <Avatar :src="record.avatar" />
-            {{ record.nickname }}
+            <span class="ml-8px">{{ record.nickname }}</span>
           </template>
           <template v-if="column.key === 'status'">
             <a-tag :color="record.status === 0 ? 'processing' : 'error'" :bordered="false"

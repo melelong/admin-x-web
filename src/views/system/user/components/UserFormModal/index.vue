@@ -24,7 +24,7 @@ const showModal = ({
     userId: row.userId,
     roleIds: [],
     nickname: row.nickname,
-    username: '',
+    username: row.username,
     gender: row.gender,
     avatar: '',
   };

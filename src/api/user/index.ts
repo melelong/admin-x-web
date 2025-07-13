@@ -1,6 +1,6 @@
 import { PageParams, PageResult } from '@/types/global';
 import request, { ResponseData } from '@/utils/request';
-import { Menu } from '@/api/system/menu';
+import { Menu } from '@/types/meun';
 
 export interface User {
   userId: number;

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { message } from 'ant-design-vue';
-
+import router from '@/router';
 import { useAuth } from '@/hooks';
 import { captcha } from '@/api/user/auth';
 
@@ -89,7 +89,13 @@ onMounted(() => {
             >点击注册
           </a-button>
         </div>
-        <a-button class="px-0!" type="link" size="small">忘记密码？ </a-button>
+        <a-button
+          class="px-0!"
+          @click="router.push({ name: 'PasswordReset' })"
+          type="link"
+          size="small"
+          >忘记密码？
+        </a-button>
       </div>
     </a-form-item>
   </a-form>
