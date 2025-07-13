@@ -125,13 +125,13 @@ const setTabProps = (tab: MenuTab) => {
             :draggable="true"
             @click.stop="handleChange(tab.path)"
             @contextmenu.prevent="handleRightClick(tab, $event)"
-            class="pl-10px pr-5px"
+            :class="`pl-10px ${tab.closable ? 'pr-5px' : 'pr-10px'}`"
             v-bind="setTabProps(tab)"
           >
             <component class="mr-0!" :is="tab.icon" />
             <span class="tab-title">{{ tab.title }}</span>
             <CloseOutlined
-              class="mr-0! p-5px duration-300 hover:scale-130"
+              class="ml-3px! mr-0! p-[4px_7px] duration-300 hover:scale-130"
               v-if="tab.closable"
               @click.stop="handleDel(tab.path)"
             />
@@ -180,12 +180,13 @@ const setTabProps = (tab: MenuTab) => {
 
     li {
       padding: 0 !important;
-      user-select: none;
       border-radius: var(--border-radius-outer);
     }
   }
 
   .ant-btn {
+    display: flex;
+    align-items: center;
     background-color: transparent;
     border: none;
     box-shadow: none;
@@ -193,7 +194,10 @@ const setTabProps = (tab: MenuTab) => {
     .tab-title {
       display: inline-block;
       width: 100px;
+      overflow: hidden;
+      text-overflow: ellipsis;
       text-align: left;
+      white-space: nowrap;
     }
   }
 }
