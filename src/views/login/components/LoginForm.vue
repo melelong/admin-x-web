@@ -74,7 +74,7 @@ onMounted(() => {
           :loading="captchaLoading"
           @click="refreshCode"
           :style="{ backgroundImage: `url(${captchaImageBase64})` }"
-          class="w-110px! bg-contain bg-center bg-no-repeat"
+          class="w-110px! bg-cover bg-no-repeat bg-[100%_100%] overflow-hidden"
         ></a-button>
       </a-space>
     </a-form-item>

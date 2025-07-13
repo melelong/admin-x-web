@@ -1,6 +1,6 @@
 <template>
   <div class="markdown-viewer-container">
-    <div v-html="safeHtml"></div>
+    <div class="viewer-html" v-html="safeHtml"></div>
   </div>
 </template>
 
@@ -76,14 +76,36 @@ const safeHtml = computed(() => {
 });
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .markdown-viewer-container {
-  :deep(img) {
-    max-width: 100% !important;
-  }
+  :deep(.viewer-html) {
+    h1 {
+      font-size: 32px;
+    }
 
-  :deep(p) {
-    line-height: 32px;
+    h2 {
+      margin-top: 1.5rem;
+    }
+
+    h4 {
+      margin-top: 1.5rem;
+    }
+
+    blockquote {
+      padding: 0 16px;
+      margin: 32px 0;
+      background-color: var(--color-border-secondary) !important;
+      border-left: 3px solid var(--color-primary);
+    }
+
+    img {
+      max-width: 100% !important;
+      border-radius: var(--border-radius-outer);
+    }
+
+    p {
+      line-height: 3rem;
+    }
   }
 }
 </style>

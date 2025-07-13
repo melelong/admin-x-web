@@ -135,13 +135,14 @@ const closeAll = () => {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="less">
 .context-menu-container {
   position: fixed;
   z-index: 9999;
   min-width: 140px;
   padding: 4px 0;
-  background: #fff;
+  background: var(--color-bg-container) !important;
+  border: 1px solid var(--color-border-secondary);
   border-radius: 4px;
   box-shadow:
     0 3px 6px -4px rgb(0 0 0 / 12%),
@@ -154,13 +155,13 @@ const closeAll = () => {
   align-items: center;
   padding: 5px 12px;
   font-size: 14px;
-  color: #333;
+  color: var(--color-text);
   cursor: pointer;
   transition: all 0.3s;
 
   &:hover {
-    color: #0958d9;
-    background-color: #f5f5f5;
+    color: var(--color-primary);
+    background-color: var(--color-bg-elevated);
   }
 
   .icon {
@@ -172,6 +173,6 @@ const closeAll = () => {
 .menu-divider {
   height: 1px;
   margin: 4px 0;
-  background-color: #f0f0f0;
+  background-color: var(--color-border-secondary);
 }
 </style>

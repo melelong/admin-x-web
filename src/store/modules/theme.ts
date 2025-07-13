@@ -3,7 +3,17 @@ import { theme } from 'ant-design-vue';
 import type { ThemeConfig } from 'ant-design-vue/es/config-provider/context';
 import { useDebounceFn, useLocalStorage } from '@vueuse/core';
 import config from '@/config/index.json';
+export enum LayoutMode {
+  /**
+   * 经典布局 - 带有传统边距和分段设计
+   */
+  CLASSIC,
 
+  /**
+   * 无界布局 - 全面屏/沉浸式设计
+   */
+  EDGE_TO_EDGE,
+}
 const { defaultAlgorithm, darkAlgorithm, defaultSeed } = theme;
 
 export const useThemeStore = defineStore('theme', () => {

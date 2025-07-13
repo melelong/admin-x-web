@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 
 import { t } from '@/i18n';
 import router from '@/router';
+import { MenuTab } from '@/types/meun';
 
 export const useTabsStore = defineStore('tabs', () => {
   const tabs = ref<MenuTab[]>([]);
@@ -22,7 +23,9 @@ export const useTabsStore = defineStore('tabs', () => {
 
   // 添加新标签（不激活）
   const addTab = (route: any) => {
-    if (route.meta?.hidden) return false;
+    if (!route.meta.title) return;
+    if (route.meta?.hidden) return;
+
     // 如果标签已存在，只更新激活状态
     const existingTab = tabs.value.find((t: any) => t.path === route.path);
     if (existingTab) {
@@ -33,7 +36,7 @@ export const useTabsStore = defineStore('tabs', () => {
     // 添加新标签
     tabs.value.push({
       path: route.path,
-      title: route.meta?.title || '未命名',
+      title: route.meta?.title,
       closable: route.path !== '/home',
       icon: route.meta?.icon,
     });

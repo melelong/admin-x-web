@@ -1,16 +1,28 @@
 import { defineStore } from 'pinia';
 import { FrownOutlined } from '@ant-design/icons-vue';
 import { constantRoutes } from '@/router/routes';
-import { RouteRaw } from '@/types/router';
+import type { RouteRaw } from '@/types/router';
+import { useLocalStorage } from '@vueuse/core';
+import { defineAsyncComponent } from 'vue';
+import { Menu } from '@/types/meun';
+
 interface PermissionState {
   menuRoutes: RouteRaw[];
   permissions: Set<string>;
 }
 
+// 使用 VueUse 的 localStorage 管理权限持久化
+const permissionStorage = useLocalStorage<string[]>('permission:keys', [], {
+  serializer: {
+    read: (v) => (v ? JSON.parse(v) : []),
+    write: (v) => JSON.stringify(v),
+  },
+});
+
 export const usePermissionStore = defineStore('permission', {
   state: (): PermissionState => ({
     menuRoutes: [],
-    permissions: new Set(),
+    permissions: new Set(permissionStorage.value),
   }),
 
   actions: {
@@ -19,22 +31,25 @@ export const usePermissionStore = defineStore('permission', {
       // 动态转换菜单为路由
       const dynamicRoutes = this.transformMenusToRoutes(menus);
       // 合并静态路由
-      this.menuRoutes = constantRoutes.concat(dynamicRoutes);
+      this.menuRoutes = [...constantRoutes, ...dynamicRoutes];
 
-      // 存储权限点
+      // 存储权限点并更新持久化
       this.permissions = new Set(permissions);
-
-      // 持久化存储
-      localStorage.setItem('permissions', JSON.stringify(permissions));
+      permissionStorage.value = permissions;
     },
 
     // 将后端菜单转换为前端路由
     transformMenusToRoutes(menus: Menu[]): RouteRaw[] {
       return menus.map((menu) => {
+        // 处理动态导入
+        const component = menu.component
+          ? defineAsyncComponent(() => import(/* @vite-ignore */ `@/views/${menu.component}.vue`))
+          : undefined;
+
         const route: RouteRaw = {
           path: menu.path,
           name: menu.name,
-          component: () => import(`@/views/${menu.component}.vue`),
+          component,
           meta: {
             title: menu.titleZh,
             icon: FrownOutlined,
@@ -42,12 +57,8 @@ export const usePermissionStore = defineStore('permission', {
             visible: menu.visible,
             permission: menu.permission,
           },
-          children: [],
+          children: menu.children?.length ? this.transformMenusToRoutes(menu.children) : [],
         };
-
-        if (menu.children && menu.children.length > 0) {
-          route.children = this.transformMenusToRoutes(menu.children);
-        }
 
         return route;
       });
@@ -58,12 +69,11 @@ export const usePermissionStore = defineStore('permission', {
       return this.permissions.has(permission);
     },
 
-    // 从存储中恢复权限
-    restorePermissions() {
-      const permissions = localStorage.getItem('permissions');
-      if (permissions) {
-        this.permissions = new Set(JSON.parse(permissions));
-      }
+    // 清空权限
+    clearPermissions() {
+      this.menuRoutes = [];
+      this.permissions.clear();
+      permissionStorage.value = [];
     },
   },
 });

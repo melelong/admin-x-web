@@ -90,7 +90,8 @@ const onClickOutside = () => {
   </a-card>
 </template>
 
-<style scoped>
+<style scoped lang="less">
+// 修改输入框的计数信息位置
 .ant-input-textarea-show-count::after {
   position: absolute;
   right: 80px;

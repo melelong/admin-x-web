@@ -6,6 +6,8 @@ import Sortable from 'sortablejs';
 import ContextMenu from '@/layout/ViewTabs/ContextMenu.vue';
 import { useSystemStore } from '@/store/modules/systemStore';
 import { useTabsStore } from '@/store/modules/tabsStore';
+import { MenuTab } from '@/types/meun';
+
 const router = useRouter();
 const tabsStore = useTabsStore();
 const systemStore = useSystemStore();
@@ -103,7 +105,7 @@ const setTabProps = (tab: MenuTab) => {
     <a-button
       v-if="systemStore.layout.collapsed"
       @click="systemStore.toggleCollapsed"
-      class="w-40px text-align-center"
+      class="w-40px flex items-center justify-center"
     >
       <component :is="systemStore.isCollapsed ? MenuUnfoldOutlined : MenuFoldOutlined" />
     </a-button>
@@ -123,12 +125,16 @@ const setTabProps = (tab: MenuTab) => {
             :draggable="true"
             @click.stop="handleChange(tab.path)"
             @contextmenu.prevent="handleRightClick(tab, $event)"
-            class="px-10px"
+            class="pl-10px pr-5px"
             v-bind="setTabProps(tab)"
           >
             <component class="mr-0!" :is="tab.icon" />
-            <span>{{ tab.title }}</span>
-            <CloseOutlined class="mr-0!" v-if="tab.closable" @click.stop="handleDel(tab.path)" />
+            <span class="tab-title">{{ tab.title }}</span>
+            <CloseOutlined
+              class="mr-0! p-5px duration-300 hover:scale-130"
+              v-if="tab.closable"
+              @click.stop="handleDel(tab.path)"
+            />
           </a-button>
         </template>
       </a-tab-pane>
@@ -153,9 +159,41 @@ const setTabProps = (tab: MenuTab) => {
     display: none;
   }
 
+  :deep(.ant-tabs-nav-more) {
+    color: var(--color-text);
+  }
+
   :deep(.ant-tabs-nav) {
     &::before {
       display: none;
+    }
+  }
+}
+</style>
+
+<style lang="less">
+// 设置 tab 栏超出部分的菜单样式
+.ant-tabs-dropdown {
+  ul {
+    padding: 3px !important;
+    border: 1px solid var(--color-border-secondary);
+
+    li {
+      padding: 0 !important;
+      user-select: none;
+      border-radius: var(--border-radius-outer);
+    }
+  }
+
+  .ant-btn {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+
+    .tab-title {
+      display: inline-block;
+      width: 100px;
+      text-align: left;
     }
   }
 }

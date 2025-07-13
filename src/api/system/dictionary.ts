@@ -28,11 +28,11 @@ export const dictPage = (
 };
 
 export const saveDict = (data: Dict) => {
-  return request.post('/dict/saveDict', data);
+  return request.post('/dict/saveUpdate', data);
 };
 
 export const saveDictData = (data: DictItem) => {
-  return request.post('/dict/saveDictData', data);
+  return request.post('/dict/saveUpdateData', data);
 };
 
 export const deleteDict = (id: number) => {

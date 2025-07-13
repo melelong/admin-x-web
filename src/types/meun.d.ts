@@ -4,6 +4,8 @@ export interface Menu {
   parentId?: number;
   name: string;
   title: string;
+  titleZh: string;
+  titleEn: string;
   path: string;
   component: string;
   icon?: string;

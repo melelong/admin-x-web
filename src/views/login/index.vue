@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import LoginForm from '@/views/login/LoginForm.vue';
-import RegisterForm from '@/views/login/RegisterForm.vue';
+import LoginForm from '@/views/login/components/LoginForm.vue';
+import RegisterForm from '@/views/login/components/RegisterForm.vue';
 import logoPath from '@/assets/images/logo.jpg';
 
 const isLogin = ref(true);
