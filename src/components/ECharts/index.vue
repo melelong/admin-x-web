@@ -40,5 +40,8 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="chartContainer" class="w-100% h-310px overflow-hidden" />
+  <div
+    ref="chartContainer"
+    class="rd-[var(--border-radius-outer)] border-1px border-solid border-color-[var(--color-border-secondary)] w-100% h-310px overflow-hidden"
+  />
 </template>

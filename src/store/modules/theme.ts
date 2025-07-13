@@ -1,15 +1,17 @@
 import { defineStore } from 'pinia';
 import { theme } from 'ant-design-vue';
 import type { ThemeConfig } from 'ant-design-vue/es/config-provider/context';
-import { useLocalStorage } from '@vueuse/core';
+import { useDebounceFn, useLocalStorage } from '@vueuse/core';
+import config from '@/config/index.json';
+
 const { defaultAlgorithm, darkAlgorithm, defaultSeed } = theme;
 
 export const useThemeStore = defineStore('theme', () => {
   // 持久化主题模式
-  const themeMode = useLocalStorage<'light' | 'dark'>('theme-mode', 'light');
+  const themeMode = useLocalStorage<'light' | 'dark'>('theme-mode', config.themeMode);
 
   // 持久化主色调
-  const primaryColor = useLocalStorage('primary-color', '#4d6bfe');
+  const primaryColor = useLocalStorage('primary-color', config.themeColor);
 
   // 计算主题配置
   const themeConfig = computed<ThemeConfig>(() => ({
@@ -21,7 +23,7 @@ export const useThemeStore = defineStore('theme', () => {
   }));
 
   // 生成 CSS 变量对象
-  const cssVars = computed(() => {
+  const cssVars = () => {
     const mapToken =
       themeMode.value === 'dark' ? darkAlgorithm(defaultSeed) : defaultAlgorithm(defaultSeed);
     const excludeUnits = ['zIndex', 'fontWeight', 'opacity', 'scale'];
@@ -36,16 +38,12 @@ export const useThemeStore = defineStore('theme', () => {
       vars[varName] = String(varValue);
     });
 
-    // 添加额外变量
-    vars['--primary-color'] = primaryColor.value;
-    vars['--theme-mode'] = themeMode.value;
-
     return vars;
-  });
+  };
 
   const applyTheme = () => {
     const root = document.documentElement;
-    Object.entries(cssVars.value).forEach(([key, value]) => {
+    Object.entries(cssVars()).forEach(([key, value]) => {
       root.style.setProperty(key, value);
     });
   };
@@ -57,10 +55,10 @@ export const useThemeStore = defineStore('theme', () => {
   };
 
   // 设置主色
-  const setPrimaryColor = (color: string) => {
+  const setPrimaryColor = useDebounceFn((color: string) => {
     primaryColor.value = color;
     applyTheme();
-  };
+  }, 500);
 
   applyTheme();
 
@@ -72,5 +70,3 @@ export const useThemeStore = defineStore('theme', () => {
     setPrimaryColor,
   };
 });
-
-export class themeMode {}

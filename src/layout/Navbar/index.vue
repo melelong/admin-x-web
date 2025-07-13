@@ -17,8 +17,8 @@ const isMobile = computed(() => screenSize.isMobile.value);
   <div class="h-full flex items-center justify-between">
     <a-flex>
       <h1 class="flex items-center ml-17px tracking-[3px]">
-        <img class="h-30px rounded-5px" :src="logoPath" alt="Admin x" />
-        <span class="ml-16px">Admin x</span>
+        <img class="size-32px rounded-5px" :src="logoPath" alt="Admin x" />
+        <span class="font-size-18px ml-16px font-400">Admin x</span>
       </h1>
       <div
         class="mx-30px max-w-36vw overflow-x-scroll [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"

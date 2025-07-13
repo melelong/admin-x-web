@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { AppstoreOutlined } from '@ant-design/icons-vue';
 import { useThemeStore } from '@/store/modules/theme';
-
-const themeStore = useThemeStore();
-const { themeMode /*primaryColor*/ } = storeToRefs(themeStore);
-const { toggleTheme /*setPrimaryColor*/ } = themeStore;
-
+import ColorPicker from '@/components/ColorPicker/index.vue';
 import { t } from '@/i18n';
+const themeStore = useThemeStore();
+const { themeMode, primaryColor } = storeToRefs(themeStore);
+const { toggleTheme, setPrimaryColor } = themeStore;
 import { layoutType, useSystemStore } from '@/store/modules/systemStore';
 import { storeToRefs } from 'pinia';
+const themeColor = ref(primaryColor.value);
 
 const systemStore = useSystemStore();
 
@@ -48,16 +48,16 @@ const toggle = (value: string) => {
 };
 
 /** 切换颜色 */
-// const handleColorChange = (color: string) => {
-//   setPrimaryColor(color);
-// };
+const handleColorChange = (color: string) => {
+  setPrimaryColor(color);
+};
 </script>
 
 <template>
   <a-popover>
     <template #content>
       <div class="w-400px overflow-hidden">
-        <div class="title-label mb-16px font-size-17px">{{ t('主题') }}</div>
+        <div class="title-label mb-16px font-size-17px">{{ t('主题模式') }}</div>
         <a-flex :gap="16">
           <a-card
             v-for="item in themeList"
@@ -80,6 +80,8 @@ const toggle = (value: string) => {
           {{ item.title }}
         </a-card>
       </div>
+      <div class="title-label mt-36px mb-16px font-size-17px">{{ t('主题色彩') }}</div>
+      <ColorPicker v-model="themeColor" @update:modelValue="handleColorChange" />
     </template>
     <AppstoreOutlined />
   </a-popover>

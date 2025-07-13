@@ -202,16 +202,17 @@ onBeforeUnmount(() => {
   position: relative;
   width: 100%;
   overflow: hidden;
-  background: var(--color-bg-container);
-  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-bg-container);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-outer);
 }
 
 .table-header {
   display: flex;
   padding: 0 16px;
   font-weight: bold;
-  color: #0958d9;
-  background: var(--color-bg-container);
+  color: var(--color-primary);
+  background-color: var(--color-bg-container);
   border-bottom: 1px solid var(--color-border-secondary);
 }
 
@@ -255,7 +256,7 @@ onBeforeUnmount(() => {
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 14px;
-  color: #0958d9;
+  color: var(--color-primary);
   text-align: center;
   white-space: nowrap;
 }
@@ -275,14 +276,12 @@ onBeforeUnmount(() => {
   align-items: center;
 }
 
-/* stylelint-disable-next-line declaration-property-value-no-unknown */
 .scroll-status::before {
   display: inline-block;
   width: 8px;
   height: 8px;
   margin-right: 8px;
   content: '';
-  /* stylelint-disable-next-line declaration-property-value-no-unknown */
   background-color: v-bind('isPaused ? "#f5222d" : "#52c41a"');
   border-radius: 50%;
 }
