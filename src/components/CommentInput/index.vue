@@ -49,7 +49,7 @@ const onClickOutside = () => {
 <template>
   <a-card
     v-click-outside="onClickOutside"
-    class="hover:border-color-#4d6bfe duration-300"
+    class="hover:border-color-[var(--color-primary)] duration-300"
     :bodyStyle="{ padding: '8px' }"
   >
     <div class="mb-8px">
@@ -72,7 +72,7 @@ const onClickOutside = () => {
               <a-col v-for="(item, index) in fontIcons" :key="index" :span="3">
                 <div
                   @click="insertIcon(item)"
-                  class="size-40px flex items-center justify-center rd-3px cursor-pointer font-size-26px border-1px border-solid border-color-transparent select-none duration-300 hover:bg-#e6f4ff hover:border-color-#91caff"
+                  class="size-40px flex items-center justify-center rd-3px cursor-pointer font-size-26px border-1px border-solid border-color-transparent select-none duration-300 hover:bg-[var(--color-bg-container)] hover:border-color-[var(--color-border)]"
                 >
                   {{ item.icon }}
                 </div>
@@ -80,8 +80,8 @@ const onClickOutside = () => {
             </a-row>
           </template>
           <SmileOutlined
-            :class="visibleIconSelector ? 'color-#4d6bfe!' : ''"
-            class="font-size-20px hover:color-#4d6bfe"
+            :class="visibleIconSelector ? 'color-[var(--color-primary)]!' : ''"
+            class="font-size-20px hover:color-[var(--color-primary)]"
           />
         </a-popover>
       </div>

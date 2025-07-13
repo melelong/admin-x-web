@@ -14,6 +14,7 @@ import { Article, detailArticle, InteractionType, toggleInteraction } from '@/ap
 import MarkdownViewer from '@/components/MarkdownViewer/index.vue';
 import router from '@/router';
 import CommentComposer from '@/views/article/components/CommentComposer/index.vue';
+import { omit } from 'lodash-es';
 
 const route = useRoute();
 
@@ -37,7 +38,7 @@ const getDetail = async () => {
   isLoading.value = false;
 };
 
-const handleClose = () => {
+const handleBack = () => {
   router.back();
 };
 
@@ -58,6 +59,17 @@ const handleComment = () => {
     });
   }
 };
+
+const setButtonProps = (active: boolean | undefined) => {
+  const obj = {
+    ghost: active,
+    type: 'primary',
+  };
+  if (active) {
+    return obj;
+  }
+  return omit(obj, 'type');
+};
 </script>
 
 <template>
@@ -66,16 +78,21 @@ const handleComment = () => {
       <div class="pos-absolute top-150px">
         <div class="pos-sticky z-100 left-0 -translate-x-90px">
           <a-flex vertical :gap="16">
-            <a-button class="mb-25px border-none" @click="handleClose" size="large" shape="circle">
+            <a-button
+              class="mb-25px border-color-[var(--color-border-secondary)] shadow-none"
+              @click="handleBack"
+              size="large"
+              shape="circle"
+            >
               <ArrowLeftOutlined />
             </a-button>
             <a-badge color="#4d6bfe" :count="articleData?.likeCount" :offset="[-5, 5]">
               <a-button
                 @click="handleInteraction(InteractionType.LIKE)"
                 size="large"
-                class="border-none bg-#fff! hover:color-#4d6bfe!"
-                :class="articleData?.isLiked ? 'color-#4d6bfe!' : 'color-#ccc!'"
+                class="border-color-[var(--color-border-secondary)] shadow-none"
                 shape="circle"
+                v-bind="setButtonProps(articleData?.isLiked)"
               >
                 <HeartFilled />
               </a-button>
@@ -84,9 +101,9 @@ const handleComment = () => {
               <a-button
                 @click="handleInteraction(InteractionType.FAVORITE)"
                 size="large"
-                class="border-none bg-#fff! hover:color-#4d6bfe!"
-                :class="articleData?.isFavorite ? 'color-#4d6bfe!' : 'color-#ccc!'"
+                class="border-color-[var(--color-border-secondary)] shadow-none"
                 shape="circle"
+                v-bind="setButtonProps(articleData?.isFavorite)"
               >
                 <StarFilled />
               </a-button>
@@ -95,13 +112,17 @@ const handleComment = () => {
               <a-button
                 @click="handleComment"
                 size="large"
-                class="border-none bg-#fff!"
                 shape="circle"
+                class="border-color-[var(--color-border-secondary)] shadow-none"
               >
                 <MessageOutlined />
               </a-button>
             </a-badge>
-            <a-button class="border-none" size="large" shape="circle">
+            <a-button
+              class="border-color-[var(--color-border-secondary)] shadow-none"
+              size="large"
+              shape="circle"
+            >
               <ShareAltOutlined />
             </a-button>
           </a-flex>
