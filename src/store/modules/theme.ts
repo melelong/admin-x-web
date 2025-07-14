@@ -1,31 +1,33 @@
 import { defineStore } from 'pinia';
 import { theme } from 'ant-design-vue';
 import type { ThemeConfig } from 'ant-design-vue/es/config-provider/context';
-import { useDebounceFn, useLocalStorage } from '@vueuse/core';
+import { useDebounceFn, useLocalStorage, usePreferredDark } from '@vueuse/core';
+import { watch, computed, type ComputedRef } from 'vue';
 import config from '@/config/index.json';
-export enum LayoutMode {
-  /**
-   * 经典布局 - 带有传统边距和分段设计
-   */
-  CLASSIC,
-
-  /**
-   * 无界布局 - 全面屏/沉浸式设计
-   */
-  EDGE_TO_EDGE,
-}
+export type ThemeMode = 'light' | 'dark' | 'auto';
 const { defaultAlgorithm, darkAlgorithm, defaultSeed } = theme;
 
 export const useThemeStore = defineStore('theme', () => {
-  // 持久化主题模式
-  const themeMode = useLocalStorage<'light' | 'dark'>('theme-mode', config.themeMode);
+  // 持久化主题模式（支持 light、dark、auto）
+  const themeMode = useLocalStorage<ThemeMode>('theme-mode', config.themeMode);
 
   // 持久化主色调
   const primaryColor = useLocalStorage('primary-color', config.themeColor);
 
+  // 获取系统深色模式偏好
+  const prefersDark = usePreferredDark();
+
+  // 计算实际应用的主题（auto 模式下跟随系统）
+  const currentTheme = computed<'light' | 'dark'>(() => {
+    if (themeMode.value === 'auto') {
+      return prefersDark.value ? 'dark' : 'light';
+    }
+    return themeMode.value;
+  });
+
   // 计算主题配置
   const themeConfig = computed<ThemeConfig>(() => ({
-    algorithm: themeMode.value === 'dark' ? darkAlgorithm : defaultAlgorithm,
+    algorithm: currentTheme.value === 'dark' ? darkAlgorithm : defaultAlgorithm,
     token: {
       colorPrimary: primaryColor.value,
       borderRadius: 4,
@@ -35,45 +37,76 @@ export const useThemeStore = defineStore('theme', () => {
   // 生成 CSS 变量对象
   const cssVars = () => {
     const mapToken =
-      themeMode.value === 'dark' ? darkAlgorithm(defaultSeed) : defaultAlgorithm(defaultSeed);
+      currentTheme.value === 'dark' ? darkAlgorithm(defaultSeed) : defaultAlgorithm(defaultSeed);
+
     const excludeUnits = ['zIndex', 'fontWeight', 'opacity', 'scale'];
     const vars: Record<string, string> = {};
+
     Object.entries(mapToken).forEach(([key, value]) => {
       const varName = `--${key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}`;
       let varValue = value;
+
       if (typeof value === 'number' && !excludeUnits.some((k) => key.includes(k))) {
         varValue = `${value}px`;
       }
-
       vars[varName] = String(varValue);
     });
 
+    // 添加主色调变量
+    vars['--color-primary'] = primaryColor.value;
     return vars;
   };
 
+  // 应用主题到 DOM
   const applyTheme = () => {
     const root = document.documentElement;
-    Object.entries(cssVars()).forEach(([key, value]) => {
+    const vars = cssVars();
+
+    Object.entries(vars).forEach(([key, value]) => {
       root.style.setProperty(key, value);
     });
+
+    // 设置 data-theme
+    root.setAttribute('data-theme', currentTheme.value);
   };
 
   // 切换主题模式
-  const toggleTheme = (mode?: 'light' | 'dark') => {
-    themeMode.value = mode || (themeMode.value === 'light' ? 'dark' : 'light');
-    applyTheme();
+  const toggleTheme = (mode?: ThemeMode) => {
+    if (mode) {
+      themeMode.value = mode;
+      return;
+    }
+
+    // 循环切换
+    const modes = ['light', 'dark', 'auto'] as const;
+    const currentIndex = modes.indexOf(themeMode.value);
+    themeMode.value = modes[(currentIndex + 1) % modes.length];
   };
 
   // 设置主色
   const setPrimaryColor = useDebounceFn((color: string) => {
     primaryColor.value = color;
-    applyTheme();
   }, 500);
 
-  applyTheme();
+  let themeChangeCallBack: () => void;
+  const themeChange = (callback: () => void) => {
+    themeChangeCallBack = callback;
+  };
+
+  // 监听主题相关变化并应用
+  watch(
+    [currentTheme, primaryColor],
+    () => {
+      applyTheme();
+      themeChangeCallBack && themeChangeCallBack();
+    },
+    { immediate: true },
+  );
 
   return {
-    themeMode: themeMode as ComputedRef<'light' | 'dark'>,
+    themeChange,
+    themeMode: themeMode as ComputedRef<ThemeMode>,
+    currentTheme: currentTheme as ComputedRef<'light' | 'dark'>,
     primaryColor: primaryColor as ComputedRef<string>,
     themeConfig,
     toggleTheme,

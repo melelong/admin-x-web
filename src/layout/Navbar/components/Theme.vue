@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { AppstoreOutlined } from '@ant-design/icons-vue';
-import { useThemeStore } from '@/store/modules/theme';
+import { ThemeMode, useThemeStore } from '@/store/modules/theme';
 import ColorPicker from '@/components/ColorPicker/index.vue';
 import { t } from '@/i18n';
 const themeStore = useThemeStore();
@@ -12,7 +12,7 @@ const themeColor = ref(primaryColor.value);
 
 const systemStore = useSystemStore();
 
-const themeList: { value: string; title: string }[] = [
+const themeList: { value: ThemeMode; title: string }[] = [
   {
     value: 'light',
     title: t('浅色模式'),
@@ -22,7 +22,7 @@ const themeList: { value: string; title: string }[] = [
     title: t('深色模式'),
   },
   {
-    value: 'system',
+    value: 'auto',
     title: t('跟随系统'),
   },
 ];
@@ -38,13 +38,8 @@ const modeList: { value: layoutType; title: string }[] = [
   },
 ];
 
-const toggle = (value: string) => {
-  if (value === 'system') {
-    const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    toggleTheme(darkMode ? 'dark' : 'light');
-  } else {
-    toggleTheme(value as 'dark' | 'light');
-  }
+const toggle = (value: ThemeMode) => {
+  toggleTheme(value);
 };
 
 /** 切换颜色 */
