@@ -17,7 +17,7 @@ export interface PermissionData {
 }
 
 export interface UpdateUser extends Omit<User, 'deptId'> {
-  roleIds: number[];
+  roleIds?: number[];
 }
 
 export const userPage = (data: PageParams): Promise<ResponseData<PageResult<User>>> => {

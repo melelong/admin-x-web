@@ -21,7 +21,7 @@ export const useSystemStore = defineStore('system', () => {
       unbounded: {
         collapsed: false,
         menu: {
-          style: 'h-60px',
+          style: '',
           mode: 'horizontal' as MenuMode,
         },
       },

@@ -3,11 +3,13 @@ import { UserOutlined } from '@ant-design/icons-vue';
 import { avatarList } from '@/assets/avatar/icons';
 const props = withDefaults(
   defineProps<{
+    shape?: 'circle' | 'square';
     name?: string;
     size?: number | string;
     src?: string;
   }>(),
   {
+    shape: 'circle',
     name: '',
     src: '',
     size: 44,
@@ -24,7 +26,7 @@ const avatar = computed(() => {
 </script>
 
 <template>
-  <a-avatar :src="avatar" :size="size">
+  <a-avatar :shape="shape" :src="avatar" :size="size">
     <template #icon>
       <UserOutlined />
     </template>

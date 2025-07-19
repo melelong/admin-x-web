@@ -14,20 +14,18 @@ const isMobile = computed(() => screenSize.isMobile.value);
 </script>
 
 <template>
-  <div class="h-full flex items-center justify-between">
+  <div class="flex items-center justify-between">
     <a-flex>
       <h1 class="flex items-center ml-17px tracking-[3px]">
         <img class="size-32px rounded-5px" :src="logoPath" alt="Admin x" />
         <span class="font-size-18px ml-16px font-400">Admin x</span>
       </h1>
-      <div
-        class="mx-30px max-w-36vw overflow-x-scroll [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-      >
+      <div v-if="!isMobile" class="ml-55px w-500px overflow-hidden">
         <slot></slot>
       </div>
     </a-flex>
     <div class="flex items-center">
-      <a-space v-if="!isMobile" class="font-size-18px" :size="44">
+      <a-space v-if="!isMobile" class="font-size-18px" :size="32">
         <Notice />
         <Search />
         <Theme />

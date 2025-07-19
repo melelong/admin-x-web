@@ -51,17 +51,20 @@ const columns = [
     key: 'itemLabel',
   },
   {
+    width: 100,
     title: '编码',
     dataIndex: 'itemValue',
     key: 'itemValue',
   },
   {
+    width: 100,
     title: '状态',
     dataIndex: 'status',
     key: 'status',
     customRender: ({ text }: { text: number }) => (text === 1 ? '启用' : '禁用'),
   },
   {
+    width: 100,
     title: '顺序',
     dataIndex: 'sort',
     key: 'sort',
@@ -69,7 +72,7 @@ const columns = [
   {
     title: '操作',
     key: 'action',
-    width: 150,
+    width: 140,
   },
 ];
 
@@ -123,7 +126,7 @@ defineExpose({
 </script>
 
 <template>
-  <a-drawer v-model:open="visible" width="600px" :title="modalTile">
+  <a-drawer v-model:open="visible" width="700px" :title="modalTile">
     <div class="mb-16px flex justify-between">
       <a-form ref="formRef" layout="inline" :model="formData">
         <a-form-item :label="t('字典名称')" name="itemLabel">
@@ -151,6 +154,7 @@ defineExpose({
       rowKey="id"
       :data-source="dataSource"
       bordered
+      :scroll="{ x: 600 }"
       :columns="columns"
     >
       <template #bodyCell="{ column, record, text }">

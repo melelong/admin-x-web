@@ -156,6 +156,7 @@ onMounted(() => {
         rowKey="id"
         :data-source="dataSource"
         bordered
+        :scroll="{ x: 1000 }"
         :columns="columns"
       >
         <template #bodyCell="{ text, column, record }">

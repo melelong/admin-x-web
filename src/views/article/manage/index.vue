@@ -22,38 +22,54 @@ const formState = reactive({
 });
 const columns = [
   {
-    width: 300,
     title: '标题',
     dataIndex: 'title',
     key: 'title',
   },
   {
-    width: 150,
+    width: 200,
     title: '分类',
     dataIndex: 'categoryName',
     key: 'categoryName',
   },
   {
+    width: 100,
     title: '点赞数量',
     dataIndex: 'likeCount',
     key: 'likeCount',
   },
   {
-    title: '创建人',
-    dataIndex: 'createUser',
-    key: 'createUser',
+    width: 100,
+    title: '收藏数量',
+    dataIndex: 'favoriteCount',
+    key: 'favoriteCount',
   },
   {
+    width: 100,
+    title: '评论数量',
+    dataIndex: 'commentCount',
+    key: 'commentCount',
+  },
+  {
+    width: 150,
+    title: '创建人',
+    dataIndex: 'createUserName',
+    key: 'createUserName',
+  },
+  {
+    width: 150,
     title: '创建时间',
     dataIndex: 'createTime',
     key: 'createTime',
   },
   {
+    width: 150,
     title: '更新时间',
     dataIndex: 'updateTime',
     key: 'updateTime',
   },
   {
+    fixed: 'right',
     title: '操作',
     key: 'action',
     width: 200,
@@ -157,6 +173,7 @@ onMounted(() => {
         rowKey="id"
         :data-source="dataSource"
         bordered
+        :scroll="{ x: 1600 }"
         :columns="columns"
       >
         <template #bodyCell="{ text, column, record }">

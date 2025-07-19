@@ -3,7 +3,9 @@ import { message } from 'ant-design-vue';
 import router from '@/router';
 import { useAuth } from '@/hooks';
 import { captcha } from '@/api/user/auth';
-
+import qqIcon from '@/assets/images/qq.png';
+import wxIcon from '@/assets/images/wx.png';
+import githubIcon from '@/assets/images/github.png';
 const checked = ref(false);
 const auth = useAuth();
 const isLoading = ref(false);
@@ -50,6 +52,21 @@ const handleSubmit = async () => {
 const handleRegister = () => {
   emit('toggle');
 };
+
+const loginMethods = [
+  {
+    icon: qqIcon,
+    name: 'QQ 登录',
+  },
+  {
+    icon: wxIcon,
+    name: '微信登录',
+  },
+  {
+    icon: githubIcon,
+    name: 'Github',
+  },
+];
 
 onMounted(() => {
   refreshCode();
@@ -105,4 +122,9 @@ onMounted(() => {
     <span> 和 </span>
     <a-button class="px-0" type="link" @click.stop>隐私权说明</a-button>
   </a-checkbox>
+  <a-flex :gap="16" class="mt-34px" justify="center">
+    <a v-for="item in loginMethods" class="flex justify-center">
+      <img class="h-30px rd-3px" :src="item.icon" :alt="item.name" />
+    </a>
+  </a-flex>
 </template>

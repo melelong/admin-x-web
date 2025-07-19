@@ -85,7 +85,7 @@ const getMailCode = async () => {
 
   sendLoading.value = true;
   try {
-    const { data } = await sendMailCode(formData.email, '');
+    const { data } = await sendMailCode(formData.email, 'PASSWORD-RESET');
     message.success('验证码已发送');
     captchaId.value = data.captchaId;
 
@@ -111,6 +111,7 @@ const handleSubmit = async () => {
   try {
     await passwordReset(formData);
     message.success('修改成功');
+    await router.replace({ name: 'Login' });
   } finally {
     isLoading.value = false;
   }
@@ -118,63 +119,72 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <div class="m-10px">
-    <a-card class="w-500px">
-      <a-form @finish="handleSubmit" ref="formRef" size="large" :model="formData">
-        <a-form-item name="email" :rules="[{ required: true, message: '请输入邮箱' }]">
-          <a-input v-model:value="formData.email" placeholder="请输入邮箱"></a-input>
-        </a-form-item>
-        <a-form-item
-          name="password"
-          :rules="[
-            { required: true, message: '请输入密码' },
-            {
-              pattern: PASSWORD_REGEX,
-              message: '必须包含小写字母、大写字母、数字和特殊符号(6-32位)',
-            },
-          ]"
-        >
-          <a-input-password
-            :maxlength="32"
-            v-model:value="formData.password"
-            placeholder="请输入密码"
-          ></a-input-password>
-        </a-form-item>
-        <a-form-item
-          name="confirmPassword"
-          :rules="[
-            { required: true, message: '请再次输入密码' },
-            {
-              validator: validatePasswordMatch,
-            },
-          ]"
-        >
-          <a-input-password
-            :maxlength="32"
-            v-model:value="formData.confirmPassword"
-            placeholder="确认密码"
-          ></a-input-password>
-        </a-form-item>
-        <a-form-item name="code" :rules="[{ required: true, message: '请输入验证码' }]">
-          <a-space>
-            <a-input v-model:value="formData.code" placeholder="请输入验证码"></a-input>
-            <a-button
-              @click="getMailCode"
-              :loading="sendLoading"
-              class="min-w-110px"
-              :disabled="countdown > 0"
-            >
-              {{ countdown > 0 ? `${countdown}秒后重发` : '发送验证码' }}
-            </a-button>
-          </a-space>
-        </a-form-item>
-        <a-form-item class="mt-36px">
-          <a-button class="w-full" type="primary" html-type="submit" :loading="isLoading">
-            确认修改
+  <a-page-header title="重置密码" @back="() => router.back()" />
+  <div class="px-20px m-auto max-w-500px">
+    <a-form @finish="handleSubmit" ref="formRef" layout="vertical" size="large" :model="formData">
+      <a-form-item name="email" label="邮箱" :rules="[{ required: true, message: '请输入邮箱' }]">
+        <a-input v-model:value="formData.email" placeholder="请输入邮箱"></a-input>
+      </a-form-item>
+      <a-form-item
+        name="password"
+        label="密码"
+        :rules="[
+          { required: true, message: '请输入密码' },
+          {
+            pattern: PASSWORD_REGEX,
+            message: '必须包含小写字母、大写字母、数字和特殊符号(6-32位)',
+          },
+        ]"
+      >
+        <a-input-password
+          :maxlength="32"
+          v-model:value="formData.password"
+          placeholder="请输入密码"
+        ></a-input-password>
+      </a-form-item>
+      <a-form-item
+        label="确认密码"
+        name="confirmPassword"
+        :rules="[
+          { required: true, message: '请再次输入密码' },
+          {
+            validator: validatePasswordMatch,
+          },
+        ]"
+      >
+        <a-input-password
+          :maxlength="32"
+          v-model:value="formData.confirmPassword"
+          placeholder="确认密码"
+        ></a-input-password>
+      </a-form-item>
+      <a-form-item
+        label="验证码"
+        name="code"
+        :rules="[{ required: true, message: '请输入验证码' }]"
+      >
+        <a-space class="w-full!">
+          <a-input
+            class="w-340px!"
+            v-model:value="formData.code"
+            placeholder="请输入验证码"
+            :maxlength="8"
+          ></a-input>
+          <a-button
+            @click="getMailCode"
+            :loading="sendLoading"
+            class="min-w-110px"
+            :disabled="countdown > 0"
+          >
+            {{ countdown > 0 ? `${countdown}秒后重发` : '发送验证码' }}
           </a-button>
-          <a-button class="mt-30px w-full" @click="router.back()"> 返回 </a-button>
-        </a-form-item>
-      </a-form>
-    </a-card>
+        </a-space>
+      </a-form-item>
+      <a-form-item class="mt-36px">
+        <a-button class="w-full" type="primary" html-type="submit" :loading="isLoading">
+          确认修改
+        </a-button>
+      </a-form-item>
+    </a-form>
   </div>
 </template>

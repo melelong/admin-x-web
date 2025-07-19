@@ -19,7 +19,8 @@ const route = useRoute();
     </a-layout-header>
     <a-layout>
       <a-layout-sider
-        :width="220"
+        :width="240"
+        :collapsedWidth="60"
         v-if="systemStore.currentLayout === 'classic'"
         :collapsed="systemStore.isCollapsed"
       >
@@ -27,7 +28,7 @@ const route = useRoute();
       </a-layout-sider>
       <a-layout-content>
         <ViewTabs />
-        <div class="h-[calc(100vh_-_95px)] overflow-y-auto">
+        <div class="h-[calc(100vh_-_40px_-_var(--header-height))] overflow-y-auto">
           <router-view v-slot="{ Component }">
             <component :is="Component" />
           </router-view>

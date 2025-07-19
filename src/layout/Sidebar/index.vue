@@ -22,7 +22,7 @@ const handleMenuClick = ({ key }: { key: string | number }) => {
 
 <template>
   <a-menu
-    class="menu-container [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+    class="[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
     :mode="systemStore.layout.menu.mode"
     :inline-collapsed="systemStore.isCollapsed"
     :class="systemStore.layout.menu.style"

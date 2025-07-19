@@ -10,7 +10,7 @@ const router = createRouter({
     {
       path: '/password-reset',
       name: 'PasswordReset',
-      component: import('@/views/login/password-reset/index.vue'),
+      component: () => import('@/views/profile/password-reset/index.vue'),
       meta: {
         visible: true,
         title: t('重置密码'),

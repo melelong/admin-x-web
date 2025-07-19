@@ -72,7 +72,7 @@ const columns = [
   {
     title: '操作',
     key: 'action',
-    width: '100px',
+    width: 100,
   },
 ];
 
@@ -125,6 +125,7 @@ onMounted(async () => {
         bordered
         :pagination="pagination"
         :columns="columns"
+        :scroll="{ x: 1200 }"
         @change="handleTableChange"
       >
         <template #bodyCell="{ column }">

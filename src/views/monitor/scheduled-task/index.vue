@@ -49,12 +49,14 @@ const taskList = ref<Task[]>([
 <template>
   <div class="p-16px">
     <a-row :gutter="[16, 16]">
-      <a-col v-for="item in taskList" :span="8">
+      <a-col v-for="item in taskList" :span="24" :md="12" :xl="8">
         <a-card :title="item.name" hoverable>
           <template #extra>
-            <icon :style="{ color: item.color }">
-              <component :is="item.component" class="font-size-25px"></component>
-            </icon>
+            <component
+              :style="{ color: item.color }"
+              :is="item.component"
+              class="font-size-25px"
+            ></component>
           </template>
           <a-progress
             :steps="10"

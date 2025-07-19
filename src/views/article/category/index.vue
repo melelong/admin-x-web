@@ -20,6 +20,7 @@ const formState = reactive({
 });
 const columns = [
   {
+    width: 200,
     title: '名称',
     dataIndex: 'categoryName',
     key: 'categoryName',
@@ -30,19 +31,19 @@ const columns = [
     key: 'remark',
   },
   {
-    width: 170,
+    width: 150,
     title: '创建人',
-    dataIndex: 'createUser',
-    key: 'createUser',
+    dataIndex: 'createUserName',
+    key: 'createUserName',
   },
   {
-    width: 170,
+    width: 150,
     title: '创建时间',
     dataIndex: 'createTime',
     key: 'createTime',
   },
   {
-    width: 170,
+    width: 150,
     title: '更新时间',
     dataIndex: 'updateTime',
     key: 'updateTime',
@@ -147,6 +148,7 @@ onMounted(() => {
         rowKey="id"
         :data-source="dataSource"
         bordered
+        :scroll="{ x: 1000 }"
         :columns="columns"
       >
         <template #bodyCell="{ column, record }">
