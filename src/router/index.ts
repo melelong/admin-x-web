@@ -22,7 +22,7 @@ const router = createRouter({
       component: () => import('@/views/login/index.vue'),
       meta: {
         visible: true,
-        title: t('🍃 登录/注册'),
+        title: t('🍃 登录 / 注册'),
       },
     },
   ],

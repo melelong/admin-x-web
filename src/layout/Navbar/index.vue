@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Fullscreen from '@/layout/Navbar/components/Fullscreen.vue';
 import Notice from '@/layout/Navbar/components/Notice.vue';
+import Github from '@/layout/Navbar/components/Github.vue';
 import Reload from '@/layout/Navbar/components/Reload.vue';
 import Search from '@/layout/Navbar/components/Search.vue';
 import Theme from '@/layout/Navbar/components/Theme.vue';
@@ -22,6 +23,7 @@ import logoPath from '@/assets/images/logo.jpg';
     </a-flex>
     <div class="flex items-center">
       <a-space class="hidden lg:flex font-size-18px" :size="32">
+        <Github />
         <Notice />
         <Search />
         <Theme />
