@@ -12,7 +12,7 @@ const route = useRoute();
 
 <template>
   <a-layout>
-    <a-layout-header class="px-10px!">
+    <a-layout-header>
       <Navbar>
         <Sidebar v-if="systemStore.currentLayout == 'unbounded'" />
       </Navbar>
