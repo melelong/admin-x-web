@@ -2,6 +2,7 @@
 import LoginForm from '@/views/login/components/LoginForm.vue';
 import RegisterForm from '@/views/login/components/RegisterForm.vue';
 import ThemeLocaleSwitcher from '@/views/login/components/ThemeLocaleSwitcher.vue';
+import Scene from '@/views/login/components/Scene.vue';
 import logoPath from '@/assets/images/logo.jpg';
 
 const isLogin = ref(true);
@@ -11,9 +12,9 @@ const toggleChange = () => {
 </script>
 
 <template>
-  <div class="w-screen h-screen bg-[url('/src/assets/images/login-bg.png')] bg-no-repeat">
+  <div class="login-container w-screen h-screen pos-absolute">
     <div class="h-full flex items-center justify-center">
-      <a-card class="pos-absolute w-400px p-30px select-none">
+      <a-card class="pos-absolute w-400px p-30px select-none bg-[transparent]!">
         <ThemeLocaleSwitcher />
         <h2 class="mb-30px flex items-center justify-between">
           <span>{{ isLogin ? '欢迎登录' : '欢迎注册' }} Admin x</span>
@@ -23,5 +24,31 @@ const toggleChange = () => {
         <RegisterForm v-else @toggle="toggleChange" />
       </a-card>
     </div>
+    <Scene />
   </div>
 </template>
+
+<style scoped lang="less">
+.login-container {
+  transition: filter 300ms;
+  will-change: filter;
+
+  :deep(.ant-checkbox-wrapper) {
+    .ant-checkbox:not(.ant-checkbox-checked) {
+      .ant-checkbox-inner {
+        background-color: transparent;
+      }
+    }
+  }
+
+  :deep(.ant-btn-default),
+  :deep(.ant-input-affix-wrapper),
+  :deep(.ant-input) {
+    background-color: transparent;
+  }
+}
+
+.login-container {
+  filter: drop-shadow(50vw 50vh 50em var(--color-primary));
+}
+</style>
