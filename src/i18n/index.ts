@@ -21,6 +21,17 @@ Object.entries(zhCN as TranslationDictionary).forEach(([key, value]) => {
   textToKeyMap.set(value, key);
 });
 
+export const localeList = [
+  {
+    value: 'zh-CN',
+    label: '中文',
+  },
+  {
+    value: 'en-US',
+    label: 'English',
+  },
+];
+
 // 创建完整的消息对象
 const messages: LocaleMessages = {
   'zh-CN': zhCN as TranslationDictionary,
