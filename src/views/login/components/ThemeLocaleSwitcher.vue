@@ -23,7 +23,7 @@ const currentLangLabel = computed(() => {
 </script>
 
 <template>
-  <div class="pos-absolute top-10px right-10px">
+  <div class="pos-absolute top-30px right-30px">
     <div class="flex items-center">
       <div @click="toggle" class="flex items-center cursor-pointer">
         <SvgIcon :size="14" name="moon" />
@@ -45,5 +45,3 @@ const currentLangLabel = computed(() => {
     </div>
   </div>
 </template>
-
-<style scoped lang="less"></style>

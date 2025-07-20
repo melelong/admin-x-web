@@ -2,7 +2,7 @@
 import sun from '@/assets/svg/sun.svg';
 import moon from '@/assets/svg/little-moon.svg';
 import tree from '@/assets/svg/tree.svg';
-import px from '@/assets/svg/px.svg';
+import crab from '@/assets/svg/crab.svg';
 import { useThemeStore } from '@/store/modules/theme';
 
 const themeStore = useThemeStore();
@@ -12,10 +12,7 @@ const currentEnv = computed(() => (themeStore.currentTheme === 'dark' ? moon : s
 <template>
   <img
     class="pos-absolute left-30px top-30px size-30px"
-    :class="{
-      'rotate-icon': themeStore.currentTheme === 'light',
-      'primary-filter-icon': themeStore.currentTheme === 'dark',
-    }"
+    :class="themeStore.currentTheme === 'light' ? 'rotate-icon' : 'moon-filter-icon'"
     :src="currentEnv"
     alt=""
   />
@@ -24,17 +21,27 @@ const currentEnv = computed(() => (themeStore.currentTheme === 'dark' ? moon : s
     :src="tree"
     alt=""
   />
-  <img class="primary-filter-icon pos-absolute right-100px bottom-0px size-30px" :src="px" alt="" />
+  <div class="crab-container pos-absolute right-100px bottom-0">
+    <img class="crab crab-filter-icon size-30px" :src="crab" alt="" />
+  </div>
 </template>
 
 <style scoped lang="less">
-.filter-icon {
+.crab-filter-icon,
+.tree-filter-icon,
+.moon-filter-icon {
   transition: filter 300ms;
   will-change: filter;
 }
 
-.primary-filter-icon {
-  filter: drop-shadow(0 0 1em var(--color-primary));
+.moon-filter-icon {
+  width: 25px;
+  height: 25px;
+  filter: drop-shadow(0 0 1em #4d6bff);
+}
+
+.crab-filter-icon {
+  filter: drop-shadow(0 0 1em #ef7d7d);
 }
 
 .tree-filter-icon {
@@ -54,6 +61,65 @@ const currentEnv = computed(() => (themeStore.currentTheme === 'dark' ? moon : s
 @media (prefers-reduced-motion: no-preference) {
   .rotate-icon {
     animation: rotate infinite 20s linear;
+  }
+}
+
+.crab-container {
+  animation: crabWalk 60s linear infinite;
+
+  .crab {
+    display: block;
+    transform-origin: center;
+    animation: crabMove 1.5s ease-in-out infinite;
+  }
+}
+
+@keyframes crabWalk {
+  0% {
+    right: 100px;
+    transform: scaleX(1);
+  }
+
+  50% {
+    right: calc(100% - 150px);
+    transform: scaleX(1);
+  }
+
+  50.01% {
+    right: calc(100% - 150px);
+    transform: scaleX(-1);
+  }
+
+  100% {
+    right: 100px;
+    transform: scaleX(-1);
+  }
+}
+
+@keyframes crabMove {
+  0%,
+  100% {
+    transform: rotate(-5deg);
+  }
+
+  20% {
+    transform: rotate(5deg);
+  }
+
+  40% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(0deg);
+  }
+
+  70% {
+    transform: rotate(-5deg);
+  }
+
+  90% {
+    transform: rotate(0deg);
   }
 }
 </style>

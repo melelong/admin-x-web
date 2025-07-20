@@ -12,12 +12,15 @@ const toggleChange = () => {
 </script>
 
 <template>
-  <div class="login-container w-screen h-screen pos-absolute">
+  <div class="login-container select-none w-screen h-screen pos-absolute">
     <div class="h-full flex items-center justify-center">
-      <a-card class="pos-absolute w-400px p-30px select-none bg-[transparent]!">
+      <a-card class="filter-container pos-absolute w-400px pt-60px pb-10px px-10px">
         <ThemeLocaleSwitcher />
         <h2 class="mb-30px flex items-center justify-between">
-          <span>{{ isLogin ? '欢迎登录' : '欢迎注册' }} Admin x</span>
+          <div>
+            <span>{{ isLogin ? '欢迎登录' : '欢迎注册' }} Admin</span>
+            <span class="color-[var(--color-primary)]"> x</span>
+          </div>
           <img class="h-32px rounded-5px" :src="logoPath" alt="Admin x" />
         </h2>
         <LoginForm v-if="isLogin" @toggle="toggleChange" />
@@ -30,8 +33,8 @@ const toggleChange = () => {
 
 <style scoped lang="less">
 .login-container {
-  transition: filter 300ms;
-  will-change: filter;
+  overflow: hidden;
+  filter: drop-shadow(50vw 50vh 50em var(--color-primary));
 
   :deep(.ant-checkbox-wrapper) {
     .ant-checkbox:not(.ant-checkbox-checked) {
@@ -46,9 +49,5 @@ const toggleChange = () => {
   :deep(.ant-input) {
     background-color: transparent;
   }
-}
-
-.login-container {
-  filter: drop-shadow(50vw 50vh 50em var(--color-primary));
 }
 </style>
