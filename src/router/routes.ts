@@ -21,6 +21,7 @@ export const constantRoutes: RouteRaw[] = [
         meta: {
           title: t('首页'),
           icon: HomeOutlined,
+          footer: true,
         },
       },
       {
