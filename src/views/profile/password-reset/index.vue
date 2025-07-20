@@ -163,9 +163,8 @@ const handleSubmit = async () => {
         name="code"
         :rules="[{ required: true, message: '请输入验证码' }]"
       >
-        <a-space class="w-full!">
+        <div class="flex gap-12px">
           <a-input
-            class="w-340px!"
             v-model:value="formData.code"
             placeholder="请输入验证码"
             :maxlength="8"
@@ -178,7 +177,7 @@ const handleSubmit = async () => {
           >
             {{ countdown > 0 ? `${countdown}秒后重发` : '发送验证码' }}
           </a-button>
-        </a-space>
+        </div>
       </a-form-item>
       <a-form-item class="mt-36px">
         <a-button class="w-full" type="primary" html-type="submit" :loading="isLoading">
