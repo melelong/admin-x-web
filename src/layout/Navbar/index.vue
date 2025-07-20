@@ -11,11 +11,15 @@ import logoPath from '@/assets/images/logo.jpg';
 </script>
 
 <template>
-  <div class="flex items-center justify-between">
+  <div class="flex items-center justify-between px-20px">
     <a-flex>
-      <h1 class="flex items-center ml-17px tracking-[3px]">
-        <img class="size-32px rounded-5px" :src="logoPath" alt="Admin x" />
-        <span class="font-size-18px ml-16px font-400">Admin x</span>
+      <h1 class="flex items-center">
+        <img class="size-30px rounded-5px" :src="logoPath" alt="Admin x" />
+        <div class="ml-16px font-size-18px">
+          <span>Admin</span>
+          <span class="color-[var(--color-primary)]"> x</span>
+        </div>
+        <a-tag class="ml-8px" color="magenta">大暑版 (Version 0.0.1)</a-tag>
       </h1>
       <div class="mx-55px overflow-hidden">
         <slot></slot>

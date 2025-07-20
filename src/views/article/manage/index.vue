@@ -96,6 +96,7 @@ const handleEdit = (row: Article) => {
 };
 
 const isLoading = ref(false);
+const initIng = ref(true);
 const getDataSource = async () => {
   isLoading.value = true;
   const res = await articlePage({
@@ -106,6 +107,7 @@ const getDataSource = async () => {
   dataSource.value = res.data.records;
   pagination.total = res.data.total;
   isLoading.value = false;
+  initIng.value = false;
 };
 
 const formRef = ref();
@@ -158,7 +160,7 @@ onMounted(() => {
         </a-form-item>
       </a-form>
     </a-card>
-    <a-card class="my-16px">
+    <a-card :loading="initIng" class="my-16px">
       <div class="mb-16px">
         <a-button @click="handleAdd" type="primary">
           <PlusOutlined />

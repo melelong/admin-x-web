@@ -1,3 +1,7 @@
 <script setup lang="ts"></script>
 
-<template>图标管理</template>
+<template>
+  <div class="m-10px">
+    <a-card> 图标管理 </a-card>
+  </div>
+</template>

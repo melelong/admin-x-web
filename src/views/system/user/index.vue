@@ -4,7 +4,14 @@ import Avatar from '@/components/Avatar/index.vue';
 import { userPage, User } from '@/api/user';
 
 import UserFormModal from './components/UserFormModal/index.vue';
-import { message } from 'ant-design-vue';
+import { message, TablePaginationConfig } from 'ant-design-vue';
+
+const pagination = reactive<TablePaginationConfig>({
+  current: 1,
+  pageSize: 10,
+  total: 0,
+  showTotal: (total: number) => `共 ${total} 条记录`,
+});
 
 const userFormModalRef = ref();
 const formState = reactive({
@@ -87,17 +94,35 @@ const handleDel = (index: number) => {
   message.success('操作成功');
 };
 
+const handleQuery = () => {
+  pagination.current = 1;
+  getDataSource();
+};
+
 const isLoading = ref(false);
+const initIng = ref(true);
 const getDataSource = async () => {
   isLoading.value = true;
-  const res = await userPage({ current: 1, size: 100 });
+  const res = await userPage({
+    ...formState,
+    size: pagination.pageSize as number,
+    current: pagination.current as number,
+  });
   dataSource.value = res.data.records;
+  pagination.total = res.data.total;
   isLoading.value = false;
+  initIng.value = false;
 };
 
 const formRef = ref();
 const handleReset = () => {
+  pagination.current = 1;
   formRef.value.resetFields();
+  getDataSource();
+};
+
+const handleTableChange = (pag: TablePaginationConfig) => {
+  pagination.current = pag.current;
   getDataSource();
 };
 
@@ -120,26 +145,30 @@ onMounted(() => {
             <ReloadOutlined />
             重置
           </a-button>
-          <a-button @click="getDataSource" class="ml-8px" type="primary">
+          <a-button @click="handleQuery" class="ml-8px" type="primary">
             <SearchOutlined />
             搜索
           </a-button>
         </a-form-item>
       </a-form>
     </a-card>
-    <a-card class="my-16px">
+    <a-card :loading="initIng" class="my-16px">
       <a-table
         :loading="isLoading"
         size="small"
         :data-source="dataSource"
         bordered
-        :scroll="{ x: 1200 }"
+        @change="handleTableChange"
+        :pagination="pagination"
+        :scroll="{ x: 110 }"
         :columns="columns"
       >
         <template #bodyCell="{ record, column, index }">
           <template v-if="column.key === 'nickname'">
-            <Avatar :src="record.avatar" />
-            <span class="ml-8px">{{ record.nickname }}</span>
+            <div class="flex items-center">
+              <Avatar :src="record.avatar" />
+              <div class="ml-8px max-w-150px overflow-hidden">{{ record.nickname }}</div>
+            </div>
           </template>
           <template v-if="column.key === 'status'">
             <a-tag :color="record.status === 0 ? 'processing' : 'error'" :bordered="false"

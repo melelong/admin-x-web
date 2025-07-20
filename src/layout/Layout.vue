@@ -29,7 +29,7 @@ const route = useRoute();
       <a-layout-content>
         <ViewTabs />
         <div class="h-[calc(100vh_-_40px_-_var(--header-height))] overflow-y-auto">
-          <router-view v-slot="{ Component }">
+          <router-view v-slot="{ Component }" :key="route.fullPath">
             <component :is="Component" />
           </router-view>
           <ViewFooter v-if="route?.meta?.footer" />
