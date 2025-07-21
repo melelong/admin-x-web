@@ -8,23 +8,28 @@ import Theme from '@/layout/Navbar/components/Theme.vue';
 import Translate from '@/layout/Navbar/components/Translate.vue';
 import User from '@/layout/Navbar/components/User.vue';
 import logoPath from '@/assets/images/logo.jpg';
+
+import { useScreenSize } from '@/hooks/modules/useScreenSize';
+const screenSize = useScreenSize();
+const isMobile = computed(() => screenSize.isMobile.value);
 </script>
 
 <template>
   <div class="flex items-center justify-between px-20px">
-    <a-flex>
-      <h1 class="flex items-center">
-        <img class="size-30px rounded-5px" :src="logoPath" alt="Admin x" />
-        <div class="ml-16px font-size-18px">
-          <span>Admin</span>
-          <span class="color-[var(--color-primary)]"> x</span>
-        </div>
-        <a-tag class="ml-8px" color="magenta">大暑版 (Version 0.0.1)</a-tag>
-      </h1>
-      <div class="mx-55px overflow-hidden">
+    <h1 class="flex items-center">
+      <div v-if="isMobile" class="w-50px">
         <slot></slot>
       </div>
-    </a-flex>
+      <img class="size-30px rounded-5px hidden md:block" :src="logoPath" alt="Admin x" />
+      <div class="ml-16px font-size-18px">
+        <span>Admin</span>
+        <span class="color-[var(--color-primary)]"> x</span>
+      </div>
+      <a-tag class="ml-8px hidden md:block" :bordered="false" color="cyan">大暑版</a-tag>
+    </h1>
+    <div v-if="!isMobile" class="mx-55px overflow-hidden">
+      <slot></slot>
+    </div>
     <div class="flex items-center">
       <a-space class="hidden lg:flex font-size-18px" :size="32">
         <Github />

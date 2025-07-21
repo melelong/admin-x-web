@@ -105,12 +105,12 @@ const setTabProps = (tab: MenuTab) => {
     <a-button
       v-if="systemStore.layout.collapsed"
       @click="systemStore.toggleCollapsed"
-      class="w-40px flex items-center justify-center"
+      class="w-40px hidden md:flex items-center justify-center mr-8px"
     >
       <component :is="systemStore.isCollapsed ? MenuUnfoldOutlined : MenuFoldOutlined" />
     </a-button>
     <a-tabs
-      class="w-0 flex-auto ml-8px"
+      class="w-0 flex-auto"
       v-model:activeKey="activeTab"
       tab-position="top"
       :tabBarGutter="8"

@@ -1,59 +1,50 @@
 import { defineStore } from 'pinia';
+import { useStorage } from '@vueuse/core';
+import { useScreenSize } from '@/hooks/modules/useScreenSize';
 
-export type layoutType = 'classic' | 'unbounded';
+export type LayoutType = 'CLASSIC' | 'UNBOUNDED';
 type MenuMode = 'vertical' | 'horizontal' | 'inline';
 
+const layoutConfig = {
+  CLASSIC: {
+    collapsed: true,
+    menu: {
+      style: 'overflow-y-auto h-[calc(100vh_-_var(--header-height))]',
+      mode: 'inline' as MenuMode,
+    },
+  },
+  UNBOUNDED: {
+    collapsed: false,
+    menu: {
+      style: '',
+      mode: 'horizontal' as MenuMode,
+    },
+  },
+};
+
 export const useSystemStore = defineStore('system', () => {
-  const collapsed = localStorage.getItem('collapsed') === 'true';
-  const isCollapsed = ref(collapsed);
+  const isCollapsed = useStorage('collapsed', false);
+  const currentLayout = useStorage<LayoutType>('layout', 'CLASSIC');
 
-  const layoutConfig = computed(() => {
-    return {
-      // 经典
-      classic: {
-        collapsed: true,
-        menu: {
-          style: 'overflow-y-auto h-[calc(100vh_-_var(--header-height))]',
-          mode: 'inline' as MenuMode,
-        },
-      },
-      // 无界
-      unbounded: {
-        collapsed: false,
-        menu: {
-          style: '',
-          mode: 'horizontal' as MenuMode,
-        },
-      },
-    };
+  const layout = computed(() => layoutConfig[currentLayout.value]);
+
+  const { onChange } = useScreenSize();
+  onChange((isMobile: boolean) => {
+    if (isMobile) {
+      currentLayout.value = 'UNBOUNDED';
+      isCollapsed.value = true;
+    }
   });
 
-  const layoutStr: layoutType | null = localStorage.getItem('layout') as layoutType;
-  const currentLayout = ref<layoutType>(layoutStr ?? 'classic');
-
-  const layout = computed(() => {
-    return layoutConfig.value[currentLayout.value];
-  });
-
-  const toggleCollapsed = () => {
-    localStorage.setItem('collapsed', `${!isCollapsed.value}`);
-    isCollapsed.value = !isCollapsed.value;
-  };
-
-  const setLayout = (value: layoutType) => {
-    localStorage.setItem('layout', value);
-    currentLayout.value = value;
-  };
-
-  const setCollapsed = (value: boolean) => {
-    isCollapsed.value = value;
-  };
+  const toggleCollapsed = () => (isCollapsed.value = !isCollapsed.value);
+  const setLayout = (value: LayoutType) => (currentLayout.value = value);
+  const setCollapsed = (value: boolean) => (isCollapsed.value = value);
 
   return {
     isCollapsed,
     layout,
-    setLayout,
     currentLayout,
+    setLayout,
     toggleCollapsed,
     setCollapsed,
   };

@@ -6,7 +6,7 @@ import { t } from '@/i18n';
 const themeStore = useThemeStore();
 const { themeMode, primaryColor } = storeToRefs(themeStore);
 const { toggleTheme, setPrimaryColor } = themeStore;
-import { layoutType, useSystemStore } from '@/store/modules/systemStore';
+import { LayoutType, useSystemStore } from '@/store/modules/systemStore';
 import { storeToRefs } from 'pinia';
 const themeColor = ref(primaryColor.value);
 
@@ -27,13 +27,13 @@ const themeList: { value: ThemeMode; title: string }[] = [
   },
 ];
 
-const modeList: { value: layoutType; title: string }[] = [
+const modeList: { value: LayoutType; title: string }[] = [
   {
-    value: 'classic',
+    value: 'CLASSIC',
     title: t('经典'),
   },
   {
-    value: 'unbounded',
+    value: 'UNBOUNDED',
     title: t('无界'),
   },
 ];
