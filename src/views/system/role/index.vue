@@ -6,6 +6,7 @@ import { t } from '@/i18n';
 
 import RoleFormModal from './components/RoleFormModal/index.vue';
 
+const initIng = ref(true);
 const isLoading = ref(false);
 const dataSource = ref<Role[]>([]);
 const getDataSource = async () => {
@@ -13,6 +14,7 @@ const getDataSource = async () => {
   const res = await rolePage({ current: 1, size: 10 });
   dataSource.value = res.data.records;
   isLoading.value = false;
+  initIng.value = false;
 };
 
 const columns = [
@@ -92,7 +94,7 @@ onMounted(async () => {
         </a-form-item>
       </a-form>
     </a-card>
-    <a-card class="my-16px">
+    <a-card :loading="initIng" class="my-16px">
       <a-table
         :loading="isLoading"
         size="small"

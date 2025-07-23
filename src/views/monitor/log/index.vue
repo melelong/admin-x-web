@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ReloadOutlined, SearchOutlined } from '@ant-design/icons-vue';
-import dayjs from 'dayjs';
 
 import { logPage, type Log } from '@/api/system/logs';
 import { t } from '@/i18n';
@@ -37,11 +36,7 @@ const columns = [
     title: '操作人',
     dataIndex: 'operator',
     key: 'operator',
-  },
-  {
-    title: '名称',
-    dataIndex: 'description',
-    key: 'description',
+    customRender: () => 'admin',
   },
   {
     title: '模块',
@@ -49,14 +44,14 @@ const columns = [
     key: 'module',
   },
   {
+    title: '描述',
+    dataIndex: 'description',
+    key: 'description',
+  },
+  {
     title: '类型',
     dataIndex: 'type',
     key: 'type',
-  },
-  {
-    title: 'IP',
-    dataIndex: 'ip',
-    key: 'ip',
   },
   {
     title: '请求方式',
@@ -64,10 +59,15 @@ const columns = [
     key: 'requestMethod',
   },
   {
+    title: '耗时',
+    dataIndex: 'duration',
+    key: 'duration',
+    customRender: ({ text }: { text: string }) => `${text}ms`,
+  },
+  {
     title: '操作时间',
     dataIndex: 'operationTime',
     key: 'operationTime',
-    customRender: ({ text }: { text: string }) => dayjs(text).format('YYYY-MM-DD HH:mm:ss'),
   },
   {
     title: '操作',

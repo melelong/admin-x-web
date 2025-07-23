@@ -107,7 +107,7 @@ export const lineBar = () => {
       left: '2%',
       top: '3%',
       textStyle: {
-        color: '#001529',
+        color: getLessVar('--color-text'),
         fontSize: 16,
         fontWeight: 'bold',
       },

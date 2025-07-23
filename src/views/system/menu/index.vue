@@ -6,6 +6,7 @@ import { menuTree } from '@/api/system/menu';
 import { t } from '@/i18n';
 
 import MenuFormModal from './components/MenuFormModal/index.vue';
+import { Menu } from '@/types/meun';
 
 const formState = reactive({
   name: '',
@@ -69,12 +70,14 @@ const handleAdd = () => {
   });
 };
 
+const initIng = ref(true);
 const isLoading = ref(false);
 const getDataSource = async () => {
   isLoading.value = true;
   const res = await menuTree();
   dataSource.value = res.data;
   isLoading.value = false;
+  initIng.value = false;
 };
 
 const formRef = ref();
@@ -131,7 +134,7 @@ onMounted(() => {
         </a-form-item>
       </a-form>
     </a-card>
-    <a-card class="my-16px">
+    <a-card :loading="initIng" class="my-16px">
       <div class="mb-16px">
         <a-button @click="handleAdd" type="primary">
           <PlusOutlined />

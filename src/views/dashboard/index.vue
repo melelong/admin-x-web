@@ -8,7 +8,7 @@ import { pieData } from '@/views/dashboard/data/pieData';
 import { columns, tableData } from '@/views/dashboard/data/scrollTable';
 import { useThemeStore } from '@/store/modules/theme';
 
-const themeStore = useThemeStore();
+const { themeChange } = useThemeStore();
 
 const getCardList = () => {
   return shuffle([
@@ -45,7 +45,7 @@ const getCardList = () => {
 
 const cardList = ref();
 
-themeStore.themeChange(() => {
+themeChange(() => {
   cardList.value = getCardList();
 });
 

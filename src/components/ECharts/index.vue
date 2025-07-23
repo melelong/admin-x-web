@@ -18,6 +18,9 @@ const initChart = () => {
   }
   chartInstance = echarts.init(chartContainer.value);
   chartInstance.setOption(props.option);
+  setTimeout(() => {
+    handleResize();
+  }, 100);
 };
 
 // 窗口大小变化时重新调整图表
@@ -25,8 +28,19 @@ const handleResize = () => {
   chartInstance?.resize();
 };
 
+watch(
+  () => props.option,
+  () => {
+    nextTick(() => {
+      initChart();
+    });
+  },
+  {
+    immediate: true,
+  },
+);
+
 onMounted(() => {
-  initChart();
   // 添加窗口大小变化监听
   window.addEventListener('resize', handleResize);
 });
@@ -42,6 +56,15 @@ onBeforeUnmount(() => {
 <template>
   <div
     ref="chartContainer"
-    class="rd-[var(--border-radius-outer)] border-1px border-solid border-color-[var(--color-border-secondary)] w-100% h-310px overflow-hidden"
+    class="chart-container rd-[var(--border-radius-outer)] border-1px border-solid border-color-[var(--color-border-secondary)] w-100% h-310px overflow-hidden"
   />
 </template>
+
+<style scoped lang="less">
+.chart-container {
+  > div,
+  canvas {
+    width: 100% !important;
+  }
+}
+</style>

@@ -14,3 +14,11 @@ export interface Log {
 export const logPage = (params: PageParams): Promise<any> => {
   return request.get('/log/page', params);
 };
+
+export const moduleStats = (): Promise<any> => {
+  return request.get('/log/modules');
+};
+
+export const dailyStats = (): Promise<any> => {
+  return request.get('/log/daily');
+};

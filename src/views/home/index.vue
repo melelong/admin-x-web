@@ -2,7 +2,19 @@
 import { message } from 'ant-design-vue';
 
 import ArcMenu from '@/components/ArcMenu/index.vue';
+import DailyStats from './components/DailyStats/index.vue';
+import ModuleStats from './components/ModuleStats/index.vue';
+import { useThemeStore } from '@/store/modules/theme';
 
+const { themeChange } = useThemeStore();
+
+const isLoading = ref(false);
+themeChange(() => {
+  isLoading.value = true;
+  nextTick(() => {
+    isLoading.value = false;
+  });
+});
 interface MenuItem {
   name: string;
   icon: string;
@@ -32,10 +44,20 @@ const initialPosition = {
       <div>
         <h1>首页</h1>
         <div class="mt-8px flex justify-between items-end font-size-16px">
-          <p>欢迎使用 Admin x</p>
+          <p>
+            欢迎使用 Admin<span class="ml-8px font-size-20px color-[var(--color-primary)]">x</span>
+          </p>
         </div>
       </div>
     </a-card>
+    <a-row v-if="!isLoading" class="mt-10px" :gutter="[10, 10]">
+      <a-col :span="24" :xl="12">
+        <ModuleStats />
+      </a-col>
+      <a-col :span="24" :xl="12">
+        <DailyStats />
+      </a-col>
+    </a-row>
     <ArcMenu
       :menus="menus"
       :initialPosition="initialPosition"
