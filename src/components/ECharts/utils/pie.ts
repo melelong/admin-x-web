@@ -18,7 +18,7 @@ export const createPie = ({ data = [], name = '' }: { data: any[]; name: string 
       orient: 'vertical',
       right: 20,
       top: 'center',
-      textStyle: { color: '#666' },
+      textStyle: { color: getLessVar('--color-text-secondary') },
       itemGap: 12,
       itemWidth: 14,
       itemHeight: 14,
@@ -41,8 +41,8 @@ export const createPie = ({ data = [], name = '' }: { data: any[]; name: string 
       {
         name: '数据分布',
         type: 'pie',
-        radius: ['45%', '75%'],
-        center: ['40%', '50%'],
+        radius: ['45%', '70%'],
+        center: ['40%', '52%'],
         avoidLabelOverlap: true,
         hoverOffset: 10,
         itemStyle: {

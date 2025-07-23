@@ -19,31 +19,39 @@ export const doubleBar = () => {
         },
       },
       formatter: (params: Record<string, any>) => {
-        const tech = params[0].name;
-        const maturity = params[0].value;
+        const language = params[0].name;
+        const stability = params[0].value;
         const popularity = params[1].value;
 
         return `
-        <div style="font-size:16px;font-weight:bold;margin-bottom:8px;color:#00ced1">${tech}</div>
+        <div style="font-size:16px;font-weight:bold;margin-bottom:8px;color:#00ced1">${language}</div>
         <div style="display:flex;align-items:center;margin-bottom:5px">
             <span style="display:inline-block;width:12px;height:12px;background:linear-gradient(to right, #8a2be2, #4b0082);border-radius:2px;margin-right:8px"></span>
-            技术成熟度: <b style="margin-left:8px;color:#fff">${maturity}</b>
+            生态稳定性: <b style="margin-left:8px;color:#fff">${stability}</b>
         </div>
         <div style="display:flex;align-items:center">
             <span style="display:inline-block;width:12px;height:12px;background:linear-gradient(to right, #00ced1, #008b8b);border-radius:2px;margin-right:8px"></span>
-            市场热度: <b style="margin-left:8px;color:#fff">${popularity}</b>
+            开发者热度: <b style="margin-left:8px;color:#fff">${popularity}</b>
         </div>
                     `;
       },
     },
-    legend: {
-      data: ['技术成熟度', '市场热度'],
-      right: '3%',
-      top: 20,
+    title: {
+      text: '编程语言生态与热度排名 (2025)',
+      left: '2%',
+      top: '3%',
       textStyle: {
-        color: '#333',
+        color: getLessVar('--color-text'),
+        fontSize: 15,
+      },
+    },
+    legend: {
+      data: ['生态稳定性', '开发者热度'],
+      right: '3%',
+      top: '3%',
+      textStyle: {
+        color: getLessVar('--color-text'),
         fontSize: 14,
-        fontWeight: 'bold',
       },
       itemWidth: 25,
       itemHeight: 12,
@@ -53,20 +61,20 @@ export const doubleBar = () => {
       left: '3%',
       right: '5%',
       bottom: '10%',
-      top: '20%',
+      top: '30%',
       containLabel: true,
     },
     xAxis: {
       type: 'category',
-      data: ['量子计算', '神经网络', '区块链', '边缘计算', '数字孪生', '元宇宙', 'AIoT'],
+      data: ['Python', 'JavaScript', 'Java', 'Go', 'Rust', 'TypeScript', 'Kotlin'],
       axisLine: {
         lineStyle: {
-          color: '#f5f5f5',
+          color: getLessVar('--color-border-secondary'),
           width: 1,
         },
       },
       axisLabel: {
-        color: '#333',
+        color: getLessVar('--color-text'),
         fontSize: 13,
         fontWeight: 'bold',
         interval: 0,
@@ -78,21 +86,21 @@ export const doubleBar = () => {
     },
     yAxis: {
       type: 'value',
-      name: '技术指数',
+      name: '综合指数',
       nameTextStyle: {
-        color: '#666',
+        color: getLessVar('--color-text-secondary'),
         fontSize: 12,
         padding: [0, 0, 10, -10],
       },
       splitLine: {
         lineStyle: {
-          color: '#f0f0f0',
+          color: getLessVar('--color-text'),
           width: 1,
           type: 'dashed',
         },
       },
       axisLabel: {
-        color: '#333',
+        color: getLessVar('--color-text-secondary'),
         fontSize: 12,
         fontWeight: 'bold',
       },
@@ -101,10 +109,10 @@ export const doubleBar = () => {
     },
     series: [
       {
-        name: '技术成熟度',
+        name: '生态稳定性',
         type: 'bar',
         barWidth: 30,
-        data: [82, 88, 75, 85, 78, 92, 80],
+        data: [92, 88, 90, 85, 82, 87, 80],
         itemStyle: {
           color: {
             type: 'linear',
@@ -124,7 +132,6 @@ export const doubleBar = () => {
           show: true,
           position: 'top',
           color: '#4b0082',
-          fontWeight: 'bold',
           fontSize: 13,
           formatter: '{c}',
         },
@@ -136,10 +143,10 @@ export const doubleBar = () => {
         },
       },
       {
-        name: '市场热度',
+        name: '开发者热度',
         type: 'bar',
         barWidth: 30,
-        data: [65, 92, 80, 78, 85, 88, 75],
+        data: [95, 93, 85, 88, 90, 92, 82],
         itemStyle: {
           color: {
             type: 'linear',
@@ -159,7 +166,6 @@ export const doubleBar = () => {
           show: true,
           position: 'top',
           color: '#008b8b',
-          fontWeight: 'bold',
           fontSize: 13,
           formatter: '{c}',
         },

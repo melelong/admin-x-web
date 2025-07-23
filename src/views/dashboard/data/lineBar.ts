@@ -12,42 +12,45 @@ export const lineBar = () => {
     },
     xAxis: {
       type: 'category',
-      data: ['量子计算', '神经网络', '区块链', '边缘计算', '数字孪生', '元宇宙', 'AIoT'],
+      data: ['AI大模型', '量子计算', '云原生', '区块链', '边缘计算', 'Web3.0', '隐私计算'],
       axisLine: {
         lineStyle: {
-          color: '#f5f5f5',
+          color: getLessVar('--color-border-secondary'),
           width: 1,
         },
       },
       axisLabel: {
-        color: '#333',
+        color: getLessVar('--color-text'),
         fontSize: 12,
         fontWeight: 'bold',
+      },
+      axisTick: {
+        show: false,
       },
     },
     yAxis: {
       type: 'value',
       name: '技术指数',
       nameTextStyle: {
-        color: '#666',
+        color: getLessVar('--color-text-secondary'),
         fontSize: 12,
         padding: [0, 0, 10, -10],
       },
       splitLine: {
         lineStyle: {
-          color: '#eee',
+          color: getLessVar('--color-text-secondary'),
           type: 'dashed',
         },
       },
       axisLabel: {
-        color: '#666',
+        color: getLessVar('--color-text-secondary'),
       },
     },
     series: [
       {
         name: '2025',
         type: 'bar',
-        data: [85, 92, 78, 88, 76, 95, 82],
+        data: [94, 82, 87, 76, 89, 71, 85],
         itemStyle: {
           color: {
             type: 'linear',
@@ -72,7 +75,7 @@ export const lineBar = () => {
       {
         name: '趋势线',
         type: 'line',
-        data: [85, 92, 78, 88, 76, 95, 82],
+        data: [94, 82, 87, 76, 89, 71, 85],
         symbol: 'circle',
         symbolSize: 10,
         lineStyle: {
@@ -103,13 +106,12 @@ export const lineBar = () => {
       },
     },
     title: {
-      text: '前沿科技发展指数 (2025)',
+      text: 'IT技术发展指数 (2025)',
       left: '2%',
       top: '3%',
       textStyle: {
         color: getLessVar('--color-text'),
-        fontSize: 16,
-        fontWeight: 'bold',
+        fontSize: 15,
       },
     },
     legend: {

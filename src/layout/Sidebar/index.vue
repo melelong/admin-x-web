@@ -14,7 +14,17 @@ const permissionStore = usePermissionStore();
 const activeTab = computed(() => tabsStore.activeTab);
 const menuRoutes = computed(() => filterRoutes(permissionStore.menuRoutes));
 
+const routeMap = ref<Map<string, any>>(new Map());
+
 const handleMenuClick = ({ key }: { key: string | number }) => {
+  const path = key as string;
+  const route = routeMap.value.get(path);
+
+  if (route?.meta?.externalUrl) {
+    window.open(route.meta.externalUrl, '_blank');
+    return;
+  }
+
   tabsStore.setActiveTab(key as string);
   router.push(key as string);
 };
@@ -37,6 +47,8 @@ function convertRoutesToMenuItems(routes: any[], basePath: string): MenuProps['i
       }
 
       const fullPath = resolvePath(route.path, basePath);
+      routeMap.value.set(fullPath, route);
+
       const menuItem: any = {
         key: fullPath,
         label: route.meta?.title,

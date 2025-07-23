@@ -1,10 +1,17 @@
 import Layout from '@/layout/Layout.vue';
 import { t } from '@/i18n';
-import { BugOutlined, HomeOutlined, NodeIndexOutlined, UserOutlined } from '@ant-design/icons-vue';
+import {
+  BugOutlined,
+  HomeOutlined,
+  NodeIndexOutlined,
+  FrownOutlined,
+  UserOutlined,
+} from '@ant-design/icons-vue';
 import { articleList } from '@/router/article';
 import { systemList } from '@/router/system';
 import { monitorList } from '@/router/monitor';
 import { settingList } from '@/router/setting';
+import { externalList } from '@/router/external';
 import { RouteRaw } from '@/types/router';
 
 export const constantRoutes: RouteRaw[] = [
@@ -58,17 +65,24 @@ export const constantRoutes: RouteRaw[] = [
   ...systemList,
   ...monitorList,
   ...settingList,
+  ...externalList,
   {
-    path: '/404',
-    name: 'NotFound',
-    component: () => import('@/views/error/404.vue'),
+    path: '/exception',
+    component: Layout,
     meta: {
       visible: true,
     },
+    children: [
+      {
+        path: '404',
+        meta: { title: '404', icon: FrownOutlined },
+        component: () => import('@/views/error/404.vue'),
+      },
+    ],
   },
   {
     path: '/:pathMatch(.*)*',
-    redirect: '/404',
+    redirect: '/exception/404',
     meta: {
       visible: true,
     },

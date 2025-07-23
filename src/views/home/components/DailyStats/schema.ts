@@ -82,21 +82,24 @@ export const createOption = (source: any[]) => {
       data: xAxisData,
       axisLine: {
         lineStyle: {
-          color: '#f5f5f5',
+          color: getLessVar('--color-border-secondary'),
           width: 1,
         },
       },
       axisLabel: {
-        color: '#333',
+        color: getLessVar('--color-text'),
         fontSize: 12,
         fontWeight: 'bold',
+      },
+      axisTick: {
+        show: false,
       },
     },
     yAxis: {
       type: 'value',
       name: '访问次数',
       nameTextStyle: {
-        color: '#666',
+        color: getLessVar('--color-text-secondary'),
         fontSize: 12,
         padding: [0, 0, 10, -10],
       },
@@ -107,7 +110,7 @@ export const createOption = (source: any[]) => {
         },
       },
       axisLabel: {
-        color: '#666',
+        color: getLessVar('--color-text-secondary'),
       },
     },
     series,
@@ -139,7 +142,7 @@ export const createOption = (source: any[]) => {
       right: '3%',
       top: '3%',
       textStyle: {
-        color: '#666',
+        color: getLessVar('--color-text-secondary'),
       },
     },
   };

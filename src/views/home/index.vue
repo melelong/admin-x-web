@@ -52,10 +52,10 @@ const initialPosition = {
     </a-card>
     <a-row v-if="!isLoading" class="mt-10px" :gutter="[10, 10]">
       <a-col :span="24" :xl="12">
-        <ModuleStats />
+        <DailyStats />
       </a-col>
       <a-col :span="24" :xl="12">
-        <DailyStats />
+        <ModuleStats />
       </a-col>
     </a-row>
     <ArcMenu
