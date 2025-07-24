@@ -29,6 +29,7 @@ const isLoading = ref(false);
 
 const formData = ref<ArticleCategory>({} as ArticleCategory);
 const handleOk = async () => {
+  await formRef.value.validate();
   isLoading.value = true;
   await saveArticleCategory(formData.value).finally(() => {
     isLoading.value = false;
@@ -47,7 +48,11 @@ defineExpose({
 <template>
   <a-modal v-model:open="visible" width="600px" :title="modalTile" @ok="handleOk">
     <a-form ref="formRef" :label-col="{ span: 5 }" :wrapperCol="{ span: 18 }" :model="formData">
-      <a-form-item :label="t('分类名称')" name="categoryName">
+      <a-form-item
+        :label="t('分类名称')"
+        name="categoryName"
+        :rules="[{ required: true, message: '请输入分类名称' }]"
+      >
         <a-input :placeholder="t('请输入')" v-model:value="formData.categoryName"></a-input>
       </a-form-item>
       <a-form-item :label="t('备注')" name="remark">

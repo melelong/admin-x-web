@@ -32,6 +32,7 @@ const isLoading = ref(false);
 
 const formData = ref<Article>({} as Article);
 const handleOk = async () => {
+  await formRef.value.validate();
   isLoading.value = true;
   await saveArticle(formData.value).finally(() => {
     isLoading.value = false;
@@ -48,12 +49,20 @@ defineExpose({
 </script>
 
 <template>
-  <a-modal v-model:open="visible" width="600px" :title="modalTile" @ok="handleOk">
-    <a-form ref="formRef" :label-col="{ span: 5 }" :wrapperCol="{ span: 18 }" :model="formData">
-      <a-form-item :label="t('文章标题')" name="title">
+  <a-modal v-model:open="visible" width="800px" :title="modalTile" @ok="handleOk">
+    <a-form ref="formRef" :label-col="{ span: 4 }" :wrapperCol="{ span: 20 }" :model="formData">
+      <a-form-item
+        :label="t('文章标题')"
+        name="title"
+        :rules="[{ required: true, message: '请输入文章标题' }]"
+      >
         <a-input :placeholder="t('请输入')" v-model:value="formData.title"></a-input>
       </a-form-item>
-      <a-form-item :label="t('文章分类')" name="categoryId">
+      <a-form-item
+        :label="t('文章分类')"
+        name="categoryId"
+        :rules="[{ required: true, message: '请选择文章分类' }]"
+      >
         <a-select
           :placeholder="t('请选择')"
           v-model:value="formData.categoryId"
@@ -65,7 +74,14 @@ defineExpose({
         >
         </a-select>
       </a-form-item>
-      <a-form-item :label="t('文章内容')" name="content">
+      <a-form-item
+        :label="t('文章内容')"
+        name="content"
+        :rules="[
+          { required: true, message: '请输入文章内容' },
+          { min: 100, max: 20000, message: '文章内容必须包含 100 到 20000 字符' },
+        ]"
+      >
         <a-textarea :rows="11" :placeholder="t('请输入')" v-model:value="formData.content">
         </a-textarea>
       </a-form-item>
