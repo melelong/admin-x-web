@@ -9,6 +9,7 @@ import {
 } from '@ant-design/icons-vue';
 import { message } from 'ant-design-vue';
 import { useRoute } from 'vue-router';
+import { useClipboard } from '@vueuse/core';
 
 import { Article, detailArticle, InteractionType, toggleInteraction } from '@/api/article/article';
 import MarkdownViewer from '@/components/MarkdownViewer/index.vue';
@@ -17,6 +18,8 @@ import CommentComposer from '@/views/article/components/CommentComposer/index.vu
 import { omit } from 'lodash-es';
 
 const route = useRoute();
+
+const { copy } = useClipboard();
 
 const articleData = ref<Article | null>(null);
 const isLoading = ref(false);
@@ -58,6 +61,12 @@ const handleComment = () => {
       block: 'start',
     });
   }
+};
+
+const handleShare = () => {
+  const path = window.location.href;
+  copy(path);
+  message.success('已复制');
 };
 
 const setButtonProps = (active: boolean | undefined) => {
@@ -122,6 +131,7 @@ const setButtonProps = (active: boolean | undefined) => {
               class="border-color-[var(--color-border-secondary)] shadow-none"
               size="large"
               shape="circle"
+              @click="handleShare"
             >
               <ShareAltOutlined />
             </a-button>
