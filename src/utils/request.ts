@@ -1,4 +1,5 @@
 import { message } from 'ant-design-vue';
+import { v4 as uuidV4 } from 'uuid';
 import axios, {
   AxiosInstance,
   AxiosRequestConfig,
@@ -17,6 +18,13 @@ export interface ResponseData<T = any> {
   data: T;
   timestamp: number;
 }
+/** 请求KEY生成规则类型 */
+export type TRequestKeyRules =
+  | 'uuid'
+  | 'default'
+  | 'method:url:params'
+  | 'method:url:data'
+  | 'method:url';
 
 export interface RequestConfig extends AxiosRequestConfig {
   // 是否显示全局错误提示
@@ -27,10 +35,26 @@ export interface RequestConfig extends AxiosRequestConfig {
   preventDuplicate?: boolean;
   // 自定义错误处理
   customErrorHandler?: (error: AxiosError) => void;
+  /** 请求KEY生成规则 */
+  requestKeyRules?: TRequestKeyRules;
+  /** 限制时间 */
+  limitTime?: number;
+  /** 限制类型(默认为Throttle) */
+  limitType?: 'Throttle' | 'Debounce';
+  /** 限制请求提示内容 */
+  limitMessage?: string;
 }
 
 // 请求取消控制器映射
 const cancelTokenMap = new Map<string, CancelTokenSource>();
+/** 请求限制队列 */
+const limitQueue = new Map<
+  string,
+  {
+    timer: number | NodeJS.Timeout;
+    lastTime: number;
+  }
+>();
 
 class Request {
   private instance: AxiosInstance;
@@ -43,6 +67,8 @@ class Request {
     showError: true,
     withToken: true,
     preventDuplicate: false,
+    limitType: 'Throttle',
+    limitMessage: '请求已限制，请稍后再试!!!',
   };
 
   constructor(config?: RequestConfig) {
@@ -67,8 +93,14 @@ class Request {
    * - 添加认证 Token
    * - 处理重复请求
    */
-  private requestInterceptor(config: InternalAxiosRequestConfig): InternalAxiosRequestConfig {
+  private requestInterceptor(
+    config: InternalAxiosRequestConfig,
+  ): InternalAxiosRequestConfig | Promise<never> {
     const requestConfig = config as RequestConfig;
+
+    // 处理限制请求
+    const limit = this.requestLimit(config);
+    if (limit) return limit;
 
     // 添加认证 Token
     if (requestConfig.withToken !== false) {
@@ -98,6 +130,39 @@ class Request {
     return config;
   }
 
+  /**
+   * 限制请求
+   * @param config 请求配置
+   */
+  private requestLimit(config: InternalAxiosRequestConfig) {
+    const { limitTime, limitMessage, limitType } = config as RequestConfig;
+    if (typeof limitTime !== 'number') return null;
+    const requestKey = this.generateRequestKey(config);
+    const limitItem = limitQueue.get(requestKey);
+    const now = Date.now();
+    const time = now - limitItem!.lastTime;
+    if (limitType === 'Debounce') {
+      clearTimeout(limitItem?.timer || 0);
+      limitQueue.set(requestKey, {
+        lastTime: now,
+        timer: setTimeout(() => {
+          limitQueue.delete(requestKey);
+        }, limitTime),
+      });
+    }
+    if (limitType === 'Throttle' && (!limitItem || time > limitTime!)) {
+      limitQueue.set(requestKey, {
+        lastTime: now,
+        timer: 0,
+      });
+    }
+    if (limitItem) {
+      if (limitItem?.timer !== 0 || (limitItem?.timer === 0 && time < limitTime!)) {
+        return Promise.reject(new AxiosError(limitMessage, 'limit', config));
+      }
+    }
+    return null;
+  }
   /**
    * 请求错误拦截器
    */
@@ -143,6 +208,10 @@ class Request {
       cancelTokenMap.delete(requestKey);
     }
 
+    // 处理限制请求的错误
+    const limitError = this.handleLimitError(error);
+    if (limitError) return limitError as Promise<ResponseData>;
+
     await this.handleHttpError(error);
 
     // 处理取消的请求
@@ -156,6 +225,30 @@ class Request {
 
     // 其他错误
     return this.handleUnknownError(error, config);
+  }
+
+  /**
+   * 处理限制请求的错误
+   */
+  private async handleLimitError(error: AxiosError) {
+    if (error.code !== 'limit') return null;
+    const config = error.config as RequestConfig | undefined;
+    if (config?.showError !== false) {
+      message.error({
+        content: config?.limitMessage || '请求已限制',
+        style: {
+          userSelect: 'none',
+        },
+      });
+    }
+    if (config?.customErrorHandler) {
+      config.customErrorHandler(error);
+    }
+    return Promise.reject({
+      code: -3,
+      message: error.message,
+      data: null,
+    }) as Promise<ResponseData>;
   }
 
   /**
@@ -336,8 +429,24 @@ class Request {
   /**
    * 生成请求唯一键
    */
+  // private generateRequestKey(config: AxiosRequestConfig): string {
+  //   return `${config.method}-${config.url}-${JSON.stringify(config.params)}-${JSON.stringify(config.data)}`;
+  // }
   private generateRequestKey(config: AxiosRequestConfig): string {
-    return `${config.method}-${config.url}-${JSON.stringify(config.params)}-${JSON.stringify(config.data)}`;
+    const rule = (config as RequestConfig).requestKeyRules ?? 'default';
+    if (rule === 'uuid') return uuidV4();
+    const { url, method, params, data } = config;
+    const _JSON = (d: any) => (d ? JSON.stringify(d) : 'null');
+    switch (rule) {
+      case 'method:url:params':
+        return `${method}-${url}-${_JSON(params)}`;
+      case 'method:url:data':
+        return `${method}-${url}-${_JSON(data)}`;
+      case 'method:url':
+        return `${method}-${url}`;
+      default:
+        return `${method}-${url}-${_JSON(params)}-${_JSON(data)}`;
+    }
   }
 
   /**
