@@ -94,6 +94,9 @@
       "stylelint --fix",
       "prettier --write"
     ],
+    "*.md": [
+      "prettier --write"
+    ],
     "package.json": [
       "prettier --write"
     ]
